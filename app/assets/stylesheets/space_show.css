@@ -1,0 +1,15 @@
+#space-show-header {
+  margin-bottom: 20px;
+}
+
+#space-show-title {
+  color: #333;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#space-show-info {
+  color: #333;
+  font-size: 14px;
+  font-weight: lighter;
+}

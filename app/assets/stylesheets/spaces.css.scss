@@ -1,0 +1,103 @@
+// Place all the styles related to the spaces controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+section {
+  display: inline;
+}
+
+.sidebar {
+  width:250px;
+}
+
+.left-sidebar {
+  float:left;
+  width:250px;
+}
+
+.right-sidebar {
+  float:right;
+  width:250px;
+}
+
+#spaces-index-list {
+  float: right;
+}
+
+.list-item {
+  width: 720px;
+  padding: 10px;
+  border-bottom: 1px solid #CCC;
+}
+
+.list-item:first-child {
+  border-top: 1px solid #CCC;
+}
+
+.list-item > header {
+  float: left;
+}
+
+.list-item > .price-data {
+  float: right;
+}
+
+.list-item > header > h3{
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.list-item > header > h4{
+  font-size: 13px;
+}
+
+.list-item > .price-wrapper {
+  float: right;
+}
+
+.list-item > .price-wrapper > .price-data {
+  font-size: 36px;
+}
+
+.list-item > .price-wrapper > .price-data > sup {
+  font-size: 24px;
+}
+
+.list-item > .price-wrapper > div {
+  display: block;
+  font-size: 13px;
+  text-align: right;
+}
+
+.non-sidebar {
+  width: 700px;
+  display: inline-block;
+}
+
+.tab-box {
+  display: inline-block;
+}
+
+.tab-data {
+  display: inline-block;
+  float:right;
+}
+
+.space-map {
+  width: 300px;
+  height: 300px;
+}
+
+.space-image-wrapper {
+  position: relative;
+}
+
+.space-image-wrapper > .map-number {
+  position: absolute;
+  background: white;
+  left: -125px;
+  top: 1px;
+  padding: 3px;
+  color: rgb(146, 146, 146);
+  font-size: 13px;
+}
