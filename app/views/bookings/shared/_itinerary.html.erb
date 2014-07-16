@@ -1,0 +1,57 @@
+<div class="group">
+  <header class="group" id="itinerary-header">
+    <%= link_to image_tag(@space.photo_medium, class: "image-medium"), @space, method: :get %>
+  </header>
+
+  <section>
+    <table id="itinerary-table">
+      <tr>
+        <td colspan="2"><%= @space.title %></td>
+      </tr>
+      <tr>
+        <td>Residence type</td>
+        <td><%= Space.residence_types[@space.residence_type] %></td>
+      </tr>
+      <tr>
+        <td>Room type</td>
+        <td><%= Space.room_types[@space.room_type] %></td>
+      </tr>
+      <tr>
+        <td>Bed type</td>
+        <td><%= Space.bed_types[@space.bed_type] %></td>
+      </tr>
+      <tr>
+        <td>Check in</td>
+        <td><%= @booking.start_date %></td>
+      </tr>
+      <tr>
+        <td>Check out</td>
+        <td><%= @booking.end_date %></td>
+      </tr>
+      <tr>
+        <td>Nights</td>
+        <td><%= @booking.night_count %></td>
+      </tr>
+      <tr>
+        <td>Guests</td>
+        <td><%= @booking.guest_count %></td>
+      </tr>
+      <tr>
+        <td>Booking Rate</td>
+        <td>$<%= monetize(@space.booking_rate_daily) %></td>
+      </tr>
+      <tr>
+        <td>Subtotal</td>
+        <td>$<%= monetize(@booking.subtotal) %></td>
+      </tr>
+      <tr>
+        <td>Service Fee</td>
+        <td>$<%= monetize(@booking.service_fee) %></td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td>$<%= monetize(@booking.total) %></td>
+      </tr>
+    </table>
+  </section>
+</div>

@@ -1,0 +1,65 @@
+<form class="sidebar-filters"
+data-remote="true"
+         id="space-index-filter-form">
+
+
+  <h4 class="sidebar-section-header"></h4>
+    <div class="sidebar-section group">
+     <%= render "spaces/index/map" %>
+    </div>
+
+  <h4 class="sidebar-section-header">Room Type</h4>
+    <div class="sidebar-section group">
+      <%= checkbox_group collection: Space.room_types,
+                           ul_class:   "checkbox-li",
+                          html_name:  "space_filters[room_types]" %>
+    </div>
+
+  <h4 class="sidebar-section-header">Price Range</h4>
+    <div class="sidebar-section group">
+      <div class="price-range-wrapper group">
+        <%= tag "input", type: "number",
+                  placeholder: "Price min",
+                         name: "space_filters[booking_rate_min]",
+                        class: "number-input input-small sidebar-half-width" %>
+                          <p>-</p>
+        <%= tag "input", type: "number",
+                  placeholder: "Price max",
+                         name: "space_filters[booking_rate_max]",
+                        class: "number-input input-small sidebar-half-width" %>
+      </div>
+    </div>
+
+  <h4 class="sidebar-section-header">Guest Count</h4>
+    <div class="sidebar-section group">
+      <%= select_numerical_given_options(label: "",
+                                     html_name: "space_filters[guest_count]",
+                                        limits: [1,16],
+                                   plural_noun: "guests") %><br>
+    </div>
+
+
+  <h4 class="sidebar-section-header">Dates</h4>
+    <div class="sidebar-section group">
+      <h5>Check in</h5><br>
+      <%= tag "input", type: "date",
+                placeholder: "Check in",
+                       name: "space_filters[start_date]",
+                      class: "date-input input-small sidebar-full-width" %>
+
+      <h5>Check out</h5><br>
+      <%= tag "input", type: "date",
+                placeholder: "Check out",
+                       name: "space_filters[end_date]",
+                      class: "date-input input-small sidebar-full-width" %>
+    </div>
+
+  <h4 class="sidebar-section-header">Amenities</h4>
+    <div class="sidebar-section group">
+      <%= checkbox_group collection: Space.amenities_list,
+                         ul_class:   "checkbox-li",
+                         html_name:  "space_filters[amenities]" %>
+    </div>
+
+  <input type="submit" class="button blue" value="Filter" id="space-index-sidebar-filter-button">
+</form>

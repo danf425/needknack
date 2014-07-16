@@ -1,0 +1,16 @@
+<div class="tab-content group">
+
+  <% amenities_list = Space.amenities_list %>
+
+  <ul>
+    <% @space.boolean_array_from_amenities_integer.each_with_index do |amenity_available,index| %>
+      <% if amenity_available %>
+        <li class="available-amenity">
+      <% else %>
+        <li class="unavailable-amenity">
+      <% end %>
+          <%= amenities_list[index] %>
+        </li>
+    <% end %>
+  </ul>
+</div>
