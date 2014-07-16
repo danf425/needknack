@@ -4,16 +4,16 @@
   <div class="group" id="root-page-search-bar-container">
     <h1>Anything a friend would do for you.</h1>
     <h3>Rent from over 20 fake users</h3>
-    <form action="<%= spaces_url %>" class="group" id="root-page-search-bar">
+    <form action="<%= spaces_url %>" class="group" id="root-page-search-bar" method="get">
 
       <%= tag "input", type: "text",
                 placeholder: "Where do you want to go? (NYC suggested)",
                        name: "space_filters[city]",
                       class: "text-input input-large",
                          id: "root-input-city-name" %>
-
-      <%= select_numerical_given_options(html_name: "space_filters[guest_count]",
-                                       plural_noun: "guests") %>
+<!-- COMMENT THIS ADD -->
+      <!--%= select_numerical_given_options(html_name: "space_filters[guest_count]",
+                                       plural_noun: "guests") %-->
 
       <input type="submit" value="Search" class="button blue input-large" id="search-button">
 
