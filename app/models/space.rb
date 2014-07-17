@@ -9,7 +9,7 @@ class Space < ActiveRecord::Base
 
   validates_presence_of :owner_id, :title, :residence_type,
   :bedroom_count, :bathroom_count, :room_type, :bed_type, :accommodates,
-  :amenities, :description, :house_rules, :address, :city, :country
+  :amenities, :description, :house_rules, :address, :city, :country, :booking_rate_daily
 
   after_validation :geocode, if: :address_changed?
 
