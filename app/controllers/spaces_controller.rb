@@ -48,4 +48,9 @@ class SpacesController < ApplicationController
     end
   end
 
+  def destroy
+    @space = Space.find(params[:id])
+    @space.destroy
+    redirect_to root_path
+  end
 end
