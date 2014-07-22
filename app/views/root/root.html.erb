@@ -7,13 +7,19 @@
     <form action="<%= spaces_url %>" class="group" id="root-page-search-bar" method="get">
 
       <%= tag "input", type: "text",
+                placeholder: "What knack are you looking for?",
+                       name: "space_filters[knack]",
+                      class: "text-input input-large",
+                         id: "root-input-knack" %>
+
+      <%= tag "input", type: "text",
                 placeholder: "Where do you want to go? (NYC suggested)",
                        name: "space_filters[city]",
                       class: "text-input input-large",
                          id: "root-input-city-name" %>
 <!-- COMMENT THIS ADD -->
-      <%= select_numerical_given_options(html_name: "space_filters[guest_count]",
-                                       plural_noun: "guests") %>
+      <!--%= select_numerical_given_options(html_name: "space_filters[guest_count]",
+                                       plural_noun: "guests") %-->
 
       <input type="submit" value="Search" class="button blue input-large" id="search-button">
 
