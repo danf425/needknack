@@ -1,9 +1,9 @@
 <form class="group" action="<%= spaces_url %>" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
-  <label for="space-title">Space Title</label>
+  <label for="space-title">Knack</label>
      <%= tag "input", type: "text",
-               placeholder: "Awesome Flat Near Everything!",
+               placeholder: "What's your Knack?",
                       name: "space[title]",
                      class: "input-long input-small",
                         id: "space-title" %><br>
@@ -14,7 +14,7 @@
                      name: "space[address]",
                     class: "input-long input-small",
                        id: "space-street-address" %><br>
-
+                       
   <label for="space-city">City</label>
     <%= tag "input", type: "text",
               placeholder: "New York City, NY",
@@ -35,11 +35,6 @@
                        class: "input-long input-small",
                           id: "space-description" %></textarea><br>
 
-  <label for="space-house-rules" class="top">House Rules</label>
-    <%= tag "textarea", name: "space[house_rules]",
-                 placeholder: "Please don't tear up my place.",
-                       class: "input-long input-small",
-                          id: "space-house-rules" %></textarea><br>
 
   <label for="space-booking_rates">Daily Rental Rate</label>
     <%= tag "input", type: "number",
@@ -47,58 +42,16 @@
               placeholder: "50",
                     class: "number-input input-long input-small"%><br>
 
-  <label for="space-residence-type">Home Type</label>
-    <select type="text" name="space[residence_type]" id="space-residence-type">
-      <% Space.residence_types.each_with_index do |residence_type, index| %>
-        <option value="<%= index %>"><%= residence_type %></option>
-      <% end %>
-    </select><br>
+  <label for="space-languages" class="top">Languages</label>
+      <ul class="group" id="space-languages">
+        <% Space.languages_list.each_with_index do |language, index| %>
+          <li class="checkbox-li">
+            <input type="checkbox" name="space_languages_indicies[]" value="<%= index %>">
+              <%= language %>
+            </input>
+          </li>
+        <% end %>
+      </ul><br>
 
-  <label for="space-bedroom-count">Bedroom Count</label>
-    <select type="text" name="space[bedroom_count]" id="space-bedroom-count">
-      <% Space.numerical_options.each_with_index do |bedroom_count, index| %>
-        <option value="<%= index %>"><%= bedroom_count %></option>
-      <% end %>
-    </select><br>
-
-  <label for="space-bathroom-count">Bathroom Count</label>
-    <select type="text" name="space[bathroom_count]" id="space-bedroom-count">
-      <% Space.numerical_options.each_with_index do |bathroom_count, index| %>
-        <option value="<%= index %>"><%= bathroom_count %></option>
-      <% end %>
-    </select><br>
-
-  <label for="space-room-type">Room Type</label>
-    <select type="text" name="space[room_type]" id="space-room-type">
-      <% Space.room_types.each_with_index do |room_type, index| %>
-        <option value="<%= index %>"><%= room_type %></option>
-      <% end %>
-    </select><br>
-
-  <label for="space-bed-type">Bed Type</label>
-    <select type="text" name="space[bed_type]" id="space-bed-type">
-      <% Space.bed_types.each_with_index do |bed_type, index| %>
-        <option value="<%= index %>"><%= bed_type %></option>
-      <% end %>
-    </select><br>
-
-  <label for="space-accomodates">Accommodates</label>
-    <select type="text" name="space[accommodates]" id="space-accomodates">
-      <% Space.numerical_options.each_with_index do |accomodates, index| %>
-        <option value="<%= index %>"><%= accomodates %></option>
-      <% end %>
-    </select><br>
-
-  <label for="space-amenities" class="top">Amenities</label>
-    <ul class="group" id="space-amenities">
-      <% Space.amenities_list.each_with_index do |amenity, index| %>
-        <li class="checkbox-li">
-          <input type="checkbox" name="space_amenities_indicies[]" value="<%= index %>">
-            <%= amenity %>
-          </input>
-        </li>
-      <% end %>
-    </ul><br>
-
-  <input type="submit" class="button blue input-large label-offset-button" value="Create space">
+  <input type="submit" class="button blue input-large label-offset-button" value="Submit Knack">
 </form>

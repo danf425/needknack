@@ -1,11 +1,13 @@
 class Booking < ActiveRecord::Base
   attr_accessible :user_id, :space_id, :start_date, :end_date,
                   :approval_status, :total, :service_fee,
-                  :booking_rate_daily, :guest_count
+                  :booking_rate_daily 
+  #:guest_count
 
   validates_presence_of :user_id, :space_id, :start_date, :end_date,
                         :approval_status, :total, :service_fee,
-                        :booking_rate_daily, :guest_count
+                        :booking_rate_daily 
+  #:guest_count
 
 
   belongs_to :user
@@ -48,9 +50,9 @@ class Booking < ActiveRecord::Base
 
   ############# VALIDATING BOOKING PARAMETERS ###############################
 
-  def guest_count_valid?
-    self.guest_count < self.space.accommodates
-  end
+#  def guest_count_valid?
+#    self.guest_count < self.space.accommodates
+#  end
 
   def conflicts_with_date?(date)
     date.between(self.start_date, self.end_date)
@@ -61,7 +63,7 @@ class Booking < ActiveRecord::Base
   end
 
   def has_initial_form_attributes
-    self.start_date && self.end_date && self.guest_count
+    self.start_date && self.end_date #&& self.guest_count
   end
 
   def overlapping_requests(status)

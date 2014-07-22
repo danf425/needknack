@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131011174832) do
+ActiveRecord::Schema.define(:version => 20140722224342) do
 
   create_table "bookings", :force => true do |t|
     t.integer  "user_id",            :null => false
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(:version => 20131011174832) do
     t.date     "end_date",           :null => false
     t.integer  "approval_status",    :null => false
     t.float    "service_fee",        :null => false
-    t.integer  "guest_count",        :null => false
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.float    "total"
@@ -49,15 +48,7 @@ ActiveRecord::Schema.define(:version => 20131011174832) do
     t.integer  "booking_rate_daily"
     t.integer  "booking_rate_weekly"
     t.integer  "booking_rate_monthly"
-    t.integer  "residence_type",       :null => false
-    t.integer  "bedroom_count",        :null => false
-    t.integer  "bathroom_count",       :null => false
-    t.integer  "room_type",            :null => false
-    t.integer  "bed_type",             :null => false
-    t.integer  "accommodates",         :null => false
-    t.integer  "amenities",            :null => false
     t.text     "description",          :null => false
-    t.text     "house_rules",          :null => false
     t.string   "address",              :null => false
     t.string   "city",                 :null => false
     t.string   "country",              :null => false
@@ -67,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20131011174832) do
     t.datetime "updated_at",           :null => false
     t.string   "photo_url"
     t.integer  "space_photo_id"
+    t.integer  "languages"
   end
 
   add_index "spaces", ["booking_rate_daily"], :name => "index_spaces_on_booking_rate_daily"

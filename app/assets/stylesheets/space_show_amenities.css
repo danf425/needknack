@@ -1,4 +1,4 @@
-.available-amenity, .unavailable-amenity {
+.available-language, .unavailable-language {
   float: left;
   width: 180px;
   position: relative;
@@ -8,7 +8,7 @@
   font-size: 12px;
 }
 
-.available-amenity:before {
+.available-language:before {
   background: url("green_check_red_cross.jpg");
   content: " ";
   position: absolute;
@@ -18,7 +18,7 @@
   left: -23px;
 }
 
-.unavailable-amenity:before {
+.unavailable-language:before {
   background: url("green_check_red_cross.jpg");
   background-position: -20px 0px;
   content: " ";

@@ -31,7 +31,9 @@ class SpacesController < ApplicationController
   def create
     @space = Space.new(params[:space])
     @space.owner_id = current_user.id
-    @space.set_amenities_from_options_list!(params[:space_amenities_indicies])
+#    @space.set_amenities_from_options_list!(params[:space_amenities_indicies])
+    @space.set_languages_from_options_list!(params[:space_languages_indicies])
+
 
     @space.set_address_given_components(@space.address,
                                         @space.city,
