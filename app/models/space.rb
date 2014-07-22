@@ -96,6 +96,11 @@ class Space < ActiveRecord::Base
       filtered_spaces = filtered_spaces.near(filters[:city], 30)
     end
 
+    if filters[:title] && filters[:title].length > 0
+      title = filters[:title]
+      filtered_spaces = filtered_spaces.where("title = ?", title)
+    end
+
     if filters[:room_types] && filters[:room_types].length > 0
       room_types = Space.integer_from_options_list(filters[:room_types])
       filtered_spaces = filtered_spaces.where("CAST(POW(2, room_type) AS INT) & ? > 0", room_types)
@@ -141,6 +146,7 @@ class Space < ActiveRecord::Base
 
     filtered_spaces
   end
+
 
   def self.random_space_with_photo
     SpacePhoto.where("space_id > 0").sample
