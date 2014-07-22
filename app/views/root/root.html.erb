@@ -2,11 +2,12 @@
   <!--img src="<!%= Space.random_space_with_photo.url %>" id="splash"-->
 
   <div class="group" id="root-page-search-bar-container">
-    <h1>Anything a friend would do for you.</h1>
-    <h3>Rent from over 20 fake users</h3>
+    <h1>How Does it Work?</h1>
+    <h3>Find a knack whereever you go.</h3>
     <form action="<%= spaces_url %>" class="group" id="root-page-search-bar" method="get">
 
       <%= tag "input", type: "text",
+<<<<<<< HEAD
                 placeholder: "What knack are you looking for?",
                        name: "space_filters[knack]",
                       class: "text-input input-large",
@@ -20,13 +21,28 @@
 <!-- COMMENT THIS ADD -->
       <!--%= select_numerical_given_options(html_name: "space_filters[guest_count]",
                                        plural_noun: "guests") %-->
+=======
+                placeholder: "What? ()",
+                       name: "space_filters[title]",
+                      class: "text-input input-large",
+                         id: "root-input-title-name" %>
+
+      <%= tag "input", type: "text",
+                placeholder: "Where? (Boston,MA)",
+                       name: "space_filters[city]",
+                      class: "text-input input-large",
+                         id: "root-input-city-name" %>
+ 
+
+>>>>>>> 8f95275985e87e2617df5c2282a1b97aa92828dc
 
       <input type="submit" value="Search" class="button blue input-large" id="search-button">
 
     </form>
 
-  <body>
-  Reserve a Friend allows you to quickly find a new friend that can provide you with the help and expertise you need. Find an affordable solution to solving your problems with a friend, who is flexible to your needs. 
+  <body><br><br><br><br><br><br><br>
+  Knack noun \nak\</br>
+  an ability, talent, or special skill needed to do something.
   </body>
   </div>
 </div>
