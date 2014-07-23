@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20140722224342) do
+=======
+ActiveRecord::Schema.define(:version => 20140721182507) do
+>>>>>>> 6f362cd1d78dbc542e9b9f839a424473ad7ff59a
 
   create_table "bookings", :force => true do |t|
     t.integer  "user_id",            :null => false
@@ -58,7 +62,11 @@ ActiveRecord::Schema.define(:version => 20140722224342) do
     t.datetime "updated_at",           :null => false
     t.string   "photo_url"
     t.integer  "space_photo_id"
+<<<<<<< HEAD
     t.integer  "languages"
+=======
+    t.string   "knack"
+>>>>>>> 6f362cd1d78dbc542e9b9f839a424473ad7ff59a
   end
 
   add_index "spaces", ["booking_rate_daily"], :name => "index_spaces_on_booking_rate_daily"
