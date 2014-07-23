@@ -96,15 +96,9 @@ class Space < ActiveRecord::Base
       filtered_spaces = filtered_spaces.near(filters[:city], 30)
     end
 
-<<<<<<< HEAD
     if filters[:knack] && filters[:knack].length > 0
       knack = filters[:knack]
       filtered_spaces = filtered_spaces.where("knack ILIKE ?", "%#{knack}%")
-=======
-    if filters[:title] && filters[:title].length > 0
-      title = filters[:title]
-      filtered_spaces = filtered_spaces.where("title = ?", title)
->>>>>>> 8f95275985e87e2617df5c2282a1b97aa92828dc
     end
 
     if filters[:room_types] && filters[:room_types].length > 0
