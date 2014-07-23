@@ -1,5 +1,7 @@
 AirbnbClone::Application.routes.draw do
 
+  get "pages/howitworks"
+
   root :to => 'root#root'
 
   resources :users,    only: [:new, :create, :show]

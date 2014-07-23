@@ -2,8 +2,8 @@
   <!--img src="<!%= Space.random_space_with_photo.url %>" id="splash"-->
 
   <div class="group" id="root-page-search-bar-container">
-    <h1>How Does it Work?</h1>
-    <h3>Find a knack whereever you go.</h3>
+    <h1><%= link_to "How Does it work?", pages_howitworks_path, method: :get, id: ".howitworks" %></h1>
+    <h3>Find a knack wherever you go.</h3>
     <form action="<%= spaces_url %>" class="group" id="root-page-search-bar" method="get">
 
       <%= tag "input", type: "text",
@@ -11,7 +11,6 @@
                        name: "space_filters[title]",
                       class: "text-input input-large",
                          id: "root-input-title-name" %>
-
       <%= tag "input", type: "text",
                 placeholder: "Where? (Boston,MA)",
                        name: "space_filters[city]",

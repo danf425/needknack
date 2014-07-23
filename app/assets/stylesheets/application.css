@@ -49,6 +49,15 @@ body {
   padding: 20px;
 }
 
+.howitworks {
+  color: #CCC;
+  background: #AAA;
+  border: 1px solid black;
+  width: 1760px;
+  height: 40px;
+  text-align: center;
+}
+
 #errors-notices {
   background: white;
   width: 1000px;
