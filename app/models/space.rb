@@ -1,5 +1,4 @@
 class Space < ActiveRecord::Base
-<<<<<<< HEAD
   attr_accessible :owner_id, :title, :description, :city, :country, :booking_rate_daily, :address,
   :booking_rate_weekly, :booking_rate_monthly, :latitude, :longitude, :booking_rate_indicies, :photo_url,
   :languages, :languages_indicies
@@ -13,19 +12,6 @@ class Space < ActiveRecord::Base
   # :accommodates, :residence_type, :bedroom_count,:amenities, :house_rules, :bed_type,
   # :bathroom_count, :room_type  
   
-=======
-  attr_accessible :owner_id, :title, :booking_rate_daily,
-  :booking_rate_weekly, :booking_rate_monthly, :residence_type, :bedroom_count,
-  :bathroom_count, :room_type, :bed_type, :accommodates, :amenities, :description,
-  :house_rules, :address, :city, :country, :latitude,
-  :longitude, :amenities_indicies, :booking_rate_indicies, :photo_url, :knack
-
-  geocoded_by :address
-
-  validates_presence_of :owner_id, :title, :residence_type,
-  :bedroom_count, :bathroom_count, :room_type, :bed_type, :accommodates,
-  :amenities, :description, :house_rules, :address, :city, :country, :booking_rate_daily, :knack
->>>>>>> 6f362cd1d78dbc542e9b9f839a424473ad7ff59a
 
   after_validation :geocode, if: :address_changed?
 
@@ -134,15 +120,9 @@ class Space < ActiveRecord::Base
       filtered_spaces = filtered_spaces.near(filters[:city], 30)
     end
 
-<<<<<<< HEAD
     if filters[:title] && filters[:title].length > 0
       title = filters[:title]
       filtered_spaces = filtered_spaces.where("title ILIKE ?", "%#{title}%")
-=======
-    if filters[:knack] && filters[:knack].length > 0
-      knack = filters[:knack]
-      filtered_spaces = filtered_spaces.where("knack ILIKE ?", "%#{knack}%")
->>>>>>> 6f362cd1d78dbc542e9b9f839a424473ad7ff59a
     end
 
 #    if filters[:room_types] && filters[:room_types].length > 0
