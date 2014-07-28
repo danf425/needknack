@@ -22,6 +22,9 @@
       <%= space.booking_rate_daily %>
     </div>
     <div class="light-gray">per night</div>
-<%= link_to "Delete this listing", space, method: :delete%>
+
+  <% if current_user == @user %>    
+  <%= link_to "Delete this listing", space, method: :delete%>
+  <% end %>  
   </div>
 </li>

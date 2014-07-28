@@ -6,6 +6,7 @@ class Space < ActiveRecord::Base
 # :bathroom_count, :room_type, :amenities_indicies
 
   geocoded_by :address
+  reverse_geocoded_by :latitude, :longitude
 
   validates_presence_of :owner_id, :title, :description, :city, :country, :booking_rate_daily, :address,
   :languages
@@ -14,6 +15,7 @@ class Space < ActiveRecord::Base
   
 
   after_validation :geocode, if: :address_changed?
+  after_validation :reverse_geocode
 
   has_many :space_photos
   has_many :bookings
@@ -49,7 +51,7 @@ class Space < ActiveRecord::Base
 #  end
 
   def self.numerical_options
-    ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16+"]
+    ["5","10","25","50"]
   end
 
   def self.languages_list
@@ -59,6 +61,15 @@ class Space < ActiveRecord::Base
      "French",
      "German",
      "Italian"
+    ]
+  end
+
+  def self.distance_list
+    ["1",
+     "5",
+     "10",
+     "25",
+     "50"
     ]
   end
 
@@ -116,14 +127,24 @@ class Space < ActiveRecord::Base
 
     filtered_spaces = Space
 
-    if filters[:city] && filters[:city].length > 0
-      filtered_spaces = filtered_spaces.near(filters[:city], 30)
+    if filters[:city] && filters[:city].length > 0  
+
+    #  distance = filtered_spaces.where("distance = ?", distance)
+      distance = 10
+      filtered_spaces = filtered_spaces.near(filters[:city], distance)
     end
 
     if filters[:title] && filters[:title].length > 0
       title = filters[:title]
       filtered_spaces = filtered_spaces.where("title ILIKE ?", "%#{title}%")
     end
+
+#    if filters[:radius] && filters[:radius].length > 0
+#      distance = filters[:distance]
+
+#    Space.near(street_address, 10, order: :distance)
+#      filtered_spaces = filtered_spaces.near(street_address, "?", distance, order: :distance)
+#    end
 
 #    if filters[:room_types] && filters[:room_types].length > 0
 #      room_types = Space.integer_from_options_list(filters[:room_types])
@@ -252,6 +273,15 @@ class Space < ActiveRecord::Base
       end
     end
   end
+
+   def boolean_array_from_radius_integer
+    [].tap do |radius_list|
+      Space.radius_list.length.times do |order|
+        radius_list << (self.languages & 2 ** order > 0)
+      end
+    end
+  end
+
 
   def photo
     # self.photo_url || "http://placekitten.com/g/117/77"
