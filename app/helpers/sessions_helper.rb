@@ -7,6 +7,10 @@ module SessionsHelper
     !!current_user
   end
 
+  def main_page
+    current_page?('/')
+  end
+
   def login_user!(user)
     session[:session_token] = user.session_token
   end

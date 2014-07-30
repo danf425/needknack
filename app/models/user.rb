@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   class_name: "Space",
   foreign_key: :owner_id,
   primary_key: :id
+  
+  before_create :generate_token
 
   def self.generate_session_token
     SecureRandom.urlsafe_base64(16)
@@ -53,10 +55,24 @@ class User < ActiveRecord::Base
     photo ? photo.url_medium : "http://placekitten.com/g/400/400"
   end
 
+
+  def to_param  # overridden
+    token
+  end
+
   private
 
   def ensure_session_token
     self.session_token ||= self.class.generate_session_token
+  end
+
+  protected
+
+  def generate_token
+    self.token = loop do
+      random_token = SecureRandom.random_number(10000).to_s
+      break random_token unless User.exists?(token: random_token)
+    end
   end
 
 end

@@ -30,6 +30,8 @@ class Space < ActiveRecord::Base
   foreign_key: :owner_id,
   primary_key: :user_id
 
+  before_create :generate_token
+  
   def self.booking_rates
     ["Daily"]
   end
@@ -299,6 +301,28 @@ class Space < ActiveRecord::Base
     # self.photo_url || "http://placekitten.com/g/117/77"
     photo = self.space_photos.sample
     photo ? photo.url_medium : "http://placekitten.com/g/117/77"
+  end
+
+  #overwrites param functionality for this class to allow random token
+  def to_param
+    token 
+  end
+  
+  protected
+
+#  def generate_token
+#    self.token = loop do
+#      random_token = SecureRandom.urlsafe_base64(nil, false)
+#      break random_token unless Space.exists?(token: random_token)
+#    end
+#  end
+
+
+  def generate_token
+    self.token = loop do
+      random_token = SecureRandom.random_number(1000000).to_s
+      break random_token unless Space.exists?(token: random_token)
+    end
   end
 
 end

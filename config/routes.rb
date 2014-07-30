@@ -4,7 +4,7 @@ AirbnbClone::Application.routes.draw do
 
   root :to => 'root#root'
 
-  resources :users,    only: [:new, :create, :show]
+  resources :users,    only: [:new, :create, :show, :edit]
 
   resource  :session,  only: [:new, :create, :destroy] do
     member do
@@ -12,7 +12,7 @@ AirbnbClone::Application.routes.draw do
     end
   end
 
-  resources :spaces,   only: [:new, :create, :show, :index, :destroy] do
+  resources :spaces,   only: [:new, :create, :show, :index, :destroy, :edit] do
     resources :bookings, only: [:edit, :index]
   end
 

@@ -21,7 +21,7 @@ class SpacesController < ApplicationController
   end
 
   def show
-    @space = Space.find(params[:id])
+    @space = Space.find_by_token(params[:id])
   end
 
   def new
@@ -51,8 +51,16 @@ class SpacesController < ApplicationController
   end
 
   def destroy
-    @space = Space.find(params[:id])
+    @space = Space.find_by_token(params[:id])
     @space.destroy
     redirect_to root_path
+    #    redirect_to :controller => :sessions, :action => :profile
   end
+
+  def edit 
+    @space = Space.find_by_token(params[:id])
+   # @space.update_attributes(params[:user_edit])
+#    @space = current_user.space
+  end
+
 end

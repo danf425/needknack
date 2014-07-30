@@ -1,7 +1,7 @@
 <form action="<%= spaces_url %>" method="get">
 
 
-
+<% if !main_page %>
     <%= tag "input", type: "text",
               placeholder: "What? (Guitar? Chef?)",
                      name: "space_filters[title]",
@@ -17,7 +17,7 @@
                        id: "header-search-input" %>
                        <input type="submit" style="position: absolute; left: -9999px"/>
            
-
+<% end %>
 
 
 
