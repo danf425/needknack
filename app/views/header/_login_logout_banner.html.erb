@@ -1,0 +1,11 @@
+<nav class="group" id="user-banner">
+    <ul>
+  <% if logged_in? %>
+    <%= render "header/logged_in_dropdown" %>
+  <% else %>
+    <li><%= link_to "SIGN UP", new_user_url, id: "sign-up-header", method: :get %></li>
+    <li><%= link_to "LOG IN", new_session_url, id: "log-in-header", method: :get %></li>
+  <% end %>
+    <li><%= link_to "POST YOUR KNACK", new_space_url, method: :get, class: "button yellow-orange input-medium", id: "header-button"%></li>
+    </ul>
+</nav>

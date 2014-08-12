@@ -1,0 +1,16 @@
+<li id="user-nav">
+  <ul>
+    <li>
+      <%= link_to image_tag(current_user.photo_small, class: "image-micro-thumb", id: "header-user-image"), current_user, method: :get %>
+    </li>
+    <li>
+      <%= link_to current_user.first_name, current_user, id: "username", method: :get %>
+    </li>
+  </ul>
+  <ul id="user-dropdown">
+    <li><%= link_to "Profile", current_user, method: :get %></li>
+    <li><%= link_to "Knacks Reserved", bookings_url, method: :get %></li>
+    <li><%= link_to "Messages", conversations_path, method: :get %></li>
+    <li><%= link_to "Log out", session_url, method: :delete  %></li>
+  </ul>
+</li>

@@ -1,0 +1,21 @@
+<header id="space-show-header">
+  <h2 id="space-show-title"> <%= best_in_place @space, :title %></h2>
+
+  <h3 id="space-show-info">
+    <%= link_to 'Edit Space', edit_space_path(@space) %>
+  </h3>
+</header>
+
+<section class="group non-sidebar">
+
+  <section class="tab-box-wrapper group">
+    <%= render "spaces/show/photos_map_calendar" %>
+  </section>
+
+  <section class="tab-box-wrapper group">
+    <%= render "spaces/show/description_amenities_house_rules" %>
+  </section>
+
+</section>
+
+<%= render "spaces/show/booking_sidebar" %>

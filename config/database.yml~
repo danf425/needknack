@@ -1,0 +1,27 @@
+development:
+  host: localhost
+  adapter: postgresql
+  encoding: unicode
+  database: airbnbclone_dev
+  pool: 5
+  port: 5432
+  #username: dan
+  #password: alejandro1
+
+test:
+  host: localhost
+  adapter: postgresql
+  encoding: unicode
+  database: AirbnbClone_test
+  pool: 5
+  username: JPotter
+  password:
+  port: 5432
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: AirbnbClone_production
+  pool: 5
+  username: JPotter
+  password:

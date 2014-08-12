@@ -1,0 +1,34 @@
+.pagination {
+  text-align: center;
+  margin: 10px;
+}
+
+.pagination > span {
+  display: inline-block;
+  height: 18px;
+  padding: 3px 0px;
+  margin: 0 3px;
+  font-weight: bold;
+  background: #ccc;
+  text-align: center;
+  background: #1a9ce2;
+  border-radius: 3px;
+}
+
+.pagination > span:hover {
+  background: #2badf3;
+}
+
+.pagination > span > a {
+  padding: 3px 10px;
+  color: white;
+}
+
+.pagination > span.current {
+  background: #fed231;
+  padding: 3px 10px;
+}
+
+.pagination > span.current:hover {
+  background: #fce359;
+}

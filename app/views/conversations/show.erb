@@ -1,0 +1,25 @@
+<h4><strong>From:</strong> <%= conversation.originator.email %>:</h4>
+<p><strong> Replying to: </strong> <%= conversation.subject %>  </p>
+
+
+<table class="table table-striped">
+  <tbody>
+
+  <% @message = conversation.messages %>
+  <% @message.each do |m| %>
+      <% conversation.mark_as_read(current_user) %>
+
+      <tr>
+        <% if m.sender != current_user %>
+            <td><%= link_to m.sender.email, m.sender %></td>
+        <% else %>
+            <td>Me</td>
+        <% end %>
+
+        <td> <%= m.body %> </td>
+
+      </tr>
+  <% end %>
+
+  </tbody>
+</table>

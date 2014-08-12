@@ -1,0 +1,28 @@
+<%= form_for Order.new do |f| %>
+
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :card_type %><br />
+    <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]] %>
+  </div>
+  <div class="field">
+    <%= f.label :card_number %><br />
+    <%= f.text_field :card_number %>
+  </div>
+  <div class="field">
+    <%= f.label :card_verification, "Card Verification Value (CVV)" %><br />
+    <%= f.text_field :card_verification %>
+  </div>
+  <div class="field">
+    <%= f.label :card_expires_on %><br />
+    <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
+  </div>
+  <div class="field"><%= f.submit "Submit" %></div>
+<% end %>
