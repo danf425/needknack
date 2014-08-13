@@ -8,13 +8,6 @@ data-remote="true"
      <%= render "spaces/index/map" %>
     </div>
 
-  <h4 class="sidebar-section-header">Distance</h4>
-    <div class="sidebar-section group">
-       <%= select_numerical_given_options(label: "",
-                                     html_name: "space_filters[distance]",
-                                     limits: [1,10],
-                                     plural_noun: "miles")%>
-    </div>
 
   <h4 class="sidebar-section-header">Price Range</h4>
     <div class="sidebar-section group">

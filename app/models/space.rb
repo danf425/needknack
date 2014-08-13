@@ -6,7 +6,6 @@ class Space < ActiveRecord::Base
 # :bathroom_count, :room_type, :amenities_indicies
 
   geocoded_by :address
-  reverse_geocoded_by :latitude, :longitude
 
   validates_presence_of :owner_id, :title, :description, :city, :country, :booking_rate_daily, :address,
   :languages
@@ -15,7 +14,6 @@ class Space < ActiveRecord::Base
   
 
   after_validation :geocode, if: :address_changed?
-  after_validation :reverse_geocode
 
   has_many :space_photos
   has_many :bookings
@@ -30,8 +28,6 @@ class Space < ActiveRecord::Base
   foreign_key: :owner_id,
   primary_key: :user_id
 
-  before_create :generate_token
-  
   def self.booking_rates
     ["Daily"]
   end
@@ -53,7 +49,7 @@ class Space < ActiveRecord::Base
 #  end
 
   def self.numerical_options
-    ["5","10","25","50"]
+    ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16+"]
   end
 
   def self.languages_list
@@ -63,15 +59,6 @@ class Space < ActiveRecord::Base
      "French",
      "German",
      "Italian"
-    ]
-  end
-
-  def self.distance_list
-    ["1",
-     "5",
-     "10",
-     "25",
-     "50"
     ]
   end
 
@@ -129,24 +116,14 @@ class Space < ActiveRecord::Base
 
     filtered_spaces = Space
 
-    if filters[:city] && filters[:city].length > 0  
-
-    #  distance = filtered_spaces.where("distance = ?", distance)
-      distance = 10
-      filtered_spaces = filtered_spaces.near(filters[:city], distance)
+    if filters[:city] && filters[:city].length > 0
+      filtered_spaces = filtered_spaces.near(filters[:city], 30)
     end
 
     if filters[:title] && filters[:title].length > 0
       title = filters[:title]
       filtered_spaces = filtered_spaces.where("title ILIKE ?", "%#{title}%")
     end
-
-#    if filters[:radius] && filters[:radius].length > 0
-#      distance = filters[:distance]
-
-#    Space.near(street_address, 10, order: :distance)
-#      filtered_spaces = filtered_spaces.near(street_address, "?", distance, order: :distance)
-#    end
 
 #    if filters[:room_types] && filters[:room_types].length > 0
 #      room_types = Space.integer_from_options_list(filters[:room_types])
@@ -276,15 +253,6 @@ class Space < ActiveRecord::Base
     end
   end
 
-   def boolean_array_from_radius_integer
-    [].tap do |radius_list|
-      Space.radius_list.length.times do |order|
-        radius_list << (self.languages & 2 ** order > 0)
-      end
-    end
-  end
-
-
   def photo
     # self.photo_url || "http://placekitten.com/g/117/77"
     photo = self.space_photos.sample
@@ -301,28 +269,6 @@ class Space < ActiveRecord::Base
     # self.photo_url || "http://placekitten.com/g/117/77"
     photo = self.space_photos.sample
     photo ? photo.url_medium : "http://placekitten.com/g/117/77"
-  end
-
-  #overwrites param functionality for this class to allow random token
-  def to_param
-    token 
-  end
-  
-  protected
-
-#  def generate_token
-#    self.token = loop do
-#      random_token = SecureRandom.urlsafe_base64(nil, false)
-#      break random_token unless Space.exists?(token: random_token)
-#    end
-#  end
-
-
-  def generate_token
-    self.token = loop do
-      random_token = SecureRandom.random_number(1000000).to_s
-      break random_token unless Space.exists?(token: random_token)
-    end
   end
 
 end

@@ -3,6 +3,7 @@ class BookingsController < ApplicationController
   before_filter :require_current_user!
 
   def index
+        Rails.logger.info("PARAMS: #{params.inspect}")
     if params[:space_id]
       @space = Space.find_by_id(params[:space_id])
 
@@ -13,6 +14,7 @@ class BookingsController < ApplicationController
         redirect_to @space # probably should be a 403
       end
     else
+          Rails.logger.info("PARAMS: #{params.inspect}")
       @user = User.find_by_id(current_user.id)
 
       render "bookings/index/user"
@@ -27,10 +29,14 @@ class BookingsController < ApplicationController
   def edit
     @booking = Booking.find(params[:id])
     @space = Space.find_by_id(params[:space_id])
-
+Rails.logger.info("Params_For_Edit: #{params.inspect}")
     redirect_to(:back) unless @booking.user_id == current_user.id
 
     render :edit
+  end
+
+  def new
+    @booking = Booking.new
   end
 
   def create
@@ -97,12 +103,14 @@ class BookingsController < ApplicationController
 
   def book
     @booking = Booking.find_by_id(params[:id])
+    Rails.logger.info("bookedit: #{@booking.id.inspect}")
+    session[:booking_id] = @booking.id
 
     if @booking.user_id == current_user.id
       @booking.update_approval_status("book")
     end
 
-    redirect_to @booking
+          redirect_to new_order_path
   end
 
   def approve

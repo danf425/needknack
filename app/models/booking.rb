@@ -9,7 +9,7 @@ class Booking < ActiveRecord::Base
                         :booking_rate_daily 
   #:guest_count
 
-
+has_one :order
   belongs_to :user
   belongs_to :space
 
@@ -33,6 +33,7 @@ class Booking < ActiveRecord::Base
   ############# BOOKING COST CALCULATIONS ###################################
 
   def night_count
+            Rails.logger.info("PARAMS: #{end_date.inspect}")
     (self.end_date - self.start_date).to_i
   end
 

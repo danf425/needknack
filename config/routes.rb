@@ -1,10 +1,19 @@
 AirbnbClone::Application.routes.draw do
 
+  resources :orders
+
+
   get "pages/howitworks"
+
+ #  get "paypal_express/checkout"
+  get 'express_checkout', to: 'orders#express_checkout'
+ # root :to => 'root#root'
 
   root :to => 'root#root'
 
-  resources :users,    only: [:new, :create, :show, :edit]
+#  devise_for :users
+
+  resources :users,    only: [:new, :create, :show, :edit, :update]
 
   resource  :session,  only: [:new, :create, :destroy] do
     member do
@@ -12,7 +21,7 @@ AirbnbClone::Application.routes.draw do
     end
   end
 
-  resources :spaces,   only: [:new, :create, :show, :index, :destroy, :edit] do
+  resources :spaces,   only: [:new, :create, :show, :index, :edit, :update, :destroy] do
     resources :bookings, only: [:edit, :index]
   end
 
@@ -40,4 +49,24 @@ AirbnbClone::Application.routes.draw do
     end
   end
 
-end
+  resources :messages do
+    member do
+      post :new
+    end
+    collection do
+      get :reply
+    end
+  end
+
+  resources :conversations do
+    member do
+      post :reply
+      post :trash
+      post :untrash
+    end
+    collection do
+      get :trashbin
+      post :empty_trash
+      end
+    end
+  end

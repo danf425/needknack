@@ -34,4 +34,12 @@ AirbnbClone::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  config.action_mailer.default_url_options = { :host => "http://loclahost:3000" }
+
+  config.after_initialize do
+  ActiveMerchant::Billing::Base.mode = :test
+  ::STANDARD_GATEWAY = ActiveMerchant::Billing::BogusGateway.new
+  ::EXPRESS_GATEWAY = ActiveMerchant::Billing::BogusGateway.new
+end
 end

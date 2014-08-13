@@ -10,6 +10,7 @@
   <ul id="user-dropdown">
     <li><%= link_to "Profile", current_user, method: :get %></li>
     <li><%= link_to "Knacks Reserved", bookings_url, method: :get %></li>
+    <li><%= link_to "Messages", conversations_path, method: :get %></li>
     <li><%= link_to "Log out", session_url, method: :delete  %></li>
   </ul>
 </li>

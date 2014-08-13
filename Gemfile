@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 gem 'pg'
+#gem 'devise'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -20,6 +21,12 @@ group :development, :test do
   gem 'capybara'
 end
 
+gem 'activemerchant'
+gem 'paperclip'
+gem 'paperclip-rack', require: 'paperclip/rack'
+gem 'coffee-rails'
+gem 'best_in_place'
+gem 'mailboxer'
 gem 'jquery-rails'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'geocoder'

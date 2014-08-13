@@ -21,7 +21,7 @@ class SpacesController < ApplicationController
   end
 
   def show
-    @space = Space.find_by_token(params[:id])
+    @space = Space.find(params[:id])
   end
 
   def new
@@ -50,17 +50,27 @@ class SpacesController < ApplicationController
     end
   end
 
+  def edit
+  @space = Space.find params[:id]
+  end
+
+  def update
+  @space = Space.find params[:id]
+
+  respond_to do |format|
+    if @space.update_attributes(params[:space])
+      format.html { redirect_to(@space, :notice => 'Space was successfully updated.') }
+      format.json { respond_with_bip(@user) }
+    else
+      format.html { render :action => "edit" }
+      format.json { respond_with_bip(@space) }
+    end
+    end
+  end
+
   def destroy
-    @space = Space.find_by_token(params[:id])
+    @space = Space.find(params[:id])
     @space.destroy
     redirect_to root_path
-    #    redirect_to :controller => :sessions, :action => :profile
   end
-
-  def edit 
-    @space = Space.find_by_token(params[:id])
-   # @space.update_attributes(params[:user_edit])
-#    @space = current_user.space
-  end
-
 end

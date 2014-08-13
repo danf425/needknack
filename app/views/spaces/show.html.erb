@@ -1,7 +1,8 @@
 <header id="space-show-header">
-  <h2 id="space-show-title"><%= @space.title %></h2>
+  <h2 id="space-show-title"> <%= best_in_place @space, :title %></h2>
+
   <h3 id="space-show-info">
-    
+    <%= link_to 'Edit Space', edit_space_path(@space) %>
   </h3>
 </header>
 

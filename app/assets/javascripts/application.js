@@ -12,4 +12,16 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require best_in_place
+//= require best_in_place.purr
 //= require_tree .
+
+jQuery.browser = {};
+(function () {
+    jQuery.browser.msie = false;
+    jQuery.browser.version = 0;
+    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+        jQuery.browser.msie = true;
+        jQuery.browser.version = RegExp.$1;
+    }
+})();

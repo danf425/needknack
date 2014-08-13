@@ -10,11 +10,21 @@
     </p>
   </section>
 
+  <%=link_to(image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), express_checkout_path)%>
+
+
+<section class="group">
+
+  <!--%= render "orders/form" %-->
+
+<%= link_to 'Pay Here', orders_path %>
+<%= link_to 'Back', orders_path %>
+</section>
   <form action="<%= book_booking_url(@booking.id) %>" method="POST">
     <input type="hidden" name="_method" value="put">
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
-    <p><input type="submit" class="blue button input-large" value="Book for Free"></p>
+    <p><input type="submit" class="blue button input-large" value="Pay Now"></p>
   </form>
 
 </div>

@@ -1,12 +1,19 @@
 class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :photo_url,
                   :password, :password_confirmation, :session_token
+  attr_accessible :avatar
+
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
   has_secure_password
+
+  acts_as_messageable
 
   validates :first_name, :last_name, :email, :session_token, presence: true
   validates_uniqueness_of :email
   validates_presence_of :password, on: :create
+  validates_format_of :first_name, :last_name, :with => /^[a-zA-Z0-9_]*[a-zA-Z][a-zA-Z0-9_]*$/
 
   after_initialize :ensure_session_token
 
@@ -17,8 +24,10 @@ class User < ActiveRecord::Base
   class_name: "Space",
   foreign_key: :owner_id,
   primary_key: :id
-  
-  before_create :generate_token
+
+  def full_name 
+    first_name + " " + last_name 
+  end
 
   def self.generate_session_token
     SecureRandom.urlsafe_base64(16)
@@ -55,24 +64,14 @@ class User < ActiveRecord::Base
     photo ? photo.url_medium : "http://placekitten.com/g/400/400"
   end
 
-
-  def to_param  # overridden
-    token
-  end
+  def mailboxer_email(object)
+return email
+end
 
   private
 
   def ensure_session_token
     self.session_token ||= self.class.generate_session_token
-  end
-
-  protected
-
-  def generate_token
-    self.token = loop do
-      random_token = SecureRandom.random_number(10000).to_s
-      break random_token unless User.exists?(token: random_token)
-    end
   end
 
 end
