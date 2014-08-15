@@ -6,41 +6,47 @@
                placeholder: "What's your Knack?",
                       name: "space[title]",
                      class: "input-long input-small",
-                        id: "space-title" %><br>
+                        id: "space-title", 
+                     value: @space.title %><br>
 
   <label for="space-street-address">Street Address</label>
     <%= tag "input", type: "text",
               placeholder: "1234 Streetplace Rd.",
                      name: "space[address]",
                     class: "input-long input-small",
-                       id: "space-street-address" %><br>
+                       id: "space-street-address", 
+                    value: @space.address %><br>
                        
   <label for="space-city">City</label>
     <%= tag "input", type: "text",
               placeholder: "New York City, NY",
                      name: "space[city]",
                     class: "input-long input-small",
-                       id: "space-city" %><br>
+                       id: "space-city", 
+                    value: @space.city %><br>
 
   <label for="space-country">Country</label>
     <%= tag "input", type: "text",
               placeholder: "United States of America",
                      name: "space[country]",
                     class: "input-long input-small",
-                       id: "space-country" %><br>
+                       id: "space-country", 
+                    value: @space.country %><br>
 
   <label for="space-description" class="top">Description</label>
     <%= tag "textarea", name: "space[description]",
                  placeholder: "Super awesome description.",
                        class: "input-long input-small",
-                          id: "space-description" %></textarea><br>
+                          id: "space-description", 
+                       value: @space.description %></textarea><br>
 
 
   <label for="space-booking_rates">Daily Rental Rate</label>
     <%= tag "input", type: "number",
                      name: "space[booking_rate_daily]",
               placeholder: "50",
-                    class: "number-input input-long input-small"%><br>
+                    class: "number-input input-long input-small", 
+                     value: @space.booking_rate_daily %><br>
 
   <label for="space-languages" class="top">Languages</label>
       <ul class="group" id="space-languages">
