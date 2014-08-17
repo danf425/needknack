@@ -58,6 +58,9 @@ Rails.logger.info("Params_For_Edit: #{params.inspect}")
 
       if @booking.is_free_of_conflicts?
         if @booking.save
+    Rails.logger.info("bookedittest1: #{@booking.id.inspect}")
+    session[:booking_id] = @booking.id
+        Rails.logger.info("bookedittest2: #{@booking.id.inspect}")
           redirect_to edit_space_booking_url(@booking.space_id, @booking.id)
         else
           render status: 422
@@ -104,9 +107,11 @@ Rails.logger.info("Params_For_Edit: #{params.inspect}")
   def book
     @booking = Booking.find_by_id(params[:id])
     Rails.logger.info("bookedit: #{@booking.id.inspect}")
-    session[:booking_id] = @booking.id
+   session[:booking_id] = @booking.id
 
     if @booking.user_id == current_user.id
+#      @booking.created_at = Time.now
+          Rails.logger.info("Time1: #{@booking.created_at.inspect}")
       @booking.update_approval_status("book")
     end
 

@@ -1,4 +1,5 @@
 class OrderTransaction < ActiveRecord::Base
+   attr_accessible :action, :amount, :response
   belongs_to :order
   serialize :params
   

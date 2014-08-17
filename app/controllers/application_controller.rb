@@ -10,9 +10,10 @@ class ApplicationController < ActionController::Base
 
     def current_booking
       Rails.logger.info("CURRENTBOOKING: #{@booking_id.inspect}")
+            Rails.logger.info("This booking: #{@booking.inspect}")
       if session[:booking_id]
         @current_booking ||= Booking.find(session[:booking_id])
-#        session[:booking_id] = nil if @current_booking.purchased_at
+#        session[:booking_id] = nil if @current_booking.created_at
       end
       if session[:booking_id].nil?
         @current_booking = Booking.create!

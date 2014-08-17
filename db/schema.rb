@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140811172609) do
+ActiveRecord::Schema.define(:version => 20140814190717) do
 
   create_table "bookings", :force => true do |t|
     t.integer  "user_id",            :null => false
@@ -95,8 +95,10 @@ ActiveRecord::Schema.define(:version => 20140811172609) do
     t.string   "last_name"
     t.string   "card_type"
     t.date     "card_expires_on"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "express_token"
+    t.string   "express_payer_id"
   end
 
   create_table "space_photos", :force => true do |t|

@@ -4,8 +4,7 @@ AirbnbClone::Application.routes.draw do
 
 
   get "pages/howitworks"
-
-   get "paypal_express/checkout"
+get 'express_checkout', to: 'orders#express_checkout'
 
   root :to => 'root#root'
 
