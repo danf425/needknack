@@ -1,0 +1,31 @@
+<div id="splash-container">
+  <!--img src="<!%= Space.random_space_with_photo.url %>" id="splash"-->
+
+  <div class="group" id="root-page-search-bar-container">
+    <h1><%= link_to "How Does it work?", pages_howitworks_path, method: :get, id: ".howitworks" %></h1>
+    <h3>Find a knack wherever you go.</h3>
+    <form action="<%= spaces_url %>" class="group" id="root-page-search-bar" method="get">
+
+      <%= tag "input", type: "text",
+                placeholder: "What? ()",
+                       name: "space_filters[title]",
+                      class: "text-input input-large",
+                         id: "root-input-title-name" %>
+      <%= tag "input", type: "text",
+                placeholder: "Where? (Boston,MA)",
+                       name: "space_filters[city]",
+                      class: "text-input input-large",
+                         id: "root-input-city-name" %>
+ 
+
+
+      <input type="submit" value="Search" class="button blue input-large" id="search-button">
+
+    </form>
+
+  <body><br><br><br><br><br><br><br>
+  Knack noun \nak\</br>
+  an ability, talent, or special skill needed to do something.
+  </body>
+  </div>
+</div>

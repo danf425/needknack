@@ -1,0 +1,57 @@
+<form class="group" action="<%= spaces_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label for="space-title">Knack</label>
+     <%= tag "input", type: "text",
+               placeholder: "What's your Knack?",
+                      name: "space[title]",
+                     class: "input-long input-small",
+                        id: "space-title" %><br>
+
+  <label for="space-street-address">Street Address</label>
+    <%= tag "input", type: "text",
+              placeholder: "1234 Streetplace Rd.",
+                     name: "space[address]",
+                    class: "input-long input-small",
+                       id: "space-street-address" %><br>
+                       
+  <label for="space-city">City</label>
+    <%= tag "input", type: "text",
+              placeholder: "New York City, NY",
+                     name: "space[city]",
+                    class: "input-long input-small",
+                       id: "space-city" %><br>
+
+  <label for="space-country">Country</label>
+    <%= tag "input", type: "text",
+              placeholder: "United States of America",
+                     name: "space[country]",
+                    class: "input-long input-small",
+                       id: "space-country" %><br>
+
+  <label for="space-description" class="top">Description</label>
+    <%= tag "textarea", name: "space[description]",
+                 placeholder: "Super awesome description.",
+                       class: "input-long input-small",
+                          id: "space-description" %></textarea><br>
+
+
+  <label for="space-booking_rates">Hourly Rate</label>
+    <%= tag "input", type: "number",
+                     name: "space[booking_rate_daily]",
+              placeholder: "50",
+                    class: "number-input input-long input-small"%><br>
+
+  <label for="space-languages" class="top">Languages</label>
+      <ul class="group" id="space-languages">
+        <% Space.languages_list.each_with_index do |language, index| %>
+          <li class="checkbox-li">
+            <input type="checkbox" name="space_languages_indicies[]" value="<%= index %>">
+              <%= language %>
+            </input>
+          </li>
+        <% end %>
+      </ul><br>
+
+  <input type="submit" class="button blue input-large label-offset-button" value="Submit Knack">
+</form>

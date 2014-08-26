@@ -1,0 +1,15 @@
+<%= render "users/show/user_box" %>
+
+  <h3>
+    <%= link_to 'Edit User Profile', edit_user_path(@user) %>
+  </h3>
+
+  <section class="tab-box-wrapper group">
+    <%= link_to 'Add Comment', new_comment_path(:user => @user) %>
+  <section class="tab-box-wrapper group">
+
+<section class="group">
+  <%= render "spaces/index/space_list" %>
+
+  <%= button_to "Send a message", new_message_path(:user => @user) %>
+</section>

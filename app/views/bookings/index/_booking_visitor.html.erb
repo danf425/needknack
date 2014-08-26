@@ -1,0 +1,38 @@
+<div> 
+  <!--img src="http://placekitten.com/300/300" class="user-image"-->
+  <table>
+    <% visitor = booking_visitor.user %>
+    <% booking = booking_visitor %>
+       <% if logged_in? && current_user == booking.space.owner %> 
+    <td>
+      <%= "#{visitor.first_name} #{visitor.last_name}" %>
+    </td>
+    <td>
+      <%= "#{booking.start_date} - #{booking.end_date}" %>
+    </td>
+<td>
+
+</td>
+
+  <% statuses =       Booking.approval_statuses %>
+  <% booking_status = booking.approval_status %>
+    <% if booking_status == statuses[:approved] %>
+    <td>
+      <b>APPROVED</b>
+      <%= button_to "Cancel", cancel_by_owner_booking_url(booking.id), method: :put %>
+    </td>
+    <% elsif booking_status == statuses[:pending] %>
+    <td>
+      <%= button_to "Approve", approve_booking_url(booking.id), method: :put %>
+    </td>
+    <td>
+      <%= button_to "Decline", decline_booking_url(booking.id), method: :put %>
+    </td>
+    <% else %>
+      <h3>development placeholder</h3>
+      <p>Status: <%= statuses[booking_status] %></p>
+    <% end %>
+
+    </table>
+    <% end %>
+</div>

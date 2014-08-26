@@ -1,0 +1,28 @@
+<% max = 16 %>
+<% min = 0 %>
+
+<select name="<%= @options[:html_name] %>">
+
+  <% if @options[:limits] %>
+    <% lower_limit = [@options[:limits][0], min].max  %>
+    <% upper_limit = [@options[:limits][1], max].min %>
+  <% else %>
+    <%= upper_limit = max %>
+    <%= lower_limit = min %>
+  <% end %>
+
+  <% (1..upper_limit).each do |number| %>
+
+  <% if number == max %>
+    <% string = "#{max}+" %>
+  <% else %>
+    <% string = number.to_s  %>
+  <% end %>
+
+    <% if number == 1 %>
+      <option value="<%= number %>"><%= "#{string} #{@options[:plural_noun].singularize}" %></option>
+    <% else %>
+      <option value="<%= number %>"><%= "#{string} #{@options[:plural_noun]}" %></option>
+    <% end %>
+  <% end %>
+</select>
