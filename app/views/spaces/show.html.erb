@@ -1,9 +1,12 @@
 <header id="space-show-header">
   <h2 id="space-show-title"> <%= best_in_place @space, :title %></h2>
 
+Rating:<br>
+<%= rating_for @space, "rating", :star => 5 %>
+
   <h3 id="space-show-info">
     <% if logged_in? && current_user.id == @space.owner_id %>   
-    <%= link_to 'Edit Space', edit_space_path(@space) %>
+    <%= link_to 'Edit Knack', edit_space_path(@space) %>
     <% end %>
   </h3>
 </header>

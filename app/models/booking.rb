@@ -71,11 +71,13 @@ end
     end
     return start_total
   end
-=begin
+def total_t
+  (self.end_time.to_f - self.start_time.to_f) /3600
+end
+
+# NEED TO FIX
   def subtotal
-
-    self.booking_rate_daily * self.night_count
-
+    self.booking_rate_daily * self.total_t.to_f
   end
 
   def service_fee
@@ -85,7 +87,7 @@ end
   def total
     self.subtotal + self.service_fee
   end
-=end
+
   ############# VALIDATING BOOKING PARAMETERS ###############################
 
 #  def guest_count_valid?

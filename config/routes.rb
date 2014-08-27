@@ -1,5 +1,9 @@
 AirbnbClone::Application.routes.draw do
 
+  devise_for :users
+
+  match '/rate' => 'rater#create', :as => 'rate'
+
   #resources :orders
 
 

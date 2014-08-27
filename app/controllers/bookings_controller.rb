@@ -53,6 +53,10 @@ Rails.logger.info("Params_For_Edit: #{params.inspect}")
 
   def new
     @booking = Booking.new
+    @space = Space.find_by_id(params[:space_id])
+            Rails.logger.info("New_Space: #{@space.inspect}")
+    @booking = current_booking
+                            Rails.logger.info("New_boking: #{@boking.inspect}")
   end
 
   def create
@@ -73,10 +77,10 @@ Rails.logger.info("Params_For_Edit: #{params.inspect}")
         Rails.logger.info("time_math11: #{@test.inspect}")
 
 
-        start_time = Booking.start_math(@test[:start_hour], @test[:start_minute], @test[:start_ampm])
-        end_time = Booking.start_math(@test[:end_hour], @test[:end_minute], @test[:end_ampm])
+        @booking.start_time = Booking.start_math(@test[:start_hour], @test[:start_minute], @test[:start_ampm])
+        @booking.end_time = Booking.start_math(@test[:end_hour], @test[:end_minute], @test[:end_ampm])
 
-        total_time = (end_time.to_f - start_time.to_f) /3600
+        total_time = (@booking.end_time.to_f - @booking.start_time.to_f) /3600
         minute_time = total_time.modulo(1) * 60
         hour_time = total_time.to_i 
 
@@ -84,35 +88,35 @@ Rails.logger.info("Params_For_Edit: #{params.inspect}")
         Rails.logger.info("TOTAL: #{new_time.inspect}")
 
       end
-      
+      total_t = total_time
       Rails.logger.info("time: #{total_time.inspect}")
       #night_count = @booking.end_date - @booking.start_date
      # subtotal    = night_count * @booking.booking_rate_daily
-      subtotal    = total_time.to_f * @booking.booking_rate_daily
-        Rails.logger.info("subTOTAL: #{subtotal.inspect}")
-      @booking.service_fee        = subtotal.to_f * 0.10
-        Rails.logger.info("serviceTOTAL: #{@booking.service_fee.inspect}")
-      @booking.total              = subtotal + @booking.service_fee
-        Rails.logger.info("TOTAL: #{@booking.total.inspect}")
-      if @booking.is_free_of_conflicts?
-        if @booking.save
-    Rails.logger.info("bookedittest1: #{@booking.id.inspect}")
+     subtotal    = total_time.to_f * @booking.booking_rate_daily
+     Rails.logger.info("subTOTAL: #{subtotal.inspect}")
+     @booking.service_fee        = subtotal.to_f * 0.10
+     Rails.logger.info("serviceTOTAL: #{@booking.service_fee.inspect}")
+     @booking.total              = subtotal + @booking.service_fee
+     Rails.logger.info("TOTAL: #{@booking.total.inspect}")
+     if @booking.is_free_of_conflicts?
+      if @booking.save
+        Rails.logger.info("bookedittest1: #{@booking.id.inspect}")
         Rails.logger.info("This bookink: #{@booking.inspect}")
         Rails.logger.info("bookedittest2: #{@booking_id.inspect}")
-           session[:booking_id] = @booking.id
-               Rails.logger.info("bookedittest1: #{@booking.id.inspect}")
+        session[:booking_id] = @booking.id
+        Rails.logger.info("bookedittest1: #{@booking.id.inspect}")
         Rails.logger.info("This bookink: #{@booking.inspect}")
         Rails.logger.info("bookedittest2: #{@booking_id.inspect}")
-          redirect_to new_space_booking_url(@booking.space_id)
-        else
-          render status: 422
-        end
+        redirect_to new_space_booking_url(@booking.space_id)
       else
-        flash[:notices] = ["You must select dates that aren't taken"]
-        redirect_to :back
+        render status: 422
       end
+    else
+      flash[:notices] = ["You must select dates that aren't taken"]
+      redirect_to :back
     end
   end
+end
 
 ############## Below actions only modify booking approval status ###############
 

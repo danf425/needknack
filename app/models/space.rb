@@ -16,7 +16,8 @@ class Space < ActiveRecord::Base
   # :accommodates, :residence_type, :bedroom_count,:amenities, :house_rules, :bed_type,
   # :bathroom_count, :room_type  
   
-
+  letsrate_rateable "rating"
+  
   after_validation :geocode, if: :address_changed?
 
   has_many :space_photos

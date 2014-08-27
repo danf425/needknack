@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140825165845) do
+ActiveRecord::Schema.define(:version => 20140827153245659) do
 
   create_table "bookings", :force => true do |t|
     t.integer  "user_id",            :null => false
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(:version => 20140825165845) do
     t.datetime "updated_at",         :null => false
     t.float    "total"
     t.float    "booking_rate_daily"
+    t.integer  "start_time"
+    t.integer  "end_time"
   end
 
   add_index "bookings", ["space_id"], :name => "index_bookings_on_space_id"
@@ -118,6 +120,31 @@ ActiveRecord::Schema.define(:version => 20140825165845) do
     t.string   "express_payer_id"
   end
 
+  create_table "rates", :force => true do |t|
+    t.integer  "rater_id"
+    t.integer  "rateable_id"
+    t.string   "rateable_type"
+    t.float    "stars",         :null => false
+    t.string   "dimension"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "rates", ["rateable_id", "rateable_type"], :name => "index_rates_on_rateable_id_and_rateable_type"
+  add_index "rates", ["rater_id"], :name => "index_rates_on_rater_id"
+
+  create_table "rating_caches", :force => true do |t|
+    t.integer  "cacheable_id"
+    t.string   "cacheable_type"
+    t.float    "avg",            :null => false
+    t.integer  "qty",            :null => false
+    t.string   "dimension"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "rating_caches", ["cacheable_id", "cacheable_type"], :name => "index_rating_caches_on_cacheable_id_and_cacheable_type"
+
   create_table "space_photos", :force => true do |t|
     t.integer  "space_id"
     t.string   "url",                            :null => false
@@ -175,12 +202,12 @@ ActiveRecord::Schema.define(:version => 20140825165845) do
   add_index "user_photos", ["user_id"], :name => "index_user_photos_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",               :null => false
-    t.string   "password_digest",     :null => false
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-    t.string   "first_name",          :null => false
-    t.string   "last_name",           :null => false
+    t.string   "email",                                  :null => false
+    t.string   "password_digest",                        :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "first_name",                             :null => false
+    t.string   "last_name",                              :null => false
     t.string   "session_token"
     t.string   "photo_url"
     t.integer  "user_photo_id"
@@ -189,9 +216,19 @@ ActiveRecord::Schema.define(:version => 20140825165845) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "description"
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0,  :null => false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["session_token"], :name => "index_users_on_session_token"
 
   add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", name: "mb_opt_outs_on_conversations_id", column: "conversation_id"

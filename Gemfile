@@ -3,7 +3,8 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.13'
 gem 'pg'
 gem 'sendgrid'
-#gem 'devise'
+gem 'devise'
+gem 'letsrate' , '=1.0.8'
 
 gem 'bootstrap-sass', '~> 3.2.0'
 
