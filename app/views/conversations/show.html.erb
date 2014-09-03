@@ -1,33 +1,30 @@
 <h2><b>Subject:</b> <%= conversation.subject %></h2>
 <table class="table table-striped">
   <tbody>
-  <% @conversations.each do |conversation| %>
-  <% @message = conversation.messages %>
-  <% @message.each do |m| %>
-      <% conversation.mark_as_read(current_user) %>
+    <% @conversations.each do |conversation| %>
+    <% @message = conversation.messages %>
+    <% @message.each do |m| %>
+    <% conversation.mark_as_read(current_user) %>
 
-        <% if m.sender != current_user %>
-            <td><b><%= link_to m.sender.full_name, m.sender %></b></td>
-                    <tr>
-        <td> <%= m.body %> </td>
-        </tr>
-        <% else %>
-            <tr align = "right"><td><b><i>Me</i></b></td></tr>
-                    <tr align = "right">
-        <td> <%= m.body %> </td>
-        </tr>
-        <% end %>
+    <% if m.sender != current_user %>
+    <td><b><%= link_to m.sender.full_name, m.sender %></b></td>
+    <tr>
+      <td> <%= m.body %> </td>
           <td><sub><%= m.updated_at.strftime("%a, %m/%e/%Y %I:%M %p") %></sub></td>
 
-        <tr>
-        <td> <%= m.body %> </td>
-        </tr>
-        <tr>
-          <td> <sub><%= link_to "Move to Trash", {:controller => "conversations", :action => "trash", :id => conversation.id}, :title => "Move to Trash", :method => 'post' %></sub>
-          </td>
-</tr>
-  <% end %>
-  <% end %>
+      <td> <sub><%= link_to "Move to Trash", {:controller => "conversations", :action => "trash", :id => conversation.id}, :title => "Move to Trash", :method => 'post' %></sub></td>
+    </tr>
+    <% else %>
+    <tr align = "right"><td><b><i>Me</i></b></td></tr>
+    <tr align = "right">
+      <td> <%= m.body %> </td>
+          <td><sub><%= m.updated_at.strftime("%a, %m/%e/%Y %I:%M %p") %></sub></td>
+
+      <td> <sub><%= link_to "Move to Trash", {:controller => "conversations", :action => "trash", :id => conversation.id}, :title => "Move to Trash", :method => 'post' %></sub></td>
+    </tr>
+    <% end %>
+    <% end %>
+    <% end %>
 
   </tbody>
 </table>

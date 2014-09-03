@@ -3,11 +3,28 @@ class ConversationsController < ApplicationController
   helper_method :mailbox, :conversation
 
   def index
-    @conversations ||= (current_user.mailbox.sentbox | current_user.mailbox.inbox)
+   # Rails.logger.info("Inbox: #{current_user.mailbox.sentbox.inspect}")
+   @conversations ||= (current_user.mailbox.sentbox | current_user.mailbox.inbox)
+   Rails.logger.info("Convo: #{@conversations.inspect}")
+
+   @conversations.each do | convo|
+    Rails.logger.info("Mess: #{convo.messages.inspect}")
+    @mess ||= convo.messages
+    Rails.logger.info("Mess2: #{@mess.inspect}")
   end
+  @mez = @conversations.first.messages
+
+  @mez.each do |m|
+    Rails.logger.info("Mess3: #{@mez.inspect}")
+  end
+  @inbox = mailbox.inbox.limit(5)
+  @sentbox = mailbox.sentbox.limit(5)
+  @trash = mailbox.trash.limit(5)
+end
 
   def show
     @conversations ||= (current_user.mailbox.inbox.all | current_user.mailbox.sentbox.all)
+    Rails.logger.info("Convo: #{@conversations.inspect}")
   end
 
   def reply
@@ -39,6 +56,18 @@ class ConversationsController < ApplicationController
       conversation.receipts_for(current_user).update_all(:deleted => true)
     end
     redirect_to :conversations
+  end
+
+  def show_inbox
+    @inbox = mailbox.inbox.page(params[:page]).per_page(10)
+  end
+
+  def show_sentbox
+    @sentbox = mailbox.sentbox.page(params[:page]).per_page(10)
+  end
+
+  def show_trash
+    @trash = mailbox.trash.page(params[:page]).per_page(10)
   end
 
   private

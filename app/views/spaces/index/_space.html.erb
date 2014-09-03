@@ -1,50 +1,35 @@
 
 
-    <div class="container-results">
           <div class="col-xs-12 col-sm-6 col-md-6">
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-sm-6 col-md-4">
-                        <a href=<%= space_url(space.id) %> class="space-image-wrapper">
-    <%= image_tag(space.photo_medium, class: "img-rounded img-responsive") %>
-        <span class="map-number"><%= space_counter + 1 %></span></a>
+                          <a href=<%= space_url(space.id) %>
+                            <%= image_tag(space.photo_medium, class: "img-rounded img-responsive") %>
+    <span class="map-number"><%= space_counter + 1 %></span>
                     </div>
                     <div class="col-sm-6 col-md-8 contentblock">
                         <h4>
-
-  <!--%= link_to image_tag(space.owner_photo.url_small, class: "host-image user-image-thumb"), user_url(space.owner_id), method: :get %-->
-
-
-      <%= link_to space.title, space, method: :get%>
-
-
-
-
-         <p style="float:right">      <%= space.booking_rate_daily %><small>/hour</small></p></h4>
+                                  <%= link_to space.title, space, method: :get%>
+                              </a> <p style="float:right">$      <%= space.booking_rate_daily %><small>/hour</small></p></h4>
                             <small>      <%= space.city %><i class="glyphicon glyphicon-map-marker">
                         </i></small><br>
                         <p><br><br>
-                            Ever want to text like a COOL GUY? Come see me.
+                            <%= space.description %>
 
                             <br />
                             <br /></p>
-                            <p><a href="http://www.jquery2dotnet.com">Brian Le</a>
+                            <p><a href="http://www.jquery2dotnet.com"><%= space.owner.first_name %> <%= space.owner.last_name %></a>
                             <br /><button type="button" class="btn btn-primary pull-right">
                                 Reserve</button>
                             Rating: 1/10<br>
                             December 3rd, 1996
+                             <% if logged_in? && current_user == @user %>   
+<%= link_to "Delete this listing", space, method: :delete%>
+<% end %>
                     </div>
                 </div>
             </div>
         </div>
 
-  <div class="price-wrapper">
-    <div class="price-data dark-gray right">
-      <sup class="left">$</sup>
 
-    </div>
-    <div class="light-gray">per hour</div>
-    <% if logged_in? && current_user == @user %>   
-<%= link_to "Delete this listing", space, method: :delete%>
-<% end %>
-  </div>

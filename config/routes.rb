@@ -39,6 +39,7 @@ resources :comments
       put "decline"
       put "book"
       put "approve"
+      put "complete"
     end
   end
 

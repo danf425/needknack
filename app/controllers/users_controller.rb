@@ -2,8 +2,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @comment = Comment.find_by_user_id(current_user.id)
-
+   # @comment = Comment.find_by_user_id(current_user.id)
+ @comment = Comment.all
 
     Rails.logger.info("This comment: #{@comment.inspect}")
     @spaces = @user.spaces.page(selected_page)

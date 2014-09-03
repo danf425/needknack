@@ -76,8 +76,16 @@ end
     self.bookings.where("approval_status = ?", Booking.approval_statuses[:approved])
   end
 
-    def initiated_pending
+  def initiated_pending
     self.bookings.where("approval_status = ?", Booking.approval_statuses[:pending])
+  end
+
+  def initiated_decline
+    self.bookings.where("approval_status = ?", Booking.approval_statuses[:declined])
+  end
+
+  def initiated_complete
+    self.bookings.where("approval_status = ?", Booking.approval_statuses[:completed])
   end
 
   def self.integer_from_options_list(options_list)

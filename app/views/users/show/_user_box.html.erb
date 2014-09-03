@@ -5,7 +5,14 @@
   <h3 class="dark-gray centered" id="user-show-username"><%= "#{@user.first_name} " %><%= "#{@user.last_name}" %></h3>
 <div>
 <h3 class="dark-gray centered" id="user-show-username"><b>Description:</b><%= "#{@user.description}" %> </h3>
-<h3 class="dark-gray centered" id="user-show-username"><b>Comment:</b><%= "#{@comment.comment}" %> </h3>
+<% @comment.each do |comment| %>
 
+<% if !comment.user_id.nil? && @user.id == comment.user_id %> 
+<h3 class="dark-gray centered" id="user-show-username">
+	<b>Comment:</b><%= comment.comment %>
+</h3>
+<% end %>
+
+<% end %>
 </div>
 </nav>

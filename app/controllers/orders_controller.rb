@@ -78,6 +78,7 @@ end
     current_user.send_message(@recipient, "I would like to reserve you.", "I like your knack.")
 
       flash[:notice] = "Succesfully created order."
+      # TODO: CHANGE URL
       redirect_to orders_url
     #  else
     #    render :action => "failure"

@@ -28,6 +28,7 @@ Rails.logger.info("Space1: #{@space.inspect}")
           Rails.logger.info("PARAMS: #{params.inspect}")
       @user = User.find_by_id(current_user.id)
 
+      Rails.logger.info("Ini: #{@user.initiated_bookings.inspect}")
       render "bookings/index/user"
     end
   end
@@ -37,7 +38,8 @@ Rails.logger.info("Space1: #{@space.inspect}")
     @space = Space.find_by_id(@booking.space_id)
 
     Rails.logger.info("Book_show: #{@current_booking.inspect}")
-    @booking = current_booking
+    Rails.logger.info("Book_show: #{@booking.inspect}")
+   # @booking = current_booking
   end
 
   def edit
@@ -152,7 +154,10 @@ end
 
   def book
     @booking = Booking.find_by_id(params[:id])
+          @space = Space.find_by_id(params[:space_id])
+
     Rails.logger.info("bookedit: #{@booking.id.inspect}")
+        Rails.logger.info("Booking1: #{@booking.inspect}")
    session[:booking_id] = @booking.id
 
     if @booking.user_id == current_user.id
@@ -161,7 +166,7 @@ end
       @booking.update_approval_status("book")
     end
 
-          redirect_to new_order_path
+         redirect_to space_path(:id => @booking.space_id)
   end
 
   def approve
@@ -170,8 +175,19 @@ end
     if @booking.space.owner_id == current_user.id
       @booking.update_approval_status("approve")
     end
-           @recipient = User.find(@booking.user_id)
- current_user.send_message(@recipient, "You have been approved!", "I like your knack.")
+    @recipient = User.find(@booking.user_id)
+    current_user.send_message(@recipient, "You have been approved!", "I like your knack.")
+    redirect_to(:back)
+  end
+
+  def complete
+    @booking = Booking.find_by_id(params[:id])
+
+    if @booking.space.owner_id == current_user.id
+      @booking.update_approval_status("complete")
+    end
+   # @recipient = User.find(@booking.user_id)
+  #  current_user.send_message(@recipient, "You have been approved!", "I like your knack.")
     redirect_to(:back)
   end
 

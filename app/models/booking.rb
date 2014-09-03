@@ -21,13 +21,15 @@ has_one :order
              unbooked:  0,
               pending:  1,
              approved:  2,
+            completed:  3,
                   -4 => "canceled_by_user",
                   -3 => "canceled_by_owner",
                   -2 => "timeout",
                   -1 => "declined",
                    0 => "unbooked",
                    1 => "pending",
-                   2 => "approved"}
+                   2 => "approved",
+                   3 => "completed"}
   end
 
   def self.hour_intervals
@@ -146,6 +148,7 @@ end
   end
 
   def book
+    Rails.logger.info("THIS IS BOOK")
     if overlapping_requests(:approved).empty?
       self.set_approval_status(Booking.approval_statuses[:pending])
     end
@@ -157,6 +160,10 @@ end
 
     #@recipient = Booking.find(@space.owner_id)
    
+  end
+
+    def complete
+    self.set_approval_status(Booking.approval_statuses[:completed])
   end
 
 end
