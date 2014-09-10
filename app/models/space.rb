@@ -1,9 +1,13 @@
 class Space < ActiveRecord::Base
   attr_accessible :owner_id, :title, :description, :city, :country, :booking_rate_daily, :address,
   :booking_rate_weekly, :booking_rate_monthly, :latitude, :longitude, :booking_rate_indicies, :photo_url,
-  :languages, :languages_indicies
+  :languages, :languages_indicies, :distance
+    attr_accessible :avatar
 # :accommodates, :residence_type, :bedroom_count, :amenities, :house_rules, :bed_type, 
 # :bathroom_count, :room_type, :amenities_indicies
+
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
   geocoded_by :address
 
@@ -12,7 +16,8 @@ class Space < ActiveRecord::Base
   # :accommodates, :residence_type, :bedroom_count,:amenities, :house_rules, :bed_type,
   # :bathroom_count, :room_type  
   
-
+  letsrate_rateable "rating"
+  
   after_validation :geocode, if: :address_changed?
 
   has_many :space_photos
@@ -52,6 +57,11 @@ class Space < ActiveRecord::Base
     ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16+"]
   end
 
+
+  def self.distance_intervals
+  ["1","5","10","20","30","100"]
+end
+
   def self.languages_list
     ["English",
      "Spanish",
@@ -60,6 +70,22 @@ class Space < ActiveRecord::Base
      "German",
      "Italian"
     ]
+  end
+  
+  def initiated_approve
+    self.bookings.where("approval_status = ?", Booking.approval_statuses[:approved])
+  end
+
+  def initiated_pending
+    self.bookings.where("approval_status = ?", Booking.approval_statuses[:pending])
+  end
+
+  def initiated_decline
+    self.bookings.where("approval_status = ?", Booking.approval_statuses[:declined])
+  end
+
+  def initiated_complete
+    self.bookings.where("approval_status = ?", Booking.approval_statuses[:completed])
   end
 
   def self.integer_from_options_list(options_list)
@@ -116,9 +142,18 @@ class Space < ActiveRecord::Base
 
     filtered_spaces = Space
 
-    if filters[:city] && filters[:city].length > 0
-      filtered_spaces = filtered_spaces.near(filters[:city], 30)
+    if  filters[:distance] && filters[:distance].length > 0
+
+
+      distance_num = filters[:distance].to_i
+      Rails.logger.info("Distance: #{distance_num.inspect}")
+      filtered_spaces = filtered_spaces.near(filters[:city], distance_num)
+
+    elsif filters[:city] && filters[:city].length > 0
+      
+            filtered_spaces = filtered_spaces.near(filters[:city], 10)
     end
+
 
     if filters[:title] && filters[:title].length > 0
       title = filters[:title]

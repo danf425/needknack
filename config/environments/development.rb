@@ -43,11 +43,11 @@ AirbnbClone::Application.configure do
 config.after_initialize do
   ActiveMerchant::Billing::Base.mode = :test
   paypal_options = {
-    login: "needknack_api1.gmail.com",
-    password: "1407339469",
-    signature: "A39oJFra29FUr0nSzbR3noVWYYoVAdZ3ifcUSI8Gj1IfKixUkzisTA0K"
+    :login => "needknack_api1.gmail.com",
+    :password => "1407339469",
+    :signature => "A39oJFra29FUr0nSzbR3noVWYYoVAdZ3ifcUSI8Gj1IfKixUkzisTA0K"
   }
-    ::STANDARD_GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(paypal_options)
+  ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(paypal_options)
   ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
 end
 end

@@ -1,28 +1,38 @@
 AirbnbClone::Application.routes.draw do
 
-  resources :orders
+#  devise_for :users, :controllers => {:registrations => 'registrations'}
+#  devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } 
+  devise_for :users do 
+    get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
+  end
 
+  match '/auth/:provider/callback' => 'authentications#create'
 
-  get "pages/howitworks"
+  match '/rate' => 'rater#create', :as => 'rate'
 
- #  get "paypal_express/checkout"
-  get 'express_checkout', to: 'orders#express_checkout'
- # root :to => 'root#root'
+  get '/pages/howitworks'
+
+  get '/spaces/autocomplete_spaces_title'
+  
+  get '/order/express_checkout' => "orders#express_checkout", :as => :pay
+  
+  resources :orders, :new => { :express_checkout => :get }
+
+  resources :spaces do
+  get :autocomplete_spaces_title, :on => :collection
+  end
 
   root :to => 'root#root'
 
-#  devise_for :users
+#  root :to => "home#index"
+
+  resources :comments
 
   resources :users,    only: [:new, :create, :show, :edit, :update]
 
-  resource  :session,  only: [:new, :create, :destroy] do
-    member do
-      put "guest_user_sign_in"
-    end
-  end
-
   resources :spaces,   only: [:new, :create, :show, :index, :edit, :update, :destroy] do
-    resources :bookings, only: [:edit, :index]
+    resources :bookings, only: [:new, :edit, :index]
   end
 
   resources :bookings, only: [:index, :create, :show] do
@@ -32,6 +42,7 @@ AirbnbClone::Application.routes.draw do
       put "decline"
       put "book"
       put "approve"
+      put "complete"
     end
   end
 

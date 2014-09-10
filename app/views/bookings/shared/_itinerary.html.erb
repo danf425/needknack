@@ -1,24 +1,12 @@
 <div class="group">
   <header class="group" id="itinerary-header">
-    <%= link_to image_tag(@space.photo_medium, class: "image-medium"), @space, method: :get %>
+    <!--%= link_to image_tag(@space.photo_medium, class: "image-medium"), @space, method: :get %-->
   </header>
 
   <section>
     <table id="itinerary-table">
       <tr>
         <td colspan="2"><%= @space.title %></td>
-      </tr>
-      <tr>
-        <td>blah21</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>blah22</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>blah23</td>
-        <td>></td>
       </tr>
       <tr>
         <td>Check in</td>
@@ -29,12 +17,18 @@
         <td><%= @booking.end_date %></td>
       </tr>
       <tr>
-        <td>Nights</td>
-        <td><%= @booking.night_count %></td>
+      <tr>
+        <td>Start Time</td>
+        <td><%= Time.at(@booking.start_time).utc.strftime("%I:%M%p") %></td>
       </tr>
       <tr>
-        <td>blah24</td>
-        <td></td>
+        <td>End Time</td>
+        <td><%= Time.at(@booking.end_time).utc.strftime("%I:%M%p") %></td>
+      </tr>
+      <tr>
+      <tr>
+        <td>Total Time</td>
+        <td><%= (@booking.end_time - @booking.start_time)/3600 %> Hour</td>
       </tr>
       <tr>
         <td>Booking Rate</td>

@@ -3,6 +3,11 @@
   <h3>
     <%= link_to 'Edit User Profile', edit_user_path(@user) %>
   </h3>
+<%= link_to "Change your password", edit_user_registration_path %>
+  <section class="tab-box-wrapper group">
+  	<!-- TODO MOVE ADD COMMENT AFTER STATUS = COMPLETE -->
+    <%= link_to 'Add Comment', new_comment_path(:user => @user) %>
+  <section class="tab-box-wrapper group">
 
 <section class="group">
   <%= render "spaces/index/space_list" %>

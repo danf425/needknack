@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-#describe PaypalExpressController do
+describe PaypalExpressController do
 
 end

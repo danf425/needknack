@@ -1,18 +1,25 @@
-<form class="sidebar-filters"
-data-remote="true"
-         id="space-index-filter-form">
+<div class="container-fluid1">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Location</a></li>
+          </ul>
 
 
-  <h4 class="sidebar-section-header"></h4>
-    <div class="sidebar-section group">
-     <%= render "spaces/index/map" %>
-    </div>
+    <%= render "spaces/index/map" %>
 
-
-  <h4 class="sidebar-section-header">Price Range</h4>
-    <div class="sidebar-section group">
-      <div class="price-range-wrapper group">
-        <%= tag "input", type: "number",
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Language</a></li>
+          </ul>
+            <ul class="list-group checked-list-box">
+      <%= checkbox_group collection: Space.languages_list,
+                         ul_class:   "checkbox-li",
+                         html_name:  "space_filters[languages]" %>
+                </ul>
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Price</a></li>
+          </ul>
+                <div class="price-range-wrapper group">
+                  <%= tag "input", type: "number",
                   placeholder: "Price min",
                          name: "space_filters[booking_rate_min]",
                         class: "number-input input-small sidebar-half-width" %>
@@ -21,24 +28,18 @@ data-remote="true"
                   placeholder: "Price max",
                          name: "space_filters[booking_rate_max]",
                         class: "number-input input-small sidebar-half-width" %>
-      </div>
-    </div>
-
-
-  <h4 class="sidebar-section-header">Languages</h4>
-    <div class="sidebar-section group">
-       <div class="sidebar-section group">
-      <%= checkbox_group collection: Space.languages_list,
-                         ul_class:   "checkbox-li",
-                         html_name:  "space_filters[languages]" %>
-    </div>
-    </div>
-
-
-
-
-  <h4 class="sidebar-section-header">Dates</h4>
-    <div class="sidebar-section group">
+</div>
+                    <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Distance</a></li>
+          </ul>
+              <select type="text" name="space_filters[distance]" id="space-bedroom-count">
+      <% Space.distance_intervals.each_with_index do |distance, index| %>
+        <option value="<%= distance %>"><%= distance %></option>
+      <% end %>
+          </select><br>
+                  <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Dates</a></li>
+          </ul>
       <h5>Check in</h5><br>
       <%= tag "input", type: "date",
                 placeholder: "Check in",
@@ -51,10 +52,9 @@ data-remote="true"
                        name: "space_filters[end_date]",
                       class: "date-input input-small sidebar-full-width" %>
     </div>
+          </ul>
+            <input type="submit" class="button blue" value="Filter" id="space-index-sidebar-filter-button">
 
-  <h4 class="sidebar-section-header">Features??</h4>
-    <div class="sidebar-section group">
+      </div>
     </div>
-
-  <input type="submit" class="button blue" value="Filter" id="space-index-sidebar-filter-button">
 </form>

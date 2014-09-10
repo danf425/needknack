@@ -16,14 +16,55 @@
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
 
-    <h4 class="sidebar-section-header">Check in</h4>
+    <h4 class="sidebar-section-header">Begin Date</h4>
     <div class="sidebar-section group">
         <input type="date" name="booking[start_date]" class="date-input input-small sidebar-full-width">
     </div>
+    <h4 class="sidebar-section-header">Begin Time</h4>
+    <div class="sidebar-section group">
 
-    <h4 class="sidebar-section-header">Check out</h4>
+        <select type="text" name="booking_filters[start_hour]" id="space-bedroom-count">
+          <% Booking.hour_intervals.each_with_index do |start_hour, index| %>
+          <option value="<%= start_hour %>"><%= start_hour %></option>
+          <% end %>
+        </select>
+        <select type="text" name="booking_filters[start_minute]" id="space-bedroom-count">
+          <% Booking.minute_intervals.each_with_index do |start_minute, index| %>
+          <option value="<%= start_minute %>"><%= start_minute %></option>
+          <% end %>
+        </select>
+        <select type="text" name="booking_filters[start_ampm]" id="space-bedroom-count">
+          <% Booking.ampm_intervals.each_with_index do |start_ampm, index| %>
+          <option value="<%= start_ampm %>"><%= start_ampm %></option>
+          <% end %>
+        </select>
+        <br>
+
+    </div>
+
+    <h4 class="sidebar-section-header">End Date</h4>
     <div class="sidebar-section group">
         <input type="date" name="booking[end_date]" class="date-input input-small sidebar-full-width" input-small sidebar-half-width>
+    </div>
+    <h4 class="sidebar-section-header">End Time</h4>
+    <div class="sidebar-section group">
+
+        <select type="text" name="booking_filters[end_hour]" id="space-bedroom-count">
+          <% Booking.hour_intervals.each_with_index do |end_hour, index| %>
+          <option value="<%= end_hour %>"><%= end_hour %></option>
+          <% end %>
+        </select>
+        <select type="text" name="booking_filters[end_minute]" id="space-bedroom-count">
+          <% Booking.minute_intervals.each_with_index do |end_minute, index| %>
+          <option value="<%= end_minute %>"><%= end_minute %></option>
+          <% end %>
+        </select>
+        <select type="text" name="booking_filters[end_ampm]" id="space-bedroom-count">
+          <% Booking.ampm_intervals.each_with_index do |end_ampm, index| %>
+          <option value="<%= end_ampm %>"><%= end_ampm %></option>
+          <% end %>
+        </select>
+        <br>
     </div>
 
     <input type="hidden" name="booking[space_id]" value="<%= @space.id %>">

@@ -8,25 +8,17 @@ class ApplicationController < ActionController::Base
 
     helper :all
 
-#  def current_booking
-#   session[:booking_id] ||= Booking.create!.id
-#   @current_booking ||= Booking.find(session[:booking_id])
-#  end
-
-# def current_booking 
-#      Rails.logger.info("CURRENTBOOKING: #{@booking_id.inspect}")
-#     Booking.find(session[:booking_id])
-#   rescue ActiveRecord::RecordNotFound 
-#     booking = Booking.create 
-#     session[:booking_id] = booking.id 
-#     booking
-#  end
 
     def current_booking
       Rails.logger.info("CURRENTBOOKING: #{@booking_id.inspect}")
+            Rails.logger.info("This booking: #{@booking.inspect}")
+            Rails.logger.info("This booking: #{@booking.inspect}")
       if session[:booking_id]
         @current_booking ||= Booking.find(session[:booking_id])
-#        session[:booking_id] = nil if @current_booking.created_at
+              Rails.logger.info("CURRENTBOOKING2: #{@booking_id.inspect}")
+            Rails.logger.info("Current: #{@current_booking.inspect}")
+            Rails.logger.info("Current2: #{@current_booking.created_at.inspect}")
+        #session[:booking_id] = nil if @current_booking.created_at
       end
       if session[:booking_id].nil?
         @current_booking = Booking.create!
@@ -34,4 +26,15 @@ class ApplicationController < ActionController::Base
       end
       @current_booking
     end
-  end
+
+
+
+  # before_filter :configure_permitted_parameters, if: :devise_controller?
+
+  # def configure_permitted_parameters
+  #   devise_parameter_sanitizer.for(:account_update) { |u| 
+  #     u.permit(:password, :password_confirmation, :current_password) 
+  #   }
+  # end
+end
+  

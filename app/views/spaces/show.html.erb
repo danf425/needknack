@@ -1,8 +1,14 @@
 <header id="space-show-header">
   <h2 id="space-show-title"> <%= best_in_place @space, :title %></h2>
+<!-- TODO MOVE RATINGS -->
+<!-- TODO ALLOW RATINGS TO ONLY OCCUR WHEN KNACK IS COMPLETE BY NEEDER -->
+Rating:<br>
+<%= rating_for @space, "rating", :star => 5 %>
 
   <h3 id="space-show-info">
-    <%= link_to 'Edit Space', edit_space_path(@space) %>
+    <% if logged_in? && current_user.id == @space.owner_id %>   
+    <%= link_to 'Edit Knack', edit_space_path(@space) %>
+    <% end %>
   </h3>
 </header>
 
@@ -15,7 +21,6 @@
   <section class="tab-box-wrapper group">
     <%= render "spaces/show/description_amenities_house_rules" %>
   </section>
-
 </section>
 
 <%= render "spaces/show/booking_sidebar" %>

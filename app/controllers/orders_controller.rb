@@ -3,6 +3,21 @@ class OrdersController < ApplicationController
   # GET /orders.json
  before_filter :current_booking
 
+ def express_checkout
+        Rails.logger.info("Express_currentbooking: #{@current_booking.inspect}")
+           # Rails.logger.info("Express_booking.id: #{@booking.id.inspect}")
+  Rails.logger.info("Price_in_cents2: #{current_booking.build_order.price_in_cents.inspect}")
+  response = EXPRESS_GATEWAY.setup_purchase(current_booking.build_order.price_in_cents,
+    ip: request.remote_ip,
+    return_url: new_order_url,
+    cancel_return_url: orders_url,
+    currency: "USD",
+    allow_guest_checkout: true,
+    items: [{name: "Order", description: "Order description", quantity: "1", amount: current_booking.build_order.price_in_cents}]
+  )
+  redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
+end
+
   def index
     @orders = Order.all
 
@@ -26,13 +41,20 @@ class OrdersController < ApplicationController
   # GET /orders/new
   # GET /orders/new.json
   def new
-    @order = Order.new
-Rails.logger.info("newparams: #{params.inspect}")
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @order }
-    end
-  end
+   # @order = Order.new
+   Rails.logger.info("New_currentbooking: #{@current_booking.inspect}")
+   @order = Order.new(:express_token => params[:token])
+    @space = Space.find_by_id(@current_booking.space_id)
+   Rails.logger.info("Booking_ID: #{@order.booking_id.inspect}")  
+   Rails.logger.info("Space_ID: #{@space_id.inspect}")  
+   Rails.logger.info("Space: #{@Space.inspect}")  
+
+  Rails.logger.info("New_params: #{params.inspect}")
+#Rails.logger.info("New_express: #{express_token.inspect}")
+Rails.logger.info("New_token: #{@token.inspect}")
+Rails.logger.info("New_order: #{@order.inspect}")
+Rails.logger.info("New_credit: #{@credit_card.inspect}")
+end
 
   # GET /orders/1/edit
   def edit
@@ -41,19 +63,31 @@ Rails.logger.info("newparams: #{params.inspect}")
 
 
   def create
-    @order = @current_booking.build_order(params[:order])
-      Rails.logger.info("Params-create: #{params.inspect}")
+@order = current_booking.build_order(params[:order])
+    Rails.logger.info("Params-create: #{params.inspect}")
+        Rails.logger.info("Booking-create: #{@current_booking.inspect}")
+         Rails.logger.info("Order-create: #{@order.inspect}")
     @order.ip_address = request.remote_ip
-                Rails.logger.info("SaveBefore: #{@order.save.inspect}")
+    Rails.logger.info("SaveBefore: #{@order.save.inspect}")
     if @order.save!
-            Rails.logger.info("Save: #{@order.save.inspect}")
+          Rails.logger.info("Save: #{@order.purchase.inspect}")
+#      if @order.purchase
+        Rails.logger.info("Purchase: #{@order.purchase.inspect}")
+            @space = Space.find_by_id(@current_booking.space_id)
+       @recipient = User.find(@space.owner_id)
+    current_user.send_message(@recipient, "I would like to reserve you.", "I like your knack.")
+
       flash[:notice] = "Succesfully created order."
+      # TODO: CHANGE URL
       redirect_to orders_url
+    #  else
+    #    render :action => "failure"
+     # end
+
     else
-      Rails.logger.info("New: #{params.inspect}")
+      Rails.logger.info("New: #{@order.purchase.inspect}")
       render :action => "new"
     end
-                Rails.logger.info("End: #{params.inspect}")
   end
 
   # PUT /orders/1
@@ -83,29 +117,4 @@ Rails.logger.info("newparams: #{params.inspect}")
       format.json { head :no_content }
     end
   end
-
-
-    def express_checkout
-#   response = EXPRESS_GATEWAY.setup_purchase(order.price_in_cents,
-#   @booking.id = current_booking
-    response = EXPRESS_GATEWAY.setup_purchase(current_booking.build_order.price_in_cents,
-      ip: request.remote_ip,
-    #   return_url: url_for(:action => :create, :only_path => false),
-      return_url: orders_path,
-      cancel_return_url: root_path,
-      currency: "USD",
-      allow_guest_checkout: true,
-  #    items: [{name: "Order", description: "Order description", quantity: "1", amount: AMOUNT_IN_CENTS}]
-    )
-    redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
-  end
-
-  def confirm
-    @order = Order.new
-    @order.express_token = params[:token]
-    respond_to do |format|
-      format.html # confirm.html.erb
-    end
-  end
-  
 end

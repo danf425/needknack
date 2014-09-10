@@ -65,14 +65,13 @@ AirbnbClone::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  config.after_initialize do
-  ActiveMerchant::Billing::Base.mode = :production
-  paypal_options = {
-    login: "needknack_api1.gmail.com",
-    password: "1407339469",
-    signature: "A39oJFra29FUr0nSzbR3noVWYYoVAdZ3ifcUSI8Gj1IfKixUkzisTA0K"
-  }
-  ::STANDARD_GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(paypal_options)
-  ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
+#Paypal
+config.after_initialize do
+  ActiveMerchant::Billing::Base.mode = :test
+  ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+    :login => "needknack.api1.gmail.com",
+    :password => "1407339469",
+    :signature => "A39oJFra29FUr0nSzbR3noVWYYoVAdZ3ifcUSI8Gj1IfKixUkzisTA0K"
+  )
 end
 end
