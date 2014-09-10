@@ -10,6 +10,7 @@
 <% if !comment.user_id.nil? && @user.id == comment.user_id %> 
 <h3 class="dark-gray centered" id="user-show-username">
 	<b>Comment:</b><%= comment.comment %>
+	From: <% @test = User.find_by_id(comment.sender_id) %> <%= @test.full_name %>
 </h3>
 <% end %>
 

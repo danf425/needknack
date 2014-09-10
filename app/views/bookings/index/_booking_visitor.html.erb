@@ -10,6 +10,9 @@
     <td>
       <%= "#{booking.start_date} - #{booking.end_date}" %>
     </td>
+        <td>
+      <%= "#{booking.space.title}" %>
+    </td>
 <td>
 
 </td>
@@ -29,7 +32,7 @@
     <td>
       <%= button_to "Approve", approve_booking_url(booking.id), method: :put %>
     </td>
-    <!-- TODO MESSAGE USER -->
+
     <!-- TODO EDIT BOOKING -->
     <td>
       <%= button_to "Decline", decline_booking_url(booking.id), method: :put %>
@@ -39,6 +42,11 @@
 
      <td> <b><%= statuses[booking_status].upcase %></b>
     </td>
+
+        <% if booking_status == statuses[:declined] %>
+  <td>  TEST DECLINE</td>
+      <% end %>
+    <td>       <%= button_to "Send a message", new_message_path(:user => visitor) %></td>
     <% end %>
 
     </table>

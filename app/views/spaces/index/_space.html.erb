@@ -5,11 +5,11 @@
                 <div class="row">
                     <div class="col-sm-6 col-md-4">
                           <a href=<%= space_url(space.id) %>
-                            <%= image_tag(space.photo_medium, class: "img-rounded img-responsive") %>
     <span class="map-number"><%= space_counter + 1 %></span>
                     </div>
                     <div class="col-sm-6 col-md-8 contentblock">
                         <h4>
+                                                        <%= image_tag(space.avatar.url(:medium), class: "img-rounded img-responsive") %>
                                   <%= link_to space.title, space, method: :get%>
                               </a> <p style="float:right">$      <%= space.booking_rate_daily %><small>/hour</small></p></h4>
                             <small>      <%= space.city %><i class="glyphicon glyphicon-map-marker">
@@ -21,12 +21,13 @@
                             <br /></p>
                             <p><a href="http://www.jquery2dotnet.com"><%= space.owner.first_name %> <%= space.owner.last_name %></a>
                             <br /><button type="button" class="btn btn-primary pull-right">
+                            <!-- TODO ADD RESERVE AND RATING FUNCTION -->
                                 Reserve</button>
                             Rating: 1/10<br>
                             December 3rd, 1996
-                             <% if logged_in? && current_user == @user %>   
-<%= link_to "Delete this listing", space, method: :delete%>
-<% end %>
+                            <% if logged_in? && current_user == space.owner %>   
+                            <%= link_to "Delete this listing", space, method: :delete%>
+                            <% end %>
                     </div>
                 </div>
             </div>

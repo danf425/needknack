@@ -41,11 +41,13 @@ ActiveRecord::Schema.define(:version => 20140827153245659) do
     t.datetime "created_at",                                             :null => false
     t.datetime "updated_at",                                             :null => false
     t.integer  "sender_id"
+    t.integer  "space_id"
   end
 
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
   add_index "comments", ["commentable_type"], :name => "index_comments_on_commentable_type"
   add_index "comments", ["sender_id"], :name => "index_comments_on_sender_id"
+  add_index "comments", ["space_id"], :name => "index_comments_on_space_id"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "mailboxer_conversation_opt_outs", :force => true do |t|

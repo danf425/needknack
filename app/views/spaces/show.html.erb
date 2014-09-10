@@ -3,7 +3,7 @@
 <!-- TODO MOVE RATINGS -->
 <!-- TODO ALLOW RATINGS TO ONLY OCCUR WHEN KNACK IS COMPLETE BY NEEDER -->
 Rating:<br>
-<%= rating_for @space, "rating", :star => 5 %>
+<td><%= rating_for @space, "rating", :star => 5 %></td>
 
   <h3 id="space-show-info">
     <% if logged_in? && current_user.id == @space.owner_id %>   

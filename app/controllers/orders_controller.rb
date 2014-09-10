@@ -4,9 +4,6 @@ class OrdersController < ApplicationController
  before_filter :current_booking
 
  def express_checkout
-        Rails.logger.info("Express_currentbooking: #{@current_booking.inspect}")
-           # Rails.logger.info("Express_booking.id: #{@booking.id.inspect}")
-  Rails.logger.info("Price_in_cents2: #{current_booking.build_order.price_in_cents.inspect}")
   response = EXPRESS_GATEWAY.setup_purchase(current_booking.build_order.price_in_cents,
     ip: request.remote_ip,
     return_url: new_order_url,
@@ -15,6 +12,7 @@ class OrdersController < ApplicationController
     allow_guest_checkout: true,
     items: [{name: "Order", description: "Order description", quantity: "1", amount: current_booking.build_order.price_in_cents}]
   )
+  Rails.logger.info("This response: #{response.inspect}")
   redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
 end
 
@@ -44,12 +42,12 @@ end
    # @order = Order.new
    Rails.logger.info("New_currentbooking: #{@current_booking.inspect}")
    @order = Order.new(:express_token => params[:token])
-    @space = Space.find_by_id(@current_booking.space_id)
+   @space = Space.find_by_id(@current_booking.space_id)
    Rails.logger.info("Booking_ID: #{@order.booking_id.inspect}")  
    Rails.logger.info("Space_ID: #{@space_id.inspect}")  
    Rails.logger.info("Space: #{@Space.inspect}")  
 
-  Rails.logger.info("New_params: #{params.inspect}")
+   Rails.logger.info("New_params: #{params.inspect}")
 #Rails.logger.info("New_express: #{express_token.inspect}")
 Rails.logger.info("New_token: #{@token.inspect}")
 Rails.logger.info("New_order: #{@order.inspect}")
@@ -63,26 +61,27 @@ end
 
 
   def create
-@order = current_booking.build_order(params[:order])
+    @order = current_booking.build_order(params[:order])
     Rails.logger.info("Params-create: #{params.inspect}")
-        Rails.logger.info("Booking-create: #{@current_booking.inspect}")
-         Rails.logger.info("Order-create: #{@order.inspect}")
+    Rails.logger.info("Booking-create: #{@current_booking.inspect}")
+    Rails.logger.info("Order-create: #{@order.inspect}")
     @order.ip_address = request.remote_ip
     Rails.logger.info("SaveBefore: #{@order.save.inspect}")
     if @order.save!
-          Rails.logger.info("Save: #{@order.purchase.inspect}")
-#      if @order.purchase
-        Rails.logger.info("Purchase: #{@order.purchase.inspect}")
-            @space = Space.find_by_id(@current_booking.space_id)
-       @recipient = User.find(@space.owner_id)
-    current_user.send_message(@recipient, "I would like to reserve you.", "I like your knack.")
+      Rails.logger.info("Save: #{@order.inspect}")
+      if @order.purchase
+        Rails.logger.info("OrderC #{@order.inspect}")
+        @space = Space.find_by_id(@current_booking.space_id)
+        @recipient = User.find(@space.owner_id)
+        current_user.send_message(@recipient, "I would like to reserve you.", "I like your knack.")
 
-      flash[:notice] = "Succesfully created order."
-      # TODO: CHANGE URL
-      redirect_to orders_url
-    #  else
-    #    render :action => "failure"
-     # end
+        flash[:notice] = "Succesfully created order."
+
+        current_booking.book
+        redirect_to @space
+      else
+        render :action => "new"
+      end
 
     else
       Rails.logger.info("New: #{@order.purchase.inspect}")

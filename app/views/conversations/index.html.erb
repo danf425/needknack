@@ -12,7 +12,7 @@
        <!-- TODO: ENABLE ORIGINATOR TO ONLY BE SHOWN ONCE, POSSIBLE FOR LOOP IN STORED TEMP ARAY -->
        <!-- <td>  <%= conversation.originator.email %></td> -->
            <% if conversation.originator != current_user %>
-        <td>  From: <%= conversation.originator.full_name %></td>
+        <td>  From:<a href=<%= user_url(conversation.originator.id) %>> <%= conversation.originator.full_name %></a></td>
         <% else %>
         <td> From: Me </td>
         <% end %>

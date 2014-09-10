@@ -186,6 +186,9 @@ end
     if @booking.space.owner_id == current_user.id
       @booking.update_approval_status("complete")
     end
+
+    @order = @booking.build_order(params[:order])
+    Rails.logger.info("Order-create: #{@order.inspect}")
    # @recipient = User.find(@booking.user_id)
   #  current_user.send_message(@recipient, "You have been approved!", "I like your knack.")
     redirect_to(:back)

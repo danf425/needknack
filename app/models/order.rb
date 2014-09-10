@@ -10,7 +10,7 @@ class Order < ActiveRecord::Base
 #  validate_on_create :validate_card
 validate :validate_card, :on => :create
 
-
+=begin
 def purchase
       response = EXPRESS_GATEWAY.purchase(price_in_cents, :ip => ip_address, :token => express_token, :payer_id => express_payer_id)
   Rails.logger.info("Pcredit: #{@credit_card.inspect}")
@@ -23,6 +23,16 @@ def purchase
   response.success?
   
 end
+=end
+
+  def purchase
+    response = EXPRESS_GATEWAY.purchase(price_in_cents, express_purchase_options)
+    transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
+    booking.update_attribute(:created_at, Time.now) if response.success?
+      Rails.logger.info("Response?: #{response.inspect}")
+      Rails.logger.info("Trans: #{transactions.inspect}")
+    response.success?
+  end
 
 def express_token=(token)
  # #  if token.blank? and !self[:express_token].blank? 

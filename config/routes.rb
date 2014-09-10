@@ -8,6 +8,7 @@ AirbnbClone::Application.routes.draw do
 
 
   get "pages/howitworks"
+    get "spaces/confirm"
 #get 'express_checkout', to: 'orders#express_checkout'
 
   get '/order/express_checkout' => "orders#express_checkout", :as => :pay

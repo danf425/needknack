@@ -5,6 +5,7 @@ class OrderTransaction < ActiveRecord::Base
   
   def response=(response)
     self.success       = response.success?
+    Rails.logger.info("Res1: #{response.inspect}")
     self.authorization = response.authorization
     self.message       = response.message
     self.params        = response.params

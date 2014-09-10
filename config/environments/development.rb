@@ -35,7 +35,7 @@ AirbnbClone::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.action_mailer.default_url_options = { :host => "http://loclahost:3000" }
+  config.action_mailer.default_url_options = { :host => "http://localhost:3000" }
 
   Paperclip.options[:command_path] = "/usr/local/bin/"
 

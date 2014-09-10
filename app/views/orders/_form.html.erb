@@ -1,7 +1,8 @@
 <%# title "New Order" %>
-  <form action="<%= book_booking_url(@current_booking.id) %>" method="POST">
+ <!--  <form action="<%= book_booking_url(@current_booking.id) %>" method="POST">
     <input type="hidden" name="_method" value="put">
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  -->
 <%= form_for @order do |f| %>
   <%#= f.error_messages %>
   <% if @order.express_token.blank? %>

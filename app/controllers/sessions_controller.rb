@@ -11,10 +11,10 @@ class SessionsController < ApplicationController
 
     if @user.is_a?(User) && @user.authenticate(params[:user][:password])
       login_user!(@user)
-      redirect_to spaces_url
+      redirect_to root_url
     else
       flash.now[:notices] = ["no matching email/password combination"]
-      @user = User.new(params[:user])
+      @uFser = User.new(params[:user])
       render "new"
     end
   end
