@@ -1,6 +1,8 @@
 class SpacesController < ApplicationController
 
   before_filter :require_current_user!, only: [:new, :create]
+   # autocomplete :brand, :name
+  autocomplete :spaces, :title
 
   def index
 

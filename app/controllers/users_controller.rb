@@ -2,12 +2,16 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    # @comment = Comment.find_by_user_id(current_user.id)
+    @comment = Comment.all
 
+    Rails.logger.info("This comment: #{@comment.inspect}")
     @spaces = @user.spaces.page(selected_page)
   end
 
   def new
     @user = User.new
+
   end
 
   def edit
@@ -40,7 +44,12 @@ class UsersController < ApplicationController
       user_photo = UserPhoto.unattached_photo
       #user_photo.update_attributes(user_id: @user.id)
       login_user!(@user)
-      redirect_to spaces_url
+
+      # Deliver the signup email
+      UserNotifier.confirm_email(@user).deliver
+      Rails.logger.info("Test: #{@user.inspect}")
+      redirect_to(@user, :notice => 'Thank you for signing up!')
+
     else
       flash.now[:errors] = @user.errors
       render :new

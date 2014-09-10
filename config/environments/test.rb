@@ -35,11 +35,15 @@ AirbnbClone::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
-  config.action_mailer.default_url_options = { :host => "http://loclahost:3000" }
+  config.action_mailer.default_url_options = { :host => "http://localhost:3000" }
 
-  config.after_initialize do
+#Paypal
+config.after_initialize do
   ActiveMerchant::Billing::Base.mode = :test
-  ::STANDARD_GATEWAY = ActiveMerchant::Billing::BogusGateway.new
-  ::EXPRESS_GATEWAY = ActiveMerchant::Billing::BogusGateway.new
+  ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+    :login => "needknack.api1.gmail.com",
+    :password => "1407339469",
+    :signature => "A39oJFra29FUr0nSzbR3noVWYYoVAdZ3ifcUSI8Gj1IfKixUkzisTA0K"
+  )
 end
 end

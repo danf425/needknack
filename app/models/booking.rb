@@ -1,7 +1,7 @@
 class Booking < ActiveRecord::Base
   attr_accessible :user_id, :space_id, :start_date, :end_date,
                   :approval_status, :total, :service_fee,
-                  :booking_rate_daily 
+                  :booking_rate_daily , :start_hour, :start_minute, :start_ampm, :end_hour, :end_minute, :end_ampm
   #:guest_count
 
   validates_presence_of :user_id, :space_id, :start_date, :end_date,
@@ -21,24 +21,65 @@ has_one :order
              unbooked:  0,
               pending:  1,
              approved:  2,
+            completed:  3,
                   -4 => "canceled_by_user",
                   -3 => "canceled_by_owner",
                   -2 => "timeout",
                   -1 => "declined",
                    0 => "unbooked",
                    1 => "pending",
-                   2 => "approved"}
+                   2 => "approved",
+                   3 => "completed"}
   end
+
+  def self.hour_intervals
+  ["1","2","3","4","5","6","7","8","9","10","11","12"]
+end
+
+def self.minute_intervals
+  ["00","15","30","45"]
+end
+
+def self.ampm_intervals
+  ["AM", "PM"]
+end
 
   ############# BOOKING COST CALCULATIONS ###################################
 
   def night_count
-            Rails.logger.info("PARAMS: #{end_date.inspect}")
-    (self.end_date - self.start_date).to_i
+            Rails.logger.info("End_date: #{end_date.inspect}")
+   (self.end_date - self.start_date).to_i
+  
   end
 
+  def self.start_math(start_hour, start_minute, start_ampm)
+
+    if (start_ampm == 'AM')
+      ampm_var = 0
+      minute_var = start_minute.to_i * 60
+      hour_var = start_hour.to_i * 3600
+
+      start_total = minute_var + hour_var
+
+      Rails.logger.info("StartTIME: #{start_total.inspect}")
+    elsif (start_ampm == 'PM')
+      ampm_var = 12 * 3600
+      minute_var = start_minute.to_i * 60
+      hour_var = start_hour.to_i * 3600
+
+      start_total = minute_var + hour_var + ampm_var
+    else
+
+    end
+    return start_total
+  end
+def total_t
+  (self.end_time.to_f - self.start_time.to_f) /3600
+end
+
+# NEED TO FIX
   def subtotal
-    self.booking_rate_daily * self.night_count
+    self.booking_rate_daily * self.total_t.to_f
   end
 
   def service_fee
@@ -107,6 +148,7 @@ has_one :order
   end
 
   def book
+    Rails.logger.info("THIS IS BOOK")
     if overlapping_requests(:approved).empty?
       self.set_approval_status(Booking.approval_statuses[:pending])
     end
@@ -115,6 +157,13 @@ has_one :order
   def approve
     self.set_approval_status(Booking.approval_statuses[:approved])
     self.decline_conflicting_pending_requests!
+
+    #@recipient = Booking.find(@space.owner_id)
+   
+  end
+
+    def complete
+    self.set_approval_status(Booking.approval_statuses[:completed])
   end
 
 end

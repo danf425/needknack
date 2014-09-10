@@ -5,8 +5,8 @@
   <script type="application/json" id="bootstrap">
     <%= @spaces.to_json.html_safe %>
   </script>
-
+<div class="container-results">
   <%= render partial:"spaces/index/space", collection: @spaces %>
   <li><%= paginate @spaces %></li>
-
+</div>
 </ul>
