@@ -1,0 +1,24 @@
+dfdf
+
+<p id="notice">
+  <%= notice %>
+</p>
+<p>
+  <b>User:</b>
+  <%= @comment.user %>
+</p>
+<p>
+  <b>Title:</b>
+  <%= @comment.title %>
+</p>
+<p>
+  <b>Body:</b>
+  <%= @comment.comment %>
+</p>
+<p>
+  <b>Commentable type:</b>
+  <%= @comment.commentable_type %>
+</p>
+<%= link_to 'Edit', edit_comment_path(@comment) %>
+
+<%=link_to 'Back', comments_path %>

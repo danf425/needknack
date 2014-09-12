@@ -1,0 +1,128 @@
+/* CLEAR STUFF */
+
+.button, select, input {
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+label {
+  color: rgb(90,90,90);
+  display: inline-block;
+  width: 200px;
+  text-align: right;
+  margin-right: 4px;
+}
+
+label.top {
+  vertical-align: top;
+  padding-top: 8px;
+}
+
+.button, select {
+  font-size: 15px;
+  border-radius: 2px;
+  margin: 6px 0px;
+}
+
+.textarea {
+  font-size: 15px;
+  border: 1px solid rgb(204,204,204);
+  margin: 4px 0;
+  color: #252b31;
+}
+
+input:focus, textarea:focus {
+  border: 1px solid #D76D99;
+  outline: 1px solid #DF67A2;
+}
+
+.input-large {
+  padding: 10px 19px;
+}
+
+.input-medium {
+  padding: 4.4px 9.9px;
+}
+
+.input-small {
+  padding: 3px;
+}
+
+.input-long {
+  width: 300px;
+}
+
+/* BUTTONS */
+
+.button, select {
+  font-weight: bold;
+  border-radius: 2px;
+  margin: 6px 0px;
+  border: 0;
+  outline: 0;
+}
+
+.button:focus {
+  border: 0;
+  outline: 0;
+}
+
+.label-offset-button {
+  margin-left: 207px;
+  display: inline-block;
+}
+
+/* TEXT INPUT */
+
+.text-input {
+  display: inline-block;;
+  background: white;
+  outline: none;
+}
+
+/* TEXTAREA */
+
+textarea {
+
+}
+
+/* DATE INPUT */
+
+.date-input {
+  -webkit-appearance: none;
+}
+
+.date-input::-webkit-inner-spin-button {
+  display: none;
+}
+
+/* SELECT INPUT */
+
+select {
+  background: #DDD;
+  -webkit-appearance: none;
+  padding: 9px 18px;
+  border: 1px solid gray;
+  border-radius: 2px;
+  background: url(down-arrow.png) no-repeat right #ddd;
+  padding-right: 33px;
+  width: 100%;
+}
+
+/* NUMBER INPUT */
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* checkbox */
+
+
+.checkbox-li {
+  width: 250px;
+  display: inline-block;
+  float: left;
+}

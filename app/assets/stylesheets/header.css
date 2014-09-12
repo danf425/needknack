@@ -1,0 +1,119 @@
+@charset "UTF-8";
+@import url("font-awesome.min.css");
+@import url("http://fonts.googleapis.com/css?family=Lato:300,400,900");
+
+#site-logo {
+  color: #FFFFFF !important;
+  display: inline;
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 15pt;
+  font-weight: 300;
+  letter-spacing: 0.025em;
+  line-height: 1.75em;
+}
+
+#site-header {
+  background-color: #1c2125;
+  height: 65px;
+  width: 100%;
+  min-width: 768px;
+  border-bottom: 1px solid #1c2125;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+#user-nav {
+  height: 45px;
+  position: relative;
+}
+
+#user-nav > ul {
+}
+
+#user-nav > ul > li {
+  float: left;
+  height: 45px;
+  line-height: 45px;
+  vertical-align: middle;
+}
+
+#user-nav > #user-dropdown {
+  position: absolute;
+  display: none;
+  top: 45px;
+  right: 0px;
+  z-index: 10;
+}
+
+#user-nav > #user-dropdown > li > a {
+  color: black;
+}
+
+#user-nav:hover {
+  background: #EEEEEE;
+  border-radius: 5px;
+}
+
+#user-nav:hover > #user-dropdown {
+  display: block;
+}
+
+#user-nav:hover > #user-dropdown > li {
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  width: 138px;
+  height: 31px;
+}
+
+#user-nav:hover > #user-dropdown > li:first-child {
+  border-top: 1px solid #ccc;
+}
+
+#user-nav:hover > #user-dropdown > li > a {
+  padding-left: 10px;
+  line-height: 31px;
+  vertical-align: middle;
+  background: white;
+  display: block;
+  float: none;
+  border-top: 0;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#user-nav:hover > #user-dropdown > li > a:first-child {
+}
+
+#user-nav:hover > #user-dropdown > li > a:hover {
+  background: #00b0ff;
+  color: white;
+}
+
+#header-button {
+  color: #fff;
+  background-color: #428bca;
+  border-color: #357ebd;
+  border-radius: 3px;
+
+}
+
+#header-search-input {
+  border-radius: 0px;
+  color: #17063A;
+  font-size: 12px;
+  width: 280px;
+}
+
+#sign-up-header, #log-in-header, #username {
+  color: #FFFFFF;
+  text-transform: capitalize;
+  font-size: inherit;
+  padding-right: 10px;
+  padding-left:  10px;
+}
+
+#header-user-image {
+  margin-top: 0px;
+}

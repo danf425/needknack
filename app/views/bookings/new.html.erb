@@ -1,0 +1,16 @@
+
+<div class="group" id="itinerary">
+
+  <h1 class="page-header">Your Trip</h1>
+
+  <%= render "bookings/shared/itinerary" %>
+ 
+<p>
+
+  <%= link_to "Checkout", new_order_path %>
+</p>
+<!-- TODO CHANGE PAYMENT TO ONLY CHARGE AFTER KNACKER SELECT COMPLETE FOR STATUS -->
+<p>
+  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), pay_path %>
+</p>
+</div>

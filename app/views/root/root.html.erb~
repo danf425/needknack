@@ -1,0 +1,22 @@
+<div id="splash-container">
+  <!--<img src="<%= Space.random_space_with_photo.url %>" id="splash">-->
+
+  <div class="group" id="root-page-search-bar-container">
+    <h1>Find a place to stay.</h1>
+    <h3>Rent from over 20 fake users</h3>
+    <form action="<%= spaces_url %>" class="group" id="root-page-search-bar">
+
+      <%= tag "input", type: "text",
+                placeholder: "Where do you want to go? (NYC suggested)",
+                       name: "space_filters[city]",
+                      class: "text-input input-large",
+                         id: "root-input-city-name" %>
+
+      <%= select_numerical_given_options(html_name: "space_filters[guest_count]",
+                                       plural_noun: "guests") %>
+
+      <input type="submit" value="Search" class="button blue input-large" id="search-button">
+
+    </form>
+  </div>
+</div>

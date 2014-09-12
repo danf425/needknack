@@ -1,0 +1,21 @@
+<div class="tab-box group">
+
+  <section class="tab">
+    <input type="radio" name="description-amenities-house-rules-tabs" id="description-tab-button">
+    <label for="description-tab-button">Description</label>
+      <%= render "spaces/show/description_tab" %>
+  </section>
+
+  <section class="tab">
+    <input type="radio" name="description-amenities-house-rules-tabs" id="amenities-tab-button" checked>
+    <label for="amenities-tab-button">Amenities</label>
+      <%= render "spaces/show/amenities" %>
+  </section>
+
+  <section class="tab">
+    <input type="radio" name="description-amenities-house-rules-tabs" id="house-rules-tab-button">
+    <label for="house-rules-tab-button">House rules</label>
+      <%= render "spaces/show/house_rules" %>
+  </section>
+
+</div>

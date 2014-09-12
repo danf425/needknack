@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>neednack</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "autocomplete-rails.js" %>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag 'autocomplete-rails.js', 'rails.js', 'jquery-ui.min.js' %> 
+  <%= csrf_meta_tags %>
+  <%= yield :head %>
+</head>
+<body>
+
+  <%= render "header/header" %>
+
+  <% if flash[:errors] || flash[:notices] %>
+    <div class="group" id='errors-notices'>
+      <%= render "header/flash_errors" %>
+      <%= render "header/flash_notices" %>
+    </div>
+  <% end %>
+
+  <% unless params[:controller] == "root" %>
+
+      <%= yield %>
+
+  <% else %>
+      <%= yield %>
+  <% end %>
+
+</body>
+</html>
