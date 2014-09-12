@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
- 
+  
+  before_filter :authenticate_user!
   # GET /message/new
   def new
     @user = User.find(params[:user])

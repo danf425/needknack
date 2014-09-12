@@ -1,7 +1,8 @@
 class BookingsController < ApplicationController
 
-  before_filter :require_current_user!
-
+#  before_filter :require_current_user!
+  before_filter :authenticate_user!, :except => [:show, :index]
+  
   def index
     Rails.logger.info("Params for index: #{params.inspect}")
     Rails.logger.info("SpaceID: #{@space_id.inspect}")

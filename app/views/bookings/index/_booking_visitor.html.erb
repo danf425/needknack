@@ -3,7 +3,7 @@
   <table>
     <% visitor = booking_visitor.user %>
     <% booking = booking_visitor %>
-       <% if logged_in? && current_user == booking.space.owner %> 
+       <% if signed_in? && current_user == booking.space.owner %> 
     <td>
       <%= "#{visitor.first_name} #{visitor.last_name}" %>
     </td>

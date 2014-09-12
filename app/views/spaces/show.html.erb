@@ -6,7 +6,7 @@ Rating:<br>
 <%= rating_for @space, "rating", :star => 5 %>
 
   <h3 id="space-show-info">
-    <% if logged_in? && current_user.id == @space.owner_id %>   
+    <% if signed_in? && current_user.id == @space.owner_id %>   
     <%= link_to 'Edit Knack', edit_space_path(@space) %>
     <% end %>
   </h3>

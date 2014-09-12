@@ -7,8 +7,7 @@ class ApplicationController < ActionController::Base
   include BookingsHelper
 
     helper :all
-
-
+      
     def current_booking
       Rails.logger.info("CURRENTBOOKING: #{@booking_id.inspect}")
             Rails.logger.info("This booking: #{@booking.inspect}")

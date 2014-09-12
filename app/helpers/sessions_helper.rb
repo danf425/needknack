@@ -5,11 +5,6 @@ module SessionsHelper
 #         Rails.logger.info("CURRENT2: #{session.inspect}")
 #   end
 
-  def logged_in?
-    !!current_user
-    Rails.logger.info("User: #{current_user.inspect}")
-  end
-
   def main_page
     current_page?('/')
   end
@@ -23,9 +18,9 @@ module SessionsHelper
     session[:session_token] = nil
   end
 
-  def require_current_user!
-    redirect_to new_session_url if current_user.nil?
-  end
+  # def require_current_user!
+  #   redirect_to new_session_url if current_user.nil?
+  # end
 
   def require_no_current_user!
     redirect_to user_url(current_user) unless current_user.nil?

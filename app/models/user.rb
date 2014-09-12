@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
                   :avatar, :first_name, :last_name, :photo_url, :session_token,
                   :description
   attr_accessible :provider, :uid
+#  attr_accessible :current_password
   # Setup accessible (or protected) attributes for your model
 
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"

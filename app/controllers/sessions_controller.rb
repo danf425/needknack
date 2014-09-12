@@ -33,8 +33,8 @@
 
 # end
 
-class SessionsController < Devise::SessionsController
+#class SessionsController < Devise::SessionsController
 
 # #your session logic here
 
-end
+#end

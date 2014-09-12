@@ -25,7 +25,7 @@
                                 Reserve</button>
                             Rating: 1/10<br>
                             December 3rd, 1996
-                            <% if logged_in? && current_user == space.owner %>   
+                            <% if signed_in? && current_user == space.owner %>   
                             <%= link_to "Delete this listing", space, method: :delete%>
                             <% end %>
                     </div>

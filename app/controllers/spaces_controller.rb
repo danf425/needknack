@@ -1,6 +1,7 @@
 class SpacesController < ApplicationController
 
-  before_filter :require_current_user!, only: [:new, :create]
+#  before_filter :require_current_user!, only: [:new, :create]
+  before_filter :authenticate_user!, :except => [:show, :index]
    # autocomplete :brand, :name
   autocomplete :spaces, :title
 
