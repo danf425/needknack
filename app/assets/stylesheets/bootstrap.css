@@ -262,9 +262,8 @@ th {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-
-  src: url('../fonts/glyphicons-halflings-regular.eot');
-  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('/assets/glyphicons-halflings-regular.eot');
+  src: url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/assets/glyphicons-halflings-regular.woff') format('woff'), url('/assets/glyphicons-halflings-regular.ttf') format('truetype'), url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
@@ -910,13 +909,13 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #428bca;
+  color: #252b31;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #2a6496;
-  text-decoration: underline;
+  color: #2e3641;
+  text-decoration: none;
 }
 a:focus {
   outline: thin dotted;
@@ -4824,7 +4823,7 @@ a.thumbnail.active {
   list-style: none;
 }
 .list-group {
-  padding-left: 0;
+  padding-left: 20px;
   margin-bottom: 20px;
 }
 .list-group-item {

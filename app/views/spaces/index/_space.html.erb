@@ -1,36 +1,40 @@
+<div class="knackbox">
+
+    <div class="customwell well-sm">
 
 
-          <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-4">
-                          <a href=<%= space_url(space.id) %>
-    <span class="map-number"><%= space_counter + 1 %></span>
-                    </div>
-                    <div class="col-sm-6 col-md-8 contentblock">
-                        <h4>
-                                                        <%= image_tag(space.avatar.url(:medium), class: "img-rounded img-responsive") %>
-                                  <%= link_to space.title, space, method: :get%>
-                              </a> <p style="float:right">$      <%= space.booking_rate_daily %><small>/hour</small></p></h4>
-                            <small>      <%= space.city %><i class="glyphicon glyphicon-map-marker">
-                        </i></small><br>
-                        <p><br><br>
+        <div class="row">
+
+            <div class="col-sm-6 col-md-4">
+                <a href=<%= space_url(space.id) %> class="img-roundedcustom">
+                    <%= image_tag(space.avatar.url(:medium), class: "img-roundedcustom") %>
+                </a>
+            </div>
+
+        <div class="col-sm-6 col-md-8 contentblock">
+            <p class="knacktitle" style="float:left">
+                <%= link_to space.title, space, method: :get%><p style="float:right">
+                <strong>$<%= space.booking_rate_daily %></strong><small>/hour</small></p><div style="clear: both;"></div>
+            </p>
+            <p><small><%= space.city %><i class="glyphicon glyphicon-map-marker"></i></small></p>
+                        <div class="knackdes">
+                            <div class="knackheader"><small><b>KNACK INFO:</b></small></div>
                             <%= space.description %>
+                        </div>
 
-                            <br />
-                            <br /></p>
-                            <p><a href="http://www.jquery2dotnet.com"><%= space.owner.first_name %> <%= space.owner.last_name %></a>
+                            <div class="knackinfo"><a href="http://www.jquery2dotnet.com"><%= space.owner.first_name %> <%= space.owner.last_name %></a>
                             <br /><button type="button" class="btn btn-primary pull-right">
-                            <!-- TODO ADD RESERVE AND RATING FUNCTION -->
                                 Reserve</button>
                             Rating: 1/10<br>
-                            December 3rd, 1996
-                            <% if signed_in? && current_user == space.owner %>   
-                            <%= link_to "Delete this listing", space, method: :delete%>
-                            <% end %>
-                    </div>
-                </div>
-            </div>
-        </div>
+                            December 3rd, 1996</div>
+                             <% if signed_in? && current_user == space.owner %>
+<%= link_to "Delete this listing", space, method: :delete%>
+<% end %>
+</div>
+</div>
+</div>
+
+
+</div>
 
 

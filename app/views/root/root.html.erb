@@ -1,7 +1,65 @@
-<div id="splash-container">
-  <!--img src="<!%= Space.random_space_with_photo.url %>" id="splash"-->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h1 class="brand-heading">Find <b>Your</b> Knack</h1>
+                          <form action="<%= spaces_url %>" class="group" id="form" method="get">
+    <div class="form-group">
+      <%= tag "input", type: "text",
+                placeholder: "What? (Guitar, Dance, etc...)",
+                       name: "space_filters[title]",
+                      class: "form-control",
+                         id: "exampleInputEmail1" %>
+      </div>
+      <div class="form-group">
+      <%= tag "input", type: "text",
+                placeholder: "Where? (New York City, Boston, etc...)",
+                       name: "space_filters[city]",
+                      class: "form-control",
+                         id: "exampleInputPassword1" %>
+      </div>
+<input type="submit" value="Search" class="btn btn-default" id="search-button">
 
-  <div class="group" id="root-page-search-bar-container">
+    </form>
+
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; needknack 2014</p>
+        </div>
+    </footer>
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/grayscale.js"></script>
+
+
+
+<!--<div class="site-wrapper">
+  <img src="<!%= Space.random_space_with_photo.url %>" id="splash">
+
+  <div class="site-wrapper-inner" id="root-page-search-bar-container">
     <h1><%= link_to "How Does it work?", pages_howitworks_path, method: :get, id: ".howitworks" %></h1>
     <h3>Find a knack wherever you go.</h3>
     <form action="<%= spaces_url %>" class="group" id="root-page-search-bar" method="get">
@@ -28,4 +86,4 @@
   an ability, talent, or special skill needed to do something.
   </body>
   </div>
-</div>
+</div>-->

@@ -25,10 +25,11 @@ label.top {
   margin: 6px 0px;
 }
 
-input, textarea {
+.textarea {
   font-size: 15px;
   border: 1px solid rgb(204,204,204);
   margin: 4px 0;
+  color: #252b31;
 }
 
 input:focus, textarea:focus {
@@ -106,6 +107,7 @@ select {
   border-radius: 2px;
   background: url(down-arrow.png) no-repeat right #ddd;
   padding-right: 33px;
+  width: 100%;
 }
 
 /* NUMBER INPUT */

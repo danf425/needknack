@@ -11,6 +11,9 @@ class MessagesController < ApplicationController
 
    @conversations ||= (current_user.mailbox.sentbox | current_user.mailbox.inbox)
 @ongoing_conversation = current_user.mailbox.inbox.participant(current_user).participant(@recipient)
+if @ongoing_conversation.empty?
+  @ongoing_conversation = current_user.mailbox.inbox.participant(@recipient).participant(current_user)
+end
 
    @test
    @receipt.each do | r |

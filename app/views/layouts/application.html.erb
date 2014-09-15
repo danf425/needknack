@@ -3,9 +3,7 @@
 <head>
   <title>neednack</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "autocomplete-rails.js" %>
   <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag 'autocomplete-rails.js', 'rails.js', 'jquery-ui.min.js' %> 
   <%= csrf_meta_tags %>
   <%= yield :head %>
 </head>
@@ -21,9 +19,9 @@
   <% end %>
 
   <% unless params[:controller] == "root" %>
-    <div class="main group">
+
       <%= yield %>
-    </div>
+
   <% else %>
       <%= yield %>
   <% end %>
