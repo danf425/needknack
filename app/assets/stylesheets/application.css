@@ -15,19 +15,18 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-body,h1,h2,h3,h4,h5,h6,p,img,a,ul,li,header,nav,img,main,section {
+body,h1,h2,h3,h4,h5,h6,img,a,ul,li,header,nav,img,main,section {
   margin: 0;
   padding: 0;
   border: 0;
   font-size: 100%;
-  font: inherit;
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
+  color: #FFFFFF;
   vertical-align: baseline;
   text-decoration: none;
   list-style-type: none;
   -webkit-font-smoothing: antialiased
 }
-
 .group:after {
   content: "";
   clear: both;
@@ -93,6 +92,7 @@ body {
   height: 45px;
   vertical-align: middle;
   line-height: 45px
+
 }
 
 nav > ul > li {

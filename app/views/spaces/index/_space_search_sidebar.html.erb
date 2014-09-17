@@ -1,5 +1,73 @@
 <div class="container-fluid1">
-        <div class="col-sm-3 col-md-2 sidebar">
+<div class="col-sm-3 col-md-2 sidebar">
+
+<form class="sidebar-filters"
+data-remote="true"
+         id="space-index-filter-form">
+
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#"><p class="navheader">Location</p></a></li>
+          </ul>
+
+    <%= render "spaces/index/map" %>
+
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#"><p class="navheader">Language</p></a></li>
+
+            <ul class="list-group checked-list-box">
+      <%= checkbox_group collection: Space.languages_list,
+                         ul_class:   "checkbox-li",
+                         html_name:  "space_filters[languages]" %>
+                </ul></ul>
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#"><p class="navheader">Price</p></a></li>
+          </ul>
+                <div class="row price-range-wrapper">
+                  <div class="col-lg-6" style="padding: 2px">
+                  <%= tag "input", type: "number",
+                  placeholder: "MINIMUM",
+                         name: "space_filters[booking_rate_min]",
+                        class: "form-control" %></div>
+
+                  <div class="col-lg-6" style="padding: 2px">
+        <%= tag "input", type: "number",
+                  placeholder: "MAXIMUM",
+                         name: "space_filters[booking_rate_max]",
+                        class: "form-control" %></div>
+                </div>
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#"><p class="navheader">Distance</p></a></li>
+          </ul>
+          <select type="text" name="space_filters[distance]" id="space-bedroom-count">
+            <% Space.distance_intervals.each_with_index do |distance, index| %>
+            <option value="<%= distance %>"><%= distance %></option>
+            <% end %>
+          </select>
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#"><p class="navheader">Dates</p></a></li>
+          </ul>
+      <p style="color:#FFFFFF">Check in</p>
+      <p><%= tag "input", type: "date",
+                placeholder: "Check in",
+                       name: "space_filters[start_date]",
+                      class: "date-input input-small sidebar-full-width" %></p>
+
+      <p style="color:#FFFFFF">Check out</p>
+      <p><%= tag "input", type: "date",
+                placeholder: "Check out",
+                       name: "space_filters[end_date]",
+                      class: "date-input input-small sidebar-full-width" %></p>
+<br>
+                      <input type="submit" class="btn btn-primary" value="Filter" id="space-index-sidebar-filter-button"><br>
+    </div>
+    </form>
+      </div>
+</div>
+
+
+
+
+<!--        <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Location</a></li>
           </ul>
@@ -57,4 +125,5 @@
 
       </div>
     </div>
-</form>
+</form> -->
+

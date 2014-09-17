@@ -9,9 +9,9 @@
   </ul>
   <ul id="user-dropdown">
     <li><%= link_to "Profile", current_user, method: :get %></li>
-    <li><%= link_to "Manage Your Knacks", bookings_url, method: :get %></li>
-    <li><%= link_to content_tag(:span, "My Messages #{current_user.mailbox.receipts.where({:is_read => false}).count(:id, :distinct => true).to_s}"), conversations_path, method: :get %> <span class="badge">1</span></li>
-
-    <li><%= link_to "Log out", destroy_user_session_path %>%></li>
+    <li><%= link_to "Reservations", bookings_url, method: :get %></li>
+    <li><%= link_to content_tag(:span, "Messages #{current_user.mailbox.receipts.where({:is_read => false}).count(:id, :distinct => true).to_s}"), conversations_path, method: :get %> <span class="badge">1</span></li>
+    <li><%= link_to "Settings", users_settings_path, method: :get %></li>
+    <li><%= link_to "Log out", destroy_user_session_path %></li>
   </ul>
 </li>

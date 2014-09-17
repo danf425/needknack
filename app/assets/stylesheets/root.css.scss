@@ -1,6 +1,8 @@
 @charset "UTF-8";
 @import url("font-awesome.min.css");
 @import url("http://fonts.googleapis.com/css?family=Lato:300,400,900");
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
 // Place all the styles related to the root controller here.
 // They will automatically be included in application.css.
@@ -21,10 +23,9 @@
 }
 
 #root-page-search-bar-container {
-  position: absolute;
-  min-width: 615px;
-  top: 150px;
-  right: 200px
+
+  vertical-align: middle;
+  
 }
 
 #root-page-search-bar-container > h1, h3 {

@@ -5,14 +5,23 @@ AirbnbClone::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" } 
   devise_for :users do 
     get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
-  end
+ end
+
 
   match '/auth/:provider/callback' => 'authentications#create'
 
   match '/rate' => 'rater#create', :as => 'rate'
 
   get '/pages/howitworks'
+  get '/users/settings'
   get '/spaces/confirm'
+  
+  devise_scope :user do 
+ #      root :to => 'devise/registrations#new'
+       match '/settings' => 'registrations#settings', as: :settings
+  end 
+
+  
 
   get '/spaces/autocomplete_spaces_title'
   
@@ -25,8 +34,6 @@ AirbnbClone::Application.routes.draw do
   end
 
   root :to => 'root#root'
-
-#  root :to => "home#index"
 
   resources :comments
 

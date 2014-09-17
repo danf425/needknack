@@ -44,9 +44,9 @@ class User < ActiveRecord::Base
   authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
 
-  def password_required?
-    (authentications.empty? || !password.blank?) && super
-  end
+  # def password_required?
+  #   (authentications.empty? || !password.blank?) && super
+  # end
 
   def full_name 
     first_name + " " + last_name 
@@ -125,10 +125,10 @@ class User < ActiveRecord::Base
   end
 
 
-  protected 
-    def password_required? 
-    true 
-  end 
+  # protected 
+  #   def password_required? 
+  #   true 
+  # end 
 
 
 

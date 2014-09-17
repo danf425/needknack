@@ -141,13 +141,16 @@ end
   def self.find_with_filters(filters)
 
     filtered_spaces = Space
-
+    Rails.logger.info("Dope: #{filters.inspect}")
     if  filters[:distance] && filters[:distance].length > 0
 
 
       distance_num = filters[:distance].to_i
-      Rails.logger.info("Distance: #{distance_num.inspect}")
+      Rails.logger.info("Distancez: #{distance_num.inspect}")
+      cityy = filters[:city]
+      Rails.logger.info("CIT: #{cityy.inspect}" )
       filtered_spaces = filtered_spaces.near(filters[:city], distance_num)
+      Rails.logger.info("Filter: #{filtered_spaces.inspect}")
 
     elsif filters[:city] && filters[:city].length > 0
       
