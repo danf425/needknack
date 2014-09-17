@@ -4,7 +4,7 @@ class Comment < ActiveRecord::Base
 
   belongs_to :commentable, :polymorphic => true
 
-  attr_accessible :comment, :title, :user_id, :sender_id
+  attr_accessible :comment, :title, :user_id, :sender_id, :space_id
   default_scope -> { order('created_at ASC') }
 
   # NOTE: install the acts_as_votable plugin if you
