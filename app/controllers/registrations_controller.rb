@@ -1,6 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-   
-<<<<<<< HEAD
+
    def setting 
      # @user = User new
      # render action: :settings
@@ -11,8 +10,6 @@ class RegistrationsController < Devise::RegistrationsController
             render file: 'public/404', status: 404, formats: [:html]
          end 
    end
-=======
->>>>>>> Sept17Brian
   
    def update
      @user = User.find(current_user.id)
