@@ -43,15 +43,6 @@ end
    Rails.logger.info("New_currentbooking: #{@current_booking.inspect}")
    @order = Order.new(:express_token => params[:token])
    @space = Space.find_by_id(@current_booking.space_id)
-   Rails.logger.info("Booking_ID: #{@order.booking_id.inspect}")  
-   Rails.logger.info("Space_ID: #{@space_id.inspect}")  
-   Rails.logger.info("Space: #{@Space.inspect}")  
-
-   Rails.logger.info("New_params: #{params.inspect}")
-#Rails.logger.info("New_express: #{express_token.inspect}")
-Rails.logger.info("New_token: #{@token.inspect}")
-Rails.logger.info("New_order: #{@order.inspect}")
-Rails.logger.info("New_credit: #{@credit_card.inspect}")
 end
 
   # GET /orders/1/edit

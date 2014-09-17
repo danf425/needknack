@@ -22,10 +22,23 @@
                             <%= space.description %>
                         </div>
 
+<<<<<<< HEAD
                             <div class="knackinfo"><a href="http://www.jquery2dotnet.com"><%= space.owner.first_name %> <%= space.owner.last_name %></a>
                             <br /><button type="button" class="btn btn-primary pull-right">
                                 Reserve</button>
                             Rating: 1/10<br>
+=======
+                            <div class="knackinfo"><a href=<%= user_url(space.owner_id) %>><%= space.owner.first_name %> <%= space.owner.last_name %></a>
+                            <br /> <a href=<%= space_url(space.id) %> ><button type="button" class="btn btn-primary pull-right">
+                                Reserve</button></a>
+                            Rating: 
+                            <% @rate = Rate.find_by_rateable_id(space.id) %>
+                            <% if !@rate.nil? %>
+                                <%= @rate.stars %>/5.0<br>
+                                <% else %>
+                                No ratings yet <br>
+                                <% end %>
+>>>>>>> Sept17Brian
                             December 3rd, 1996</div>
                              <% if signed_in? && current_user == space.owner %>
 <%= link_to "Delete this listing", space, method: :delete%>

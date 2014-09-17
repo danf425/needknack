@@ -7,8 +7,9 @@
     <% @comment_by_sender = Comment.find_by_user_id_and_sender_id(booking_space.space.owner.id,current_user.id) %>
     <% @comment_by_receiver = Comment.find_by_sender_id(current_user.id) %>
     <% if booking_status == statuses[:completed] && @comment_by_sender.nil? %>
-   <br> <%= link_to 'Write a review', new_comment_path(:user => booking_space.space.owner.id) %>
+   <br> <%= link_to 'Write a review', new_comment_path(:user => booking_space.space.owner.id, :space => booking_space.space) %>
 <% end %>
+<!-- ADD RATING -->
   </td>
   <td>
     <%= link_to "#{booking_space.space.title}, #{booking_space.space.city}",

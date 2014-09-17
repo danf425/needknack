@@ -14,6 +14,10 @@
       </ul>
     </div>
   <% end %>
+  <div>
+    Please rate this knack <br>
+<%= rating_for @space, "rating", :star => 5 %>
+  </div>
   <div class="field">
     <%= f.label :title %>
     <br/>
@@ -23,12 +27,14 @@
 
 <%= f.hidden_field :user_id, :value => @user.id %>
 <%= f.hidden_field :sender_id, :value => current_user.id %>
-    <%= f.label :comment %>
+<%= f.hidden_field :space_id, :value => @space.id %>
+    <%= f.label :comment, "How was your experience?" %>
+
     <br/>
     <%= f.text_area :comment %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit Review" %>
   </div>
 <% end %>
