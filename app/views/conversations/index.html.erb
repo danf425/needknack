@@ -1,37 +1,30 @@
 <h1>Inbox</h1>
 <table class="table table-striped">
   <tbody>
-  <% @conversations.each do |conversation| %>
-  <tr>
+    <% @conversations.each do |conversation| %>
+    <tr>
       <!--% if conversation.originator != current_user %-->
 
-        <td>
-            <div class="navlogo">
+      <td>
+        <div class="navlogo">
 
-            </div>
-       <!-- TODO: ENABLE ORIGINATOR TO ONLY BE SHOWN ONCE, POSSIBLE FOR LOOP IN STORED TEMP ARAY -->
-       <!-- <td>  <%= conversation.originator.email %></td> -->
-           <% if conversation.originator != current_user %>
-        <td>  From:<a href=<%= user_url(conversation.originator.id) %>> <%= conversation.originator.full_name %></a></td>
+        </div>
+        <% @message = conversation.messages.first %>
+        <% if @message.sender_id != current_user.id %>
+        <% user = User.find_by_id(@message.sender_id) %>
+        <td>  From:<a href=<%= user_url(@message.sender_id) %>> <%= user.full_name %></a></td>
         <% else %>
         <td> From: Me </td>
         <% end %>
         <td><%= 'unread' if conversation.is_unread?(current_user) %></td>
+        <td><%= link_to @message.body, conversation_path(conversation) %></td>
+        <td><%= conversation.updated_at.strftime("%a, %m/%e/%Y %I:%M %p") %></td>
 
-  <% @message = conversation.messages %>
-  <% @message.each do |m| %>
-  <!-- <%= debug m %> -->
-          <td><%= link_to m.body, conversation_path(conversation) %></td>
-          <!--<%= link_to conversation.messages %>-->
-<% end %>
-          <td><%= conversation.updated_at.strftime("%a, %m/%e/%Y %I:%M %p") %></td>
-
-          <td> <%= link_to "Move to Trash", {:controller => "conversations", :action => "trash", :id => conversation.id}, :title => "Move to Trash", :method => 'post' %></td>
+        <td> <%= link_to "Move to Trash", {:controller => "conversations", :action => "trash", :id => conversation.id}, :title => "Move to Trash", :method => 'post' %></td>
         <td><%= check_box_tag '', conversation.id, false, class: 'delete_multiple_checkbox', name: "conversations[]" %>
 
         </tr>
-          </tbody>
+      </tbody>
 
       <% end %>
-  <!--% end %-->
-  </table>
+    </table>

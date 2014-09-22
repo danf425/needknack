@@ -1,7 +1,5 @@
 <header id="space-show-header">
   <h2 id="space-show-title"> <%= best_in_place @space, :title %></h2>
-<!-- TODO MOVE RATINGS -->
-<!-- TODO ALLOW RATINGS TO ONLY OCCUR WHEN KNACK IS COMPLETE BY NEEDER -->
 Rating:<br>
 <% @rate = Rate.find_by_rateable_id(@space.id) %>
 <% if !@rate.nil? %>
@@ -9,7 +7,6 @@ Rating:<br>
 <% else %>
 No ratings yet <br>
 <% end %>
-<!-- TODO ADD RATING -->
   <h3 id="space-show-info">
     <% if signed_in? && current_user.id == @space.owner_id %>   
     <%= link_to 'Edit Knack', edit_space_path(@space) %>

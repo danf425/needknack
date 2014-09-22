@@ -1,33 +1,28 @@
-<div> 
-  <!--img src="http://placekitten.com/300/300" class="user-image"-->
-  <table>
+  <tr class="list-item">
     <% visitor = booking_visitor.user %>
     <% booking = booking_visitor %>
-       <% if signed_in? && current_user == booking.space.owner %> 
+    <% if signed_in? && current_user == booking.space.owner %> 
     <td>
       <%= "#{visitor.first_name} #{visitor.last_name}" %>
     </td>
     <td>
       <%= "#{booking.start_date} - #{booking.end_date}" %>
     </td>
-        <td>
+    <td>
       <%= "#{booking.space.title}" %>
     </td>
-<td>
 
-</td>
-
-  <% statuses =       Booking.approval_statuses %>
-  <% booking_status = booking.approval_status %>
+    <% statuses =       Booking.approval_statuses %>
+    <% booking_status = booking.approval_status %>
     <% if booking_status == statuses[:approved] %>
-          <td><b>APPROVED</b></td>
+    <td><b>APPROVED</b></td>
     <td>
       <%= button_to "Cancel", cancel_by_owner_booking_url(booking.id), method: :put %>
     </td>
-<td>
-  <!-- TODO CHARGE PAYMENT HERE AFTER COMPLETE STATUS -->
-          <%= button_to "Complete Knack", complete_booking_url(booking.id), method: :put %>
-        </td>
+    <td>
+      <!-- TODO CHARGE PAYMENT HERE AFTER COMPLETE STATUS -->
+      <%= button_to "Complete Knack", complete_booking_url(booking.id), method: :put %>
+    </td>
     <% elsif booking_status == statuses[:pending] %>
     <td>
       <%= button_to "Approve", approve_booking_url(booking.id), method: :put %>
@@ -39,16 +34,15 @@
     </td>
     <!-- TODO GIVE REASON OR DEFAULT REASON FOR DECLINE -->
     <% else %>
-
-     <td> <b><%= statuses[booking_status].upcase %></b>
+    <td> 
+      <b><%= statuses[booking_status].upcase %></b>
     </td>
 
-        <% if booking_status == statuses[:declined] %>
-  <td>  TEST DECLINE</td>
-      <% end %>
+    <% if booking_status == statuses[:declined] %>
+    <td>  TEST DECLINE</td>
+    <% end %>
     <td>       <%= button_to "Send a message", new_message_path(:user => visitor) %></td>
     <% end %>
 
-    </table>
     <% end %>
-</div>
+  </tr>

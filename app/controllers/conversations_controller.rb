@@ -36,11 +36,13 @@ Rails.logger.info("TES1: #{@test.inspect}")
   @trash = mailbox.trash.limit(5)
 end
 
+
   def show
     @conversations ||= (current_user.mailbox.inbox.all | current_user.mailbox.sentbox.all)
   end
 
   def reply
+    Rails.logger.info("ConvoControl:")
     current_user.reply_to_conversation(conversation, *message_params(:body, :subject))
     redirect_to conversation_path(conversation)
   end

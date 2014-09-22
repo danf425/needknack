@@ -1,34 +1,46 @@
-<h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+<script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
+<!-- This is a very simple parallax effect achieved by simple CSS 3 multiple backgrounds, made by http://twitter.com/msurguy -->
 
-  <div>
-  	<%= f.label :first_name %><br />
-    <%= f.text_field :first_name %><br />
+<div class="container">
+  <div class="row vertical-offset-100">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">SIGN UP</h3>
+        </div>
+        <div class="panel-body">
+
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= devise_error_messages! %>
+          <div class="form-group">
+            <%= f.text_field :first_name, placeholder: "First Name", :class => 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.text_field :last_name, placeholder: "Last Name", :class => 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.email_field :email, autofocus: true, placeholder: "Email", :class => 'form-control' %>
+          </div>
+          <div class="form-group">
+            <% if @validatable %>
+            <i>(<%= @minimum_password_length %> characters minimum)</i>
+            <% end %>
+    <%= f.password_field :password, autocomplete: "off", placeholder: "Password", :class => 'form-control' %>
+          </div>
+          <div class="form-group">
+      <%= f.password_field :password_confirmation, autocomplete: "off",  placeholder: "Password confirmation", :class => 'form-control' %>
+          </div>
+          
+          <%= f.submit "Sign Up" , :class => 'btn btn-lg btn-success btn-block' %>
+          <% end %>
+
+
+     <!-- <%= render "devise/shared/links" %> -->
+      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %><br/>
+      <%=link_to "Popup FB", omniauth_authorize_path(:user, :facebook), :class => "popup", :"data-width" => 600, :"data-height" => 400%>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div>
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name%><br />
-  </div>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
-
-  <div><%= f.label :password %> <% if @validatable %><i>(<%= @minimum_password_length %> characters minimum)</i><% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
-
-  <div><%= f.submit "Sign up" %></div>
-<% end %>
-
-<%= render "devise/shared/links" %>
-
-
-
-<%= link_to 'Login with Facebook', '/auth/facebook/' %>
-<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
-<%=link_to "Popup FB", omniauth_authorize_path(:user, :facebook), :class => "popup", :"data-width" => 600, :"data-height" => 400%>
+</div>
