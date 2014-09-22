@@ -28,6 +28,7 @@ class CommentsController < ApplicationController
   def new
     @comment = Comment.new
     @user = User.find(params[:user])
+    @space = Space.find(params[:space])
   end
 
   # GET /comments/1/edit

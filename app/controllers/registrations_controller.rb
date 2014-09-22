@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-   
+
    def setting 
      # @user = User new
      # render action: :settings

@@ -4,7 +4,7 @@ class Booking < ActiveRecord::Base
                   :booking_rate_daily , :start_hour, :start_minute, :start_ampm, :end_hour, :end_minute, :end_ampm
   #:guest_count
 
-  validates_presence_of :user_id, :space_id, :start_date, :end_date,
+  validates_presence_of :user_id, :space_id, :start_date,# :end_date,
                         :approval_status, :total, :service_fee,
                         :booking_rate_daily 
   #:guest_count
@@ -105,7 +105,7 @@ end
   end
 
   def has_initial_form_attributes
-    self.start_date && self.end_date #&& self.guest_count
+    self.start_date# && self.end_date #&& self.guest_count
   end
 
   def overlapping_requests(status)

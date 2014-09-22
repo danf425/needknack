@@ -5,7 +5,7 @@ Devise.setup do |config|
   require "omniauth-facebook"
 #  require 'omniauth-twitter'
 # added i dont know why{provider_ignores_state: true}
-  config.omniauth :facebook, "666677436743047", "7ddf922437f399b7bee2fd2f3a04c841"#, {provider_ignores_state: true}
+  config.omniauth :facebook, "666677436743047", "7ddf922437f399b7bee2fd2f3a04c841",:display => "popup"#, {provider_ignores_state: true}
 #  config.omniauth :twitter, "KEY", "SECRET"
 #  config.omniauth :linked_in, "KEY", "SECRET"
 

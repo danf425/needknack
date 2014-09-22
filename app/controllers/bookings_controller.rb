@@ -71,7 +71,7 @@ Rails.logger.info("Params_For_Edit: #{params.inspect}")
       @booking.user_id            = current_user.id
       @booking.booking_rate_daily = @booking.space.booking_rate_daily
       @booking.approval_status    = Booking.approval_statuses[:unbooked]
-
+@booking.end_date = @booking.start_date
       total_time = 0
       if params[:booking_filters]
         @test = params[:booking_filters]

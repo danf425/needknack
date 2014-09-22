@@ -1,32 +1,56 @@
-<h2><b>Subject:</b> <%= conversation.subject %></h2>
-<table class="table table-striped">
-  <tbody>
-    <% @conversations.each do |conversation| %>
+<h1><%= link_to "Reply", {:controller => "messages", :action => "reply", :id => conversation.id}, :title => "Reply" %></h1>
+
+
+
+<div class="message-wrap col-lg-8">
+  <div class="msg-wrap">
     <% @message = conversation.messages %>
     <% @message.each do |m| %>
     <% conversation.mark_as_read(current_user) %>
 
     <% if m.sender != current_user %>
-    <td><b><%= link_to m.sender.full_name, m.sender %></b></td>
-    <tr>
-      <td> <%= m.body %> </td>
-          <td><sub><%= m.updated_at.strftime("%a, %m/%e/%Y %I:%M %p") %></sub></td>
+    <div class="media msg ">
+      <a class="pull-left" href="#">
+        <%= link_to image_tag(m.sender.avatar.url(:thumb), class: "image-micro-thumb", id: "header-user-image", ), m.sender, method: :get %>
+      </a>
+      <div class="media-body">
+        <small class="pull-right time"><i class="fa fa-clock-o"></i> <%= m.updated_at.strftime("%a, %m/%e/%Y %I:%M %p") %></small>
+        <h5 class="media-heading">
+          <%= link_to m.sender.full_name, m.sender %>
+        </h5>
+        <small class="col-lg-10">
+         <%= m.body %> 
+       </small>
+       <small>
+        <%= link_to "Move to Trash", {:controller => "conversations", :action => "trash", :id => conversation.id}, :title => "Move to Trash", :method => 'post' %>
+      </small>
+    </div>
+  </div>
 
-      <td> <sub><%= link_to "Move to Trash", {:controller => "conversations", :action => "trash", :id => conversation.id}, :title => "Move to Trash", :method => 'post' %></sub></td>
-    </tr>
-    <% else %>
-    <tr align = "right"><td><b><i>Me</i></b></td></tr>
-    <tr align = "right">
-      <td> <%= m.body %> </td>
-          <td><sub><%= m.updated_at.strftime("%a, %m/%e/%Y %I:%M %p") %></sub></td>
+  <% else %>
+  <div class="media msg ">
+    <a class="pull-left" href="#">
+      <%= link_to image_tag(current_user.avatar.url(:thumb), class: "image-micro-thumb", id: "header-user-image", ), current_user, method: :get %>
+    </a>
+    <div class="media-body">
+      <small class="pull-right time"><i class="fa fa-clock-o"></i> <%= m.updated_at.strftime("%a, %m/%e/%Y %I:%M %p") %></small>
+      <h5 class="media-heading">Me</h5>
+      <small class="col-lg-10"><%= m.body %> </small>
+      <small><%= link_to "Move to Trash", {:controller => "conversations", :action => "trash", :id => conversation.id}, :title => "Move to Trash", :method => 'post' %></small>
+    </div>
+  </div>
+  <% end %>
+  <% end %>
+</div>
 
-      <td> <sub><%= link_to "Move to Trash", {:controller => "conversations", :action => "trash", :id => conversation.id}, :title => "Move to Trash", :method => 'post' %></sub></td>
-    </tr>
-    <% end %>
-    <% end %>
-    <% end %>
+<div class="send-wrap">
 
-  </tbody>
-</table>
+  <%= form_for reply_conversation_path(conversation),
+  method: :post, action: "reply", remote: true do |f| %>
+  <%= f.text_area :body %>
+  <%= f.button :submit, class: 'btn-primary' %>
 
-<h1><%= link_to "Reply", {:controller => "messages", :action => "reply", :id => conversation.id}, :title => "Reply" %></h1>
+  <% end %>
+</div>
+</div>
+</div>

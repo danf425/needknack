@@ -48,6 +48,7 @@ end
   end
  
   def reply
+    Rails.logger.info("MessageControl:")
     @conversation ||= current_user.mailbox.conversations.find(params[:id])
   end
    # POST /message/create
