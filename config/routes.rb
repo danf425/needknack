@@ -80,6 +80,7 @@ AirbnbClone::Application.routes.draw do
   resources :conversations do
     member do
       post :reply
+      post :respond
       post :trash
       post :untrash
     end
