@@ -47,6 +47,8 @@
        <div class="col-md-4 detailsright offset-0">
         <div class="padding20">
           <span class="size20 bold"><%= best_in_place @space, :title %></span><br/>
+          <span class="size20 bold"><%= @space.city %></span><br/>
+          Contact knacker<br/>
           <div class="price-data dark-gray right">
             $<%= @space.booking_rate_daily %>
           </div>
@@ -159,62 +161,14 @@
             <!-- TAB 1 -->        
             <div id="summary" class="tab-pane">
               <p class="hpadding20">
+                <h3> Description: </h3>
                 <%= @space.description %>        
               </p>
               <div class="line4"></div>
 
-              <!-- Collapse 1 --> 
-              <button type="button" class="collapsebtn2" data-toggle="collapse" data-target="#collapse1">
-                Inclusions <span class="collapsearrow"></span>
-              </button>
-
-              <div id="collapse1" class="collapse in">
-                <div class="hpadding20">
-                  Same-day admission to Aquaventure Waterpark and The Lost Chambers Aquarium
-                </div>
-                <div class="clearfix"></div>
-              </div>
-              <!-- End of collapse 1 -->  
 
               <div class="line4"></div>           
 
-              <!-- Collapse 2 --> 
-              <button type="button" class="collapsebtn2" data-toggle="collapse" data-target="#collapse2">
-                Hours of operation <span class="collapsearrow"></span>
-              </button>
-
-              <div id="collapse2" class="collapse in">
-                <div class="hpadding20">
-                  Aquaventure Waterpark 10 am - sunset, daily<br/>
-                  The Lost Chambers Aquarium 10 am – 10 pm, daily
-                </div>
-                <div class="clearfix"></div>
-              </div>
-              <!-- End of collapse 2 -->  
-
-              <div class="line4"></div>           
-
-              <div id="collapse3" class="collapse">
-                <div class="hpadding20">
-                  Address
-                </div>
-                <div class="clearfix"></div>
-              </div>
-              <!-- End of collapse 3 -->  
-
-              <div class="line4"></div>             
-
-              <!-- Collapse 4 --> 
-              <button type="button" class="collapsebtn2 collapsed" data-toggle="collapse" data-target="#collapse4">
-                How it works <span class="collapsearrow"></span>
-              </button>
-
-              <div id="collapse4" class="collapse">
-                <div class="hpadding20">
-                  Text
-                </div>
-                <div class="clearfix"></div>
-              </div>
               <!-- End of collapse 4 -->    
 
               <div class="line4"></div>               

@@ -1,165 +1,165 @@
 
-                    <div class="row">
+<div class="row">
 
-                        <div class="col-md-12">
+    <div class="col-md-12">
 
-                            <div class="row">   
-
-
-                                <div class="col-md-3 widget-profil">
-                                    <div class="row">
-
-                                        <!-- Profile Image -->
-                                        <div class="col-lg-12 col-md-12 col-sm-3 col-xs-12 ">
-
-                                            <div class="image-holder one" id="pic_prof_1"  style="display:none">
-
-                                                <img class="head-image up circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
-                                                <img class="head-image up-left circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
-                                                <img class="head-image left circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
-                                                <img class="head-image down-left circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
-                                                <img class="head-image down circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
-                                                <img class="head-image down-right circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
-                                                <img class="head-image right circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
-                                                <img class="head-image up-right circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
-                                                <img class="head-image front circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
-
-                                            </div>
-
-                                            <!-- style for simple image profile -->		
-                                            <%= link_to image_tag(@user.avatar.url(:medium), class: "circle-img", id: "pic_prof_2"), @user, method: :get %>
-
-                                        </div>
-                                        <!-- End Profile Image -->
-
-                                        <div class="col-lg-12 col-md-12 col-sm-9 col-xs-12">
-
-                                            <!-- Profile info -->
-                                            <div id="profile_info">
-                                                <h1 id="name" class="transition-02"><%= @user.full_name %></h1>
-                                                  <h4 class="line"><%= button_to "Send a message", new_message_path(:user => @user), class: "btn btn-primary" %></h4>
-                                                <h4 class="line">GRAPHIC &amp; WEB DESIGNER</h4>
-                                                <h6><span class="fa fa-map-marker"></span> San Francisco , CA</h6>
-                                            </div>
-                                            <!-- End Profile info -->  
+        <div class="row">   
 
 
-                                            <!-- Profile Description -->
-                                            <div id="profile_desc">
-                                                <p>
-<%= "#{@user.description}" %>
-                                                </p>
-                                            </div>
-                                            <!-- End Profile Description -->  
+            <div class="col-md-3 widget-profil">
+                <div class="row">
+
+                    <!-- Profile Image -->
+                    <div class="col-lg-12 col-md-12 col-sm-3 col-xs-12 ">
+
+                        <div class="image-holder one" id="pic_prof_1"  style="display:none">
+
+                            <img class="head-image up circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
+                            <img class="head-image up-left circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
+                            <img class="head-image left circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
+                            <img class="head-image down-left circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
+                            <img class="head-image down circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
+                            <img class="head-image down-right circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
+                            <img class="head-image right circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
+                            <img class="head-image up-right circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
+                            <img class="head-image front circle" src="http://placehold.it/150x150" width="150" height="150" alt="" />
+
+                        </div>
+
+                        <!-- style for simple image profile -->		
+                        <%= link_to image_tag(@user.avatar.url(:medium), class: "circle-img", id: "pic_prof_2"), @user, method: :get %>
+
+                    </div>
+                    <!-- End Profile Image -->
+
+                    <div class="col-lg-12 col-md-12 col-sm-9 col-xs-12">
+
+                        <!-- Profile info -->
+                        <div id="profile_info">
+                            <h1 id="name" class="transition-02"><%= @user.full_name %></h1>
+                            <h4 class="line"><%= button_to "Send a message", new_message_path(:user => @user), class: "btn btn-primary" %></h4>
+                            <h4 class="line">GRAPHIC &amp; WEB DESIGNER</h4>
+                            <h6><span class="fa fa-map-marker"></span> San Francisco , CA</h6>
+                        </div>
+                        <!-- End Profile info -->  
 
 
-                                            <!-- Name -->
-                                            <div id="profile_social">
-                                                <h6>My Social Profiles</h6>
-                                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                                <a href="#"><i class="fa fa fa-dribbble"></i></a>
-                                                <a href="#"><i class="fa fa-foursquare"></i></a>
-                                                <div class="clear"></div>
-                                            </div>
-                                            <!-- End Name -->  
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="col-md-9 flexy_content" style="padding-left: 0;padding-right: 0;">
-
-                                    <!-- verticalTab menu -->
-                                    
+                        <!-- Profile Description -->
+                        <div id="profile_desc">
+                            <p>
+                                <%= "#{@user.description}" %>
+                            </p>
+                        </div>
+                        <!-- End Profile Description -->  
 
 
+                        <!-- Name -->
+                        <div id="profile_social">
+                            <h6>My Social Profiles</h6>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="#"><i class="fa fa fa-dribbble"></i></a>
+                            <a href="#"><i class="fa fa-foursquare"></i></a>
+                            <div class="clear"></div>
+                        </div>
+                        <!-- End Name -->  
 
+                    </div>
 
-                                              
+                </div>
+            </div>
 
-                                                <div class="clear"></div>
+            <div class="col-md-9 flexy_content" style="padding-left: 0;padding-right: 0;">
 
-
-                                                <div class="row" id="services">
-                                                    <div class="col-md-12">
-                                                        <div class="title_content">
-                                                            <div class="text_content">Knacks</div>
-                                                            <div class="clear"></div>
-                                                        </div>
-
-
-<%= render "spaces/index/space_list" %>
-                                                    </div> 
-                                                </div><!-- End Services -->
+                <!-- verticalTab menu -->
+                
 
 
 
 
-                                            <!-- .resume -->
+                
+
+                <div class="clear"></div>
+
+
+                <div class="row" id="services">
+                    <div class="col-md-12">
+                        <div class="title_content">
+                            <div class="text_content">Knacks</div>
+                            <div class="clear"></div>
+                        </div>
+
+
+                        <%= render "spaces/index/space_list" %>
+                    </div> 
+                </div><!-- End Services -->
 
 
 
 
-                                                <div style="clear: both"></div>  
-
-
-                                                <!-- client reference -->
-                                                <div class="row">
-                                                    <div class="col-md-12">   
-
-                                                        <div class="reference clearfix"> 
-
-                                                            <!-- .title_content -->
-                                                            <div class="title_content" style="margin-bottom:5px">
-                                                                <div class="text_content">Comments</div>
-                                                                <div class="clear"></div>
-                                                            </div>
-                                                            <!-- /.title_content -->
-
-
-                                                            <ul>
-<% @comment.each do |comment| %>
-
-<% if !comment.user_id.nil? && @user.id == comment.user_id %> 
-
-
-
-                                                                <li class="clearfix">
-                                                                    <img src="http://placehold.it/100x100" class="img_reference" width="100" height="100" alt="">
-                                                                    <p>“<%= comment.comment %>”</p>
-                                                                    <span><% @test = User.find_by_id(comment.sender_id) %> 
-                                                                    	<%= @test.full_name %></span>
-                                                                </li>
-                                                                <% end %>
-                                                                <% end %>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
+                <!-- .resume -->
 
 
 
 
-                                                    <div style="clear: both"></div>   
-                                                </div>
+                <div style="clear: both"></div>  
 
 
-                              
-                                            <!-- End .resume -->
+                <!-- client reference -->
+                <div class="row">
+                    <div class="col-md-12">   
+
+                        <div class="reference clearfix"> 
+
+                            <!-- .title_content -->
+                            <div class="title_content" style="margin-bottom:5px">
+                                <div class="text_content">Comments</div>
+                                <div class="clear"></div>
+                            </div>
+                            <!-- /.title_content -->
+
+
+                            <ul>
+                                <% @comment.each do |comment| %>
+
+                                <% if !comment.user_id.nil? && @user.id == comment.user_id %> 
 
 
 
-                                    
-                                </div><!-- End flexy_content -->
+                                <li class="clearfix">
+                                    <img src="http://placehold.it/100x100" class="img_reference" width="100" height="100" alt="">
+                                    <p>“<%= comment.comment %>”</p>
+                                    <span><% @test = User.find_by_id(comment.sender_id) %> 
+                                       <%= @test.full_name %></span>
+                                   </li>
+                                   <% end %>
+                                   <% end %>
+                               </ul>
+                           </div>
+                       </div>
 
 
-                            </div><!-- End row -->
 
-                        </div><!-- End col-md-12 -->
 
-                    </div><!-- End row -->
+                       <div style="clear: both"></div>   
+                   </div>
+
+
+                   
+                   <!-- End .resume -->
+
+
+
+                   
+               </div><!-- End flexy_content -->
+
+
+           </div><!-- End row -->
+
+       </div><!-- End col-md-12 -->
+
+   </div><!-- End row -->
 
 
 

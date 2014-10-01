@@ -1495,11 +1495,11 @@ border-radius: 2px;
 
 
 .mySelectCalendar {
-background:url('calendar.png') #fff no-repeat right;
+background:url('../../images/calendar.png') #fff no-repeat right;
 background-position:98% 1px;
 }
 .mySelectCalendar2 {
-background:url('calendar2.png') #fff no-repeat right;
+background:url('../../images/calendar2.png') #fff no-repeat right;
 background-position:98% 1px;
 }
 
@@ -2124,9 +2124,6 @@ ul.checklist  {margin:0px;padding:0px;}
 
 ul.checklist2  {margin:0px;padding:0px;}
 .checklist2 li {list-style-image:url('../../images/check.png'); list-style-position:inside; padding:0px; margin-left:0px; color:#72bf66;}
-
-#map-canvas { width:100%; height: 648px; display:none;}
-#map-canvas2 { width:100%; height: 80%; display:none;}
 
 .gm-style-mtc:nth-child(1){margin-top:25px;}
 .gm-style-mtc:nth-child(2){margin-top:25px;}

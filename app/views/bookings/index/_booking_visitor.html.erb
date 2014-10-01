@@ -37,10 +37,6 @@
     <td> 
       <b><%= statuses[booking_status].upcase %></b>
     </td>
-
-    <% if booking_status == statuses[:declined] %>
-    <td>  TEST DECLINE</td>
-    <% end %>
     <td>       <%= button_to "Send a message", new_message_path(:user => visitor) %></td>
     <% end %>
 

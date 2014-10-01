@@ -1,6 +1,10 @@
 <h1>Inbox</h1>
 <table class="table table-striped">
   <tbody>
+    <% if @conversations.empty? %>
+    You have no current messages.
+    <% else %>
+
     <% @conversations.each do |conversation| %>
     <tr>
       <!--% if conversation.originator != current_user %-->
@@ -27,7 +31,8 @@
         <td><%= check_box_tag '', conversation.id, false, class: 'delete_multiple_checkbox', name: "conversations[]" %>
 
         </tr>
-      </tbody>
 
-      <% end %>
-    </table>
+        <% end %>
+        <% end %>
+    </tbody>
+</table>

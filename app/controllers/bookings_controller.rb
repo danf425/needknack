@@ -4,22 +4,28 @@ class BookingsController < ApplicationController
 before_filter :authenticate_user!
 
 def index
-    if params[:space_id]
-      @space = Space.find_by_id(params[:space_id])
-      if @space.owner.id == current_user.id
-        render "bookings/index/space"
-      else
-        flash[:notices] = ["You must log in as the owner of a space in order to view that page"]
+  if params[:space_id]
+    @space = Space.find_by_id(params[:space_id])
+    if @space.owner.id == current_user.id
+      render "bookings/index/space"
+    else
+      flash[:notices] = ["You must log in as the owner of a space in order to view that page"]
         redirect_to @space # probably should be a 403
       end
     else
       @user = User.find_by_id(current_user.id)
+      Space.all.each do |space|
+        Rails.logger.info("Poof: #{space.initiated_approve.inspect}")
+        if space.initiated_approve.empty? && space.initiated_pending.empty? && space.initiated_decline.empty? && space.initiated_complete.empty?
+         @booking_flag = true
+      end
+      end
 
-      render "bookings/index/user"
-    end
-  end
+       render "bookings/index/user"
+     end
+   end
 
-  def show
+   def show
     @booking = Booking.find(params[:id])
     @space = Space.find_by_id(@booking.space_id)
   end
@@ -27,7 +33,7 @@ def index
   def edit
     @booking = Booking.find(params[:id])
     @space = Space.find_by_id(params[:space_id])
-        @booking = current_booking
+    @booking = current_booking
     redirect_to(:back) unless @booking.user_id == current_user.id
 
     render :edit
@@ -64,89 +70,89 @@ def index
 
       end
       total_t = total_time
-     subtotal    = total_time.to_f * @booking.booking_rate_daily
-     @booking.service_fee        = subtotal.to_f * 0.10
-     @booking.total              = subtotal + @booking.service_fee
-     if @booking.is_free_of_conflicts?
-      if @booking.save
-        session[:booking_id] = @booking.id
-        redirect_to new_space_booking_url(@booking.space_id)
+      subtotal    = total_time.to_f * @booking.booking_rate_daily
+      @booking.service_fee        = subtotal.to_f * 0.10
+      @booking.total              = subtotal + @booking.service_fee
+      if @booking.is_free_of_conflicts?
+        if @booking.save
+          session[:booking_id] = @booking.id
+          redirect_to new_space_booking_url(@booking.space_id)
+        else
+          render status: 422
+        end
       else
-        render status: 422
+        flash[:notices] = ["You must select dates that aren't taken"]
+        redirect_to :back
       end
-    else
-      flash[:notices] = ["You must select dates that aren't taken"]
-      redirect_to :back
     end
-  end
   end
 
 ############## Below actions only modify booking approval status ###############
 
 def cancel_by_user
-    @booking = Booking.find_by_id(params[:id])
+  @booking = Booking.find_by_id(params[:id])
 
-    if @booking.user_id == current_user.id
-      @booking.update_approval_status("cancel_by_user")
-    end
+  if @booking.user_id == current_user.id
+    @booking.update_approval_status("cancel_by_user")
+  end
 
-    redirect_to(:back)
+  redirect_to(:back)
 end
 
 def cancel_by_owner
-    @booking = Booking.find_by_id(params[:id])
+  @booking = Booking.find_by_id(params[:id])
 
-    if @booking.space.owner_id == current_user.id
-      @booking.update_approval_status("cancel_by_owner")
-    end
+  if @booking.space.owner_id == current_user.id
+    @booking.update_approval_status("cancel_by_owner")
+  end
 
-    redirect_to(:back)
+  redirect_to(:back)
 end
 
 def decline
-    @booking = Booking.find_by_id(params[:id])
+  @booking = Booking.find_by_id(params[:id])
 
-    if @booking.space.owner_id == current_user.id
-      @booking.update_approval_status("decline")
-    end
+  if @booking.space.owner_id == current_user.id
+    @booking.update_approval_status("decline")
+  end
 
-    redirect_to(:back)
+  redirect_to(:back)
 end
 
 def book
-    @booking = Booking.find_by_id(params[:id])
-          @space = Space.find_by_id(params[:space_id])
+  @booking = Booking.find_by_id(params[:id])
+  @space = Space.find_by_id(params[:space_id])
 
-   session[:booking_id] = @booking.id
+  session[:booking_id] = @booking.id
 
-    if @booking.user_id == current_user.id
+  if @booking.user_id == current_user.id
 
-      @booking.update_approval_status("book")
-    end
+    @booking.update_approval_status("book")
+  end
 
-         redirect_to space_path(:id => @booking.space_id)
+  redirect_to space_path(:id => @booking.space_id)
 end
 
 def approve
-    @booking = Booking.find_by_id(params[:id])
+  @booking = Booking.find_by_id(params[:id])
 
-    if @booking.space.owner_id == current_user.id
-      @booking.update_approval_status("approve")
-    end
-    @recipient = User.find(@booking.user_id)
-    current_user.send_message(@recipient, "You have been approved!", "I like your knack.")
-    redirect_to(:back)
+  if @booking.space.owner_id == current_user.id
+    @booking.update_approval_status("approve")
+  end
+  @recipient = User.find(@booking.user_id)
+  current_user.send_message(@recipient, "You have been approved!", "I like your knack.")
+  redirect_to(:back)
 end
 
 def complete
-    @booking = Booking.find_by_id(params[:id])
+  @booking = Booking.find_by_id(params[:id])
 
-    if @booking.space.owner_id == current_user.id
-      @booking.update_approval_status("complete")
-    end
+  if @booking.space.owner_id == current_user.id
+    @booking.update_approval_status("complete")
+  end
 
-    @order = @booking.build_order(params[:order])
-    redirect_to(:back)
+  @order = @booking.build_order(params[:order])
+  redirect_to(:back)
 end
 
 end
