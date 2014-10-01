@@ -28,11 +28,15 @@
                             Rating: 
                             <% @rate = Rate.find_by_rateable_id(space.id) %>
                             <% if !@rate.nil? %>
+                            <% @rate.stars.to_i.times do |count| %>
+                            <%= image_tag 'http://florian.landerl.at/img/glyphicons_049_star.png', :size => "10x10" %>
+
+                            <% end %><br>
                                 <%= @rate.stars %>/5.0<br>
                                 <% else %>
                                 No ratings yet <br>
                                 <% end %>
-                            December 3rd, 1996</div>
+                            </div>
                              <% if signed_in? && current_user == space.owner %>
 <%= link_to "Delete this listing", space, method: :delete%>
 <% end %>

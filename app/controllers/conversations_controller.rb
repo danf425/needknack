@@ -1,40 +1,20 @@
 class ConversationsController < ApplicationController
-  #before_filter :authenticate_user!
+
+  before_filter :authenticate_user!
   helper_method :mailbox, :conversation
 
   def index
-   # Rails.logger.info("Inbox: #{current_user.mailbox.sentbox.inspect}")
+    Rails.logger.info("Inbox: #{current_user.mailbox}")
+    Rails.logger.info("Sentbox: #{current_user.mailbox.sentbox.inspect}")
    @conversations ||= (current_user.mailbox.sentbox | current_user.mailbox.inbox)
    Rails.logger.info("Convo: #{@conversations.inspect}")
-
-#@test = @conversations.sort_by(&:sender_id)
-@test = current_user.mailbox.inbox
-  Rails.logger.info("CAT: #{@test.inspect}")
-@test.each do | t |
-  Rails.logger.info("MOO: #{t.inspect}")
 end
 
-Rails.logger.info("TES1: #{@test.inspect}")
-   @conversations.each do | convo|
-    Rails.logger.info("Mess: #{convo.messages.inspect}")
-    @mess ||= convo.messages
-
-   # @mess.select(:sender_id).uniq
-    Rails.logger.info("Mess2: #{@mess.inspect}")
+  def create
+    current_user.reply_to_conversation(conversation, *message_params(:body, :subject))
+    redirect_to conversation
   end
 
-#  @mez = @conversations.first.messages
-
- # @mez.each do |m|
- #   Rails.logger.info("Mess3: #{@mez.inspect}")
- # end
-
-   Rails.logger.info("Mailbox: #{@mess.inspect}")
-
-  @inbox = mailbox.inbox.limit(5)
-  @sentbox = mailbox.sentbox.limit(5)
-  @trash = mailbox.trash.limit(5)
-end
 
 
   def show
@@ -43,7 +23,13 @@ end
 
   def reply
     Rails.logger.info("ConvoControl:")
-    current_user.reply_to_conversation(conversation, *message_params(:body, :subject))
+    current_user.reply_to_conversation(conversation, *message_params(:body))
+    redirect_to conversation_path(conversation)
+  end
+
+    def respond
+    Rails.logger.info("SUCCESS!:")
+    current_user.reply_to_conversation(conversation, params[:body])
     redirect_to conversation_path(conversation)
   end
 
@@ -101,11 +87,17 @@ end
   end
 
   def message_params(*keys)
+    Rails.logger.info("Tom: #{params.inspect}")
+    Rails.logger.info("Ford: #{keys.inspect}")
     fetch_params(:message, *keys)
   end
 
   def fetch_params(key, *subkeys)
     # debugger
+    Rails.logger.info("Fd: #{key.inspect}") 
+    Rails.logger.info("Fd: #{subkeys.inspect}")
+    test = params[key]
+    Rails.logger.info("Fod: #{test.inspect}")       
     params[key].instance_eval do
       # debugger
       case subkeys.size

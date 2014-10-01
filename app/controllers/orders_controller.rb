@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
+ before_filter :authenticate_user!
  before_filter :current_booking
 
  def express_checkout

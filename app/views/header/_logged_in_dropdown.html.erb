@@ -1,4 +1,12 @@
 <li id="user-nav">
+
+  <% if current_admin %>
+
+
+     <li><%= link_to "Log out Admin", destroy_admin_session_path %></li>
+ 
+
+  <% else %>
   <ul>
     <li>
       <%= link_to image_tag(current_user.avatar.url(:thumb), class: "image-micro-thumb", id: "header-user-image"), current_user, method: :get %>
@@ -14,4 +22,7 @@
     <li><%= link_to "Settings", users_settings_path, method: :get %></li>
     <li><%= link_to "Log out", destroy_user_session_path %></li>
   </ul>
+
+
+  <% end %>
 </li>

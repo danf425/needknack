@@ -8,7 +8,7 @@ Rating:<br>
 No ratings yet <br>
 <% end %>
   <h3 id="space-show-info">
-    <% if signed_in? && current_user.id == @space.owner_id %>   
+    <% if current_admin || signed_in? && current_user.id == @space.owner_id %>   
     <%= link_to 'Edit Knack', edit_space_path(@space) %>
     <% end %>
   </h3>
