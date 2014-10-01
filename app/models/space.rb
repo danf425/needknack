@@ -6,7 +6,7 @@ class Space < ActiveRecord::Base
 # :accommodates, :residence_type, :bedroom_count, :amenities, :house_rules, :bed_type, 
 # :bathroom_count, :room_type, :amenities_indicies
 
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "http://placekitten.com/380/500"
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "http://placekitten.com/800/400"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
   geocoded_by :address

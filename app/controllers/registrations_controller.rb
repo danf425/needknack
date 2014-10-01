@@ -32,6 +32,7 @@ class RegistrationsController < Devise::RegistrationsController
        sign_in @user, :bypass => true
        redirect_to @user
      else
+      Rails.logger.info("Test5")
        render "edit"
      end
    end
