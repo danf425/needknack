@@ -4,10 +4,7 @@ class ConversationsController < ApplicationController
   helper_method :mailbox, :conversation
 
   def index
-    Rails.logger.info("Inbox: #{current_user.mailbox}")
-    Rails.logger.info("Sentbox: #{current_user.mailbox.sentbox.inspect}")
    @conversations ||= (current_user.mailbox.sentbox | current_user.mailbox.inbox)
-   Rails.logger.info("Convo: #{@conversations.inspect}")
 end
 
   def create
@@ -22,13 +19,11 @@ end
   end
 
   def reply
-    Rails.logger.info("ConvoControl:")
     current_user.reply_to_conversation(conversation, *message_params(:body))
     redirect_to conversation_path(conversation)
   end
 
     def respond
-    Rails.logger.info("SUCCESS!:")
     current_user.reply_to_conversation(conversation, params[:body])
     redirect_to conversation_path(conversation)
   end
@@ -94,10 +89,7 @@ end
 
   def fetch_params(key, *subkeys)
     # debugger
-    Rails.logger.info("Fd: #{key.inspect}") 
-    Rails.logger.info("Fd: #{subkeys.inspect}")
-    test = params[key]
-    Rails.logger.info("Fod: #{test.inspect}")       
+    test = params[key]     
     params[key].instance_eval do
       # debugger
       case subkeys.size

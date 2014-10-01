@@ -13,9 +13,8 @@ class OrdersController < ApplicationController
     allow_guest_checkout: true,
     items: [{name: "Order", description: "Order description", quantity: "1", amount: current_booking.build_order.price_in_cents}]
   )
-  Rails.logger.info("This response: #{response.inspect}")
   redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
-end
+  end
 
   def index
     @orders = Order.all
@@ -40,11 +39,9 @@ end
   # GET /orders/new
   # GET /orders/new.json
   def new
-   # @order = Order.new
-   Rails.logger.info("New_currentbooking: #{@current_booking.inspect}")
    @order = Order.new(:express_token => params[:token])
    @space = Space.find_by_id(@current_booking.space_id)
-end
+ end
 
   # GET /orders/1/edit
   def edit
@@ -54,15 +51,9 @@ end
 
   def create
     @order = current_booking.build_order(params[:order])
-    Rails.logger.info("Params-create: #{params.inspect}")
-    Rails.logger.info("Booking-create: #{@current_booking.inspect}")
-    Rails.logger.info("Order-create: #{@order.inspect}")
     @order.ip_address = request.remote_ip
-    Rails.logger.info("SaveBefore: #{@order.save.inspect}")
     if @order.save!
-      Rails.logger.info("Save: #{@order.inspect}")
       if @order.purchase
-        Rails.logger.info("OrderC #{@order.inspect}")
         @space = Space.find_by_id(@current_booking.space_id)
         @recipient = User.find(@space.owner_id)
         current_user.send_message(@recipient, "I would like to reserve you.", "I like your knack.")
@@ -76,7 +67,6 @@ end
       end
 
     else
-      Rails.logger.info("New: #{@order.purchase.inspect}")
       render :action => "new"
     end
   end

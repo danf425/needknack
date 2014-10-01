@@ -25,9 +25,8 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :session_token, presence: true
   validates_uniqueness_of :email
-#  validates_presence_of :password, on: :create
   validates_format_of :first_name, :last_name, :with => /^[a-zA-Z]*[a-zA-Z][a-zA-Z]*$/
-  validates_format_of :email, :with => Devise::email_regexp
+  validates_format_of :email,:with => Devise::email_regexp
 
   after_initialize :ensure_session_token
   has_many :comments, :as => :commentable

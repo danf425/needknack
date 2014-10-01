@@ -39,21 +39,16 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.xml
   def create
-   # @comment = Comment.new(params[:comment])
    @comment = current_user.comments.build(params[:comment])
-      Rails.logger.info("COMMENT: #{@comment.user_id.inspect}")
-   Rails.logger.info("COMMENT: #{@comment.inspect}")
-  #  respond_to do |format|
-      if @comment.save
-           Rails.logger.info("COMMENT2: #{@comment.inspect}")
-       flash[:success] = "Comment created!"
-       redirect_to current_user
-      else
-      flash.now[:errors] = @user.errors
-      render :new
-      end
-   # end
+   if @comment.save
+     flash[:success] = "Comment created!"
+     redirect_to current_user
+   else
+    flash.now[:errors] = @user.errors
+    render :new
   end
+   # end
+ end
 
   # PUT /comments/1
   # PUT /comments/1.xml
@@ -83,7 +78,7 @@ class CommentsController < ApplicationController
     end
   end
 
-private
+  private
   
   def find_commentable
     params.each do |name,value|

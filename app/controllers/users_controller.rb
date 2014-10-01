@@ -5,7 +5,6 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @comment = Comment.all
-
     @spaces = @user.spaces.page(selected_page)
   end
 

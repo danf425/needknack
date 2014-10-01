@@ -13,6 +13,16 @@
 
 ActiveRecord::Schema.define(:version => 20140903153245659) do
 
+  create_table "admins", :force => true do |t|
+    t.string   "email",               :default => "",    :null => false
+    t.string   "encrypted_password",  :default => "",    :null => false
+    t.datetime "remember_created_at"
+    t.boolean  "god_mode",            :default => false
+    t.boolean  "reports_only",        :default => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
+
   create_table "bookings", :force => true do |t|
     t.integer  "user_id",            :null => false
     t.integer  "space_id",           :null => false
