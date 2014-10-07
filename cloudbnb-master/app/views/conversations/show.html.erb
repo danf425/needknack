@@ -1,0 +1,50 @@
+<h1><%= link_to "Reply", {:controller => "messages", :action => "reply", :id => conversation.id}, :title => "Reply" %></h1>
+
+<div class="message-wrap col-lg-8">
+  <div class="msg-wrap">
+    <% @message = conversation.messages %>
+    <% @message.order(:created_at).each do |m| %>
+    <% conversation.mark_as_read(current_user) %>
+
+    <% if m.sender != current_user %>
+    <div class="media msg ">
+                    <%= link_to image_tag(m.sender.avatar.url, :class => "pull-left", :id => "header-user-image", :style => "width: 50px; height: 50px; padding-right: 15px;"), current_user, method: :get %>
+      <div class="media-body">
+        <small class="pull-right time"><i class="fa fa-clock-o"></i> <%= m.updated_at.strftime("%a, %m/%e/%Y %I:%M %p") %></small>
+        <h5 class="media-heading">
+          <%= link_to m.sender.full_name, m.sender %>
+        </h5>
+        <small class="col-lg-10">
+         <%= m.body %> 
+       </small>
+       <small>
+        <%= link_to "Move to Trash", {:controller => "conversations", :action => "trash", :id => conversation.id}, :title => "Move to Trash", :method => 'post' %>
+      </small>
+    </div>
+  </div>
+
+  <% else %>
+  <div class="media msg ">
+    <a class="pull-left" href="#">
+      <%= link_to image_tag(current_user.avatar.url(:thumb), class: "pull-left", :id => "header-user-image", :style => "width: 50px; height: 50px; padding-right: 15px;"), current_user, method: :get %>
+    </a>
+    <div class="media-body">
+      <small class="pull-right time"><i class="fa fa-clock-o"></i> <%= m.updated_at.strftime("%a, %m/%e/%Y %I:%M %p") %></small>
+      <h5 class="media-heading">Me</h5>
+      <small class="col-lg-10"><%= m.body %> </small>
+      <small><%= link_to "Move to Trash", {:controller => "conversations", :action => "trash", :id => conversation.id}, :title => "Move to Trash", :method => 'post' %></small>
+    </div>
+  </div>
+  <% end %>
+  <% end %>
+</div>
+
+<div class="send-wrap">
+          <%= form_tag respond_conversation_path(conversation),
+                       method: :post do %>
+            <%= text_area_tag :body,nil, class: 'form-control send-message', rows: 5, placeholder: "Write a reply..." %>
+            <%= submit_tag "SUBMIT", class: 'btn btn-default pull-right', role: 'button' %>
+          <% end %>
+</div>
+</div>
+</div>

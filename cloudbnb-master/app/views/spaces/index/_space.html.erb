@@ -1,0 +1,50 @@
+<div class="knackbox">
+
+    <div class="customwell well-sm">
+
+
+        <div class="row">
+
+            <div class="col-sm-6 col-md-4">
+                <a href=<%= space_url(space.id) %> class="img-roundedcustom">
+                    <%= image_tag(space.avatar.url(:medium), class: "img-roundedcustom") %>
+                </a>
+            </div>
+
+        <div class="col-sm-6 col-md-8 contentblock">
+            <p class="knacktitle" style="float:left">
+                <%= link_to space.title, space, method: :get%><p style="float:right">
+                <strong>$<%= space.booking_rate_daily %></strong><small>/hour</small></p><div style="clear: both;"></div>
+            </p>
+            <p><small><%= space.city %><i class="glyphicon glyphicon-map-marker"></i></small></p>
+                        <div class="knackdes">
+                            <div class="knackheader"><small><b>KNACK INFO:</b></small></div>
+                            <%= space.description %>
+                        </div>
+
+                            <div class="knackinfo"><a href=<%= user_url(space.owner_id) %>><%= space.owner.first_name %> <%= space.owner.last_name %></a>
+                            <br /> <a href=<%= space_url(space.id) %> ><button type="button" class="btn btn-primary pull-right">
+                                Reserve</button></a>
+                            Rating: 
+                            <% @rate = Rate.find_by_rateable_id(space.id) %>
+                            <% if !@rate.nil? %>
+                            <% @rate.stars.to_i.times do |count| %>
+                            <%= image_tag 'http://florian.landerl.at/img/glyphicons_049_star.png', :size => "10x10" %>
+
+                            <% end %><br>
+                                <%= @rate.stars %>/5.0<br>
+                                <% else %>
+                                No ratings yet <br>
+                                <% end %>
+                            </div>
+                             <% if signed_in? && current_user == space.owner %>
+<%= link_to "Delete this listing", space, method: :delete%>
+<% end %>
+</div>
+</div>
+</div>
+
+
+</div>
+
+

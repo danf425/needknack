@@ -1,0 +1,24 @@
+<form action="<%= spaces_url %>" method="get" class="form-inline">
+
+<% if !main_page %>
+
+    <%= tag "input", type: "text",
+              placeholder: "What? (Guitar? Chef?)",
+                     name: "space_filters[title]",
+          #   autocomplete: "autocomplete_spaces_title",
+                    class: "form-control",
+                       id: "header-search-input" %>
+                        <input type="submit" style="position: absolute; left: -9999px"/>
+
+
+    <%= tag "input", type: "text",
+              placeholder: "Where? (Boston? Miami?)",
+                     name: "space_filters[city]",
+                    class: "form-control",
+                       id: "header-search-input" %>
+                       <input type="submit" style="position: absolute; left: -9999px"/>
+
+
+<%end%>
+
+</form>

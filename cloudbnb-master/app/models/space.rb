@@ -1,0 +1,339 @@
+class Space < ActiveRecord::Base
+
+  letsrate_rateable "rating"
+  before_create :generate_token
+
+  def self.generate_session_token
+    SecureRandom.urlsafe_base64(16)
+  end
+
+  attr_accessible :owner_id, :title, :description, :city, :country, :booking_rate_daily, :address,
+  :booking_rate_weekly, :booking_rate_monthly, :latitude, :longitude, :booking_rate_indicies, :photo_url,
+  :languages, :languages_indicies, :distance, :avatar
+
+# attr_accessible :avatar
+# :accommodates, :residence_type, :bedroom_count, :amenities, :house_rules, :bed_type, 
+# :bathroom_count, :room_type, :amenities_indicies
+
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "http://placekitten.com/800/400"
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+
+  geocoded_by :address
+
+  validates_presence_of :owner_id, :title, :description, :city, :country, :booking_rate_daily, :address,
+  :languages
+  # :accommodates, :residence_type, :bedroom_count,:amenities, :house_rules, :bed_type,
+  # :bathroom_count, :room_type  
+  
+  
+  after_validation :geocode, if: :address_changed?
+
+  has_many :space_photos
+  has_many :bookings
+  has_many :visitors, through: :bookings, source: :user
+  belongs_to :owner,
+  class_name: "User",
+  foreign_key: :owner_id,
+  primary_key: :id
+
+  belongs_to :owner_photo,
+  class_name: "UserPhoto",
+  foreign_key: :owner_id,
+  primary_key: :user_id
+
+  def self.booking_rates
+    ["Daily"]
+  end
+
+#  def self.residence_types
+#    ["Apartment",
+#     "House",
+#     "Bed & Breakfast"]
+#  end
+
+#  def self.room_types
+#    ["Entire home/apt",
+#     "Private room",
+#     "Shared room"]
+#  end
+
+#  def self.bed_types
+#    ["Real Bed"]
+#  end
+
+  def self.numerical_options
+    ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16+"]
+  end
+
+
+  def self.distance_intervals
+  ["1","5","10","20","30","100"]
+end
+
+  def self.languages_list
+    ["English",
+     "Spanish",
+     "Portuguese",
+     "French",
+     "German",
+     "Italian"
+    ]
+  end
+  
+  def initiated_approve
+    self.bookings.where("approval_status = ?", Booking.approval_statuses[:approved])
+  end
+
+  def initiated_pending
+    self.bookings.where("approval_status = ?", Booking.approval_statuses[:pending])
+  end
+
+  def initiated_decline
+    self.bookings.where("approval_status = ?", Booking.approval_statuses[:declined])
+  end
+
+  def initiated_complete
+    self.bookings.where("approval_status = ?", Booking.approval_statuses[:completed])
+  end
+
+  def self.integer_from_options_list(options_list)
+   # convert options list given by radio buttons into one-hot integer
+    languages = 0;
+    if options_list
+      options_list.each do |option|
+        languages += 2 ** option.to_i
+      end
+    end
+
+    languages
+  end
+
+#  def self.amenities_list
+#    ["Smoking Allowed",
+#     "Pets Allowed",
+#     "TV",
+#     "Cable TV",
+#     "Internet",
+#     "Wireless Internet",
+#     "Air Conditioning",
+#     "Heating",
+#     "Elevator in Building",
+#     "Handicap Accessible",
+#     "Pool",
+#     "Kitchen",
+#     "Free parking on premise",
+#     "Doorman",
+#     "Gym",
+#     "Hot Tub",
+#     "Indoor Fireplace",
+#     "Buzzer/Wireless Intercom",
+#     "Breakfast",
+#     "Family/Kid Friendly",
+#     "Suitable for Events",
+#     "Washer",
+#     "Dryer"]
+#  end
+
+#  def self.integer_from_options_list(options_list)
+#    # convert options list given by radio buttons into one-hot integer
+#    amenities = 0;
+#    if options_list
+#      options_list.each do |option|
+#        amenities += 2 ** option.to_i
+#      end
+#    end
+
+#    amenities
+#  end
+
+  def self.find_with_filters(filters)
+
+    filtered_spaces = Space
+    Rails.logger.info("Dope: #{filters.inspect}")
+    if  filters[:distance] && filters[:distance].length > 0
+
+
+      distance_num = filters[:distance].to_i
+      Rails.logger.info("Distancez: #{distance_num.inspect}")
+      cityy = filters[:city]
+      Rails.logger.info("CIT: #{cityy.inspect}" )
+      filtered_spaces = filtered_spaces.near(filters[:city], distance_num)
+      Rails.logger.info("Filter: #{filtered_spaces.inspect}")
+
+    elsif filters[:city] && filters[:city].length > 0
+      
+            filtered_spaces = filtered_spaces.near(filters[:city], 10)
+    end
+
+
+    if filters[:title] && filters[:title].length > 0
+      title = filters[:title]
+      filtered_spaces = filtered_spaces.where("title ILIKE ?", "%#{title}%")
+    end
+
+#    if filters[:room_types] && filters[:room_types].length > 0
+#      room_types = Space.integer_from_options_list(filters[:room_types])
+#      filtered_spaces = filtered_spaces.where("CAST(POW(2, room_type) AS INT) & ? > 0", room_types)
+#    end
+
+    if filters[:booking_rate_min] && filters[:booking_rate_min].length > 0
+      booking_rate_min = filters[:booking_rate_min]
+      filtered_spaces = filtered_spaces.where("booking_rate_daily > ?", booking_rate_min)
+    end
+
+    if filters[:booking_rate_max] && filters[:booking_rate_max].length > 0
+      booking_rate_max = filters[:booking_rate_max]
+      filtered_spaces = filtered_spaces.where("booking_rate_daily < ?", booking_rate_max)
+    end
+
+#    if filters[:guest_count] && filters[:guest_count].to_i > 0
+#      guest_count = filters[:guest_count]
+#      filtered_spaces = filtered_spaces.where("accommodates >= ?", guest_count)
+#    end
+
+#    if filters[:amenities]
+#      amenities = Space.integer_from_options_list(filters[:amenities])
+#      filtered_spaces = filtered_spaces.where("amenities & ? = ?", amenities, amenities)
+#    end
+
+    if filters[:languages]
+      languages = Space.integer_from_options_list(filters[:languages])
+      filtered_spaces = filtered_spaces.where("languages & ? = ?", languages, languages)
+    end
+
+    if filters[:start_date] && filters[:start_date].length > 0
+      start_date = Date.parse(filters[:start_date])
+      if filters[:end_date] && filters[:end_date].length > 0
+        end_date =   Date.parse(filters[:end_date])
+        if start_date.is_a?(Date) && end_date.is_a?(Date)
+
+          filtered_spaces = filtered_spaces
+          .where(<<-SQL, start_date, end_date, Booking.approval_statuses[:approved])
+          spaces.id NOT IN
+          (SELECT bookings.space_id
+             FROM bookings
+            WHERE ? <= end_date AND ? >= start_date AND approval_status = ?)
+          SQL
+
+        end
+      end
+    end
+
+    filtered_spaces
+  end
+
+
+  def self.random_space_with_photo
+    SpacePhoto.where("space_id > 0").sample
+  end
+
+#  def set_amenities_from_options_list!(options_list)
+#    self.amenities = Space.integer_from_options_list(options_list)
+#  end
+
+  def set_languages_from_options_list!(options_list)
+    self.languages = Space.integer_from_options_list(options_list)
+  end
+
+  def set_address_given_components(street_address, city, country)
+    self.address = [street_address, city, country].join(", ")
+  end
+
+  def street_address
+    return nil unless @street_address || self.address
+
+    @street_address ||= self.address.split(',').map(&:strip)
+  end
+
+  def gmaps4rails_address
+    "#{self.address}, #{self.city}, #{self.country}"
+  end
+
+  def booked_dates_this_month
+    bookings = Booking.where("start_date BETWEEN ? AND ?", )
+
+    first_and_last = dates_this_month
+    first = first_and_last[0]
+    last  = first_and_last[1]
+    bookings = Booking.where("space_id = ?"   , self.id)
+                      .where("? < end_date"  , first)
+                      .where("? >= start_date", last)
+                      .where("approval_status = ?"     , Booking.approval_statuses[:approved])
+
+    booked_dates = Set.new
+    days = (first..last).to_a
+    bookings.each do |booking|
+      days.each do |day|
+        booked_dates << day if day.between?(booking.start_date, booking.end_date - 1)
+      end
+    end
+
+    booked_dates
+  end
+
+  def dates_this_month
+    day = Time.now.to_date + 1
+    first_day = firstDay = day - day.day + 1
+
+    end_day = first_day + 27
+    until (end_day + 1).month != first_day.month
+      end_day += 1
+    end
+
+    [first_day, end_day]
+  end
+
+#  def boolean_array_from_amenities_integer
+#    [].tap do |amenities_list|
+#      Space.amenities_list.length.times do |order|
+#        amenities_list << (self.amenities & 2 ** order > 0)
+#      end
+#    end
+#  end
+
+  def boolean_array_from_languages_integer
+    [].tap do |languages_list|
+      Space.languages_list.length.times do |order|
+        languages_list << (self.languages & 2 ** order > 0)
+      end
+    end
+  end
+
+  def photo
+    # self.photo_url || "http://placekitten.com/g/117/77"
+    photo = self.space_photos.sample
+    photo ? photo.url : "http://placekitten.com/g/117/77"
+  end
+
+  def photo_small
+    # self.photo_url || "http://placekitten.com/g/117/77"
+    photo = self.space_photos.sample
+    photo ? photo.url_small : "http://placekitten.com/g/117/77"
+  end
+
+  def photo_medium
+    # self.photo_url || "http://placekitten.com/g/117/77"
+    photo = self.space_photos.sample
+    photo ? photo.url_medium : "http://placekitten.com/g/117/77"
+  end
+
+  def to_param  # overridden
+    token
+  end
+
+  private
+
+  def ensure_session_token
+    self.session_token ||= self.class.generate_session_token
+  end
+
+  protected
+
+  def generate_token
+    self.token = loop do
+      random_token = SecureRandom.random_number(1000000).to_s
+      break random_token unless User.exists?(token: random_token)
+    end
+  end
+
+end

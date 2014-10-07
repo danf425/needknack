@@ -1,0 +1,11 @@
+<%= # Full featured
+date = Time.now.to_date
+year = date.year
+month = date.month
+calendar(:year => year, :month => month) do |d|
+  if bookings.include?(d)
+    [d.mday, {:class => "special-day"}]
+  else
+    [d.mday, {:class => "normal-day"}]
+  end
+end %>

@@ -1,0 +1,24 @@
+<%= form_for @user, :validate => true, :html => { :multipart => true } do |f|%>
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %><br />
+
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name%><br />
+
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+
+        <%= f.label :password %><br />
+    <%= f.text_field :password %>
+
+        <%= f.label :password_confirmation %><br />
+    <%= f.text_field :password_confirmation %>
+  </div>
+
+  <%= f.file_field :avatar %>
+
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>

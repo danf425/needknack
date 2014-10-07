@@ -1,0 +1,51 @@
+<div class="group">
+  <header class="group" id="itinerary-header">
+    <!--%= link_to image_tag(@space.photo_medium, class: "image-medium"), @space, method: :get %-->
+  </header>
+
+  <section>
+    <table id="itinerary-table">
+      <tr>
+        <td colspan="2"><%= @space.title %></td>
+      </tr>
+      <tr>
+        <td>Check in</td>
+        <td><%= @booking.start_date %></td>
+      </tr>
+      <tr>
+        <td>Check out</td>
+        <td><%= @booking.end_date %></td>
+      </tr>
+      <tr>
+      <tr>
+        <td>Start Time</td>
+        <td><%= Time.at(@booking.start_time).utc.strftime("%I:%M%p") %></td>
+      </tr>
+      <tr>
+        <td>End Time</td>
+        <td><%= Time.at(@booking.end_time).utc.strftime("%I:%M%p") %></td>
+      </tr>
+      <tr>
+      <tr>
+        <td>Total Time</td>
+        <td><%= (@booking.end_time - @booking.start_time)/3600 %> Hour</td>
+      </tr>
+      <tr>
+        <td>Booking Rate</td>
+        <td>$<%= monetize(@space.booking_rate_daily) %></td>
+      </tr>
+      <tr>
+        <td>Subtotal</td>
+        <td>$<%= monetize(@booking.subtotal) %></td>
+      </tr>
+      <tr>
+        <td>Service Fee</td>
+        <td>$<%= monetize(@booking.service_fee) %></td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td>$<%= monetize(@booking.total) %></td>
+      </tr>
+    </table>
+  </section>
+</div>

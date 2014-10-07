@@ -1,0 +1,33 @@
+<section>
+<body id="index">
+  <h1 class="page-header">Reservations</h1>
+<div class="table-responsive col-md-6">
+  <table id="user-bookings-table">
+<center><p id="subtitle">YOUR NEEDS</p></center>
+    <th>Status</th><th>Knack Location</th><th>Host</th><th>Dates</th><th>Info</th><th>Options</th>
+    <%= render partial:"bookings/index/booking_space",
+               collection: @user.initiated_bookings %>
+  </table>
+</div>
+<div class="table-responsive col-md-6">
+    <table id="user-bookings-table">
+<center><p id="subtitle">YOUR KNACKS</p></center>
+    <th>Needer</th><th>Date</th><th>Knack</th><th>Status</th><th>Options</th>
+          
+       <% Space.all.each do |space| %>
+         <%= render partial:"bookings/index/booking_visitor",
+             collection: space.initiated_approve %>
+         <%= render partial:"bookings/index/booking_visitor",
+             collection: space.initiated_pending %>
+        <%= render partial:"bookings/index/booking_visitor",
+             collection: space.initiated_decline %>
+        <%= render partial:"bookings/index/booking_visitor",
+             collection: space.initiated_complete %>
+        <% end %>
+</table>
+</div>
+  
+
+
+</body>
+</section>
