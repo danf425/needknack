@@ -13,3 +13,9 @@
     pool: 5
     host: localhost
     port: 5432
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: AirbnbClone_production
+  pool: 5
