@@ -14,18 +14,23 @@ def index
       end
     else
       @user = User.find_by_id(current_user.id)
+
       Space.all.each do |space|
-        Rails.logger.info("Poof: #{space.initiated_approve.inspect}")
-        if space.initiated_approve.empty? && space.initiated_pending.empty? && space.initiated_decline.empty? && space.initiated_complete.empty?
-         @booking_flag = true
-      end
+        if current_user.id == space.owner_id && 
+          (!space.initiated_approve.empty? || !space.initiated_pending.empty? || 
+            !space.initiated_decline.empty? || !space.initiated_complete.empty?)
+          @booking_flag = true
+        else
+          @booking_flag = false
+        end
+        break if @booking_flag == true
       end
 
-       render "bookings/index/user"
-     end
-   end
+      render "bookings/index/user"
+    end
+  end
 
-   def show
+  def show
     @booking = Booking.find(params[:id])
     @space = Space.find_by_id(@booking.space_id)
   end
@@ -51,7 +56,9 @@ def index
       flash[:notices] = ["you must fill out the booking form in order to book"]
       redirect_to :back
     else
-      @booking.user_id            = current_user.id
+      @booking.user_id            = current_user.token
+      @booking.space = Space.find_by_space_id(params[:booking])
+      Rails.logger.info("Space1: #{@booking.space.inspect}")
       @booking.booking_rate_daily = @booking.space.booking_rate_daily
       @booking.approval_status    = Booking.approval_statuses[:unbooked]
       @booking.end_date = @booking.start_date

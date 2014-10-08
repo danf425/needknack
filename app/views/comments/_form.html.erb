@@ -27,7 +27,7 @@
 
 <%= f.hidden_field :user_id, :value => @user.id %>
 <%= f.hidden_field :sender_id, :value => current_user.id %>
-<%= f.hidden_field :space_id, :value => @space.id %>
+<%= f.hidden_field :space_id, :value => @space.token %>
     <%= f.label :comment, "How was your experience?" %>
 
     <br/>

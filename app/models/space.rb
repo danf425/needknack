@@ -1,4 +1,11 @@
 class Space < ActiveRecord::Base
+
+before_create :generate_token
+
+  def self.generate_session_token
+    SecureRandom.urlsafe_base64(16)
+  end
+  
   attr_accessible :owner_id, :title, :description, :city, :country, :booking_rate_daily, :address,
   :booking_rate_weekly, :booking_rate_monthly, :latitude, :longitude, :booking_rate_indicies, :photo_url,
   :languages, :languages_indicies, :distance
@@ -26,7 +33,7 @@ class Space < ActiveRecord::Base
   belongs_to :owner,
   class_name: "User",
   foreign_key: :owner_id,
-  primary_key: :id
+  primary_key: :token
 
   belongs_to :owner_photo,
   class_name: "UserPhoto",
@@ -307,6 +314,26 @@ end
     # self.photo_url || "http://placekitten.com/g/117/77"
     photo = self.space_photos.sample
     photo ? photo.url_medium : "http://placekitten.com/g/117/77"
+  end
+
+def to_param  # overridden
+    token
+  end
+
+
+  private
+
+  def ensure_session_token
+    self.session_token ||= self.class.generate_session_token
+  end
+
+  protected
+
+  def generate_token
+    self.token = loop do
+      random_token = SecureRandom.random_number(1000000).to_s
+      break random_token unless User.exists?(token: random_token)
+    end
   end
 
 end

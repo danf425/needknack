@@ -56,7 +56,20 @@ class OrdersController < ApplicationController
       if @order.purchase
         @space = Space.find_by_id(@current_booking.space_id)
         @recipient = User.find(@space.owner_id)
-        current_user.send_message(@recipient, "I would like to reserve you.", "I like your knack.")
+
+   @conversations ||= (current_user.mailbox.sentbox | current_user.mailbox.inbox)
+   @ongoing_conversation = current_user.mailbox.inbox.participant(current_user).participant(@recipient)
+   if @ongoing_conversation.empty?
+    @ongoing_conversation = current_user.mailbox.inbox.participant(@recipient).participant(current_user)
+  end
+Rails.logger.info("YO!: #{@ongoing_conversation.first.inspect}")
+
+
+  if @ongoing_conversation.present?
+    current_user.reply_to_conversation(@ongoing_conversation.first, "I would like to reserve you.")
+  end
+
+      #  current_user.send_message(@recipient, "I would like to reserve you.", "I like your knack.")
 
         flash[:notice] = "Succesfully created order."
 

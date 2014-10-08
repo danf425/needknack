@@ -1,6 +1,13 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+
+before_create :generate_token
+
+  def self.generate_session_token
+    SecureRandom.urlsafe_base64(16)
+  end
+
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauth_providers => [:facebook]
@@ -10,7 +17,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :avatar, :first_name, :last_name, :photo_url, :session_token,
-                  :description
+                  :description, :city, :state, :country
   attr_accessible :provider, :uid
 #  attr_accessible :current_password
   # Setup accessible (or protected) attributes for your model
@@ -37,7 +44,7 @@ class User < ActiveRecord::Base
 
   class_name: "Space",
   foreign_key: :owner_id,
-  primary_key: :id
+  primary_key: :token
 
   def apply_omniauth(omniauth)
   self.email = omniauth['user_info']['email'] if email.blank?
@@ -124,18 +131,24 @@ class User < ActiveRecord::Base
       end
   end
 
-
-  # protected 
-  #   def password_required? 
-  #   true 
-  # end 
-
+def to_param  # overridden
+    token
+  end
 
 
   private
 
   def ensure_session_token
     self.session_token ||= self.class.generate_session_token
+  end
+
+  protected
+
+  def generate_token
+    self.token = loop do
+      random_token = SecureRandom.random_number(1000000).to_s
+      break random_token unless User.exists?(token: random_token)
+    end
   end
 
 end

@@ -27,8 +27,8 @@ class CommentsController < ApplicationController
   # GET /comments/new.xml
   def new
     @comment = Comment.new
-    @user = User.find(params[:user])
-    @space = Space.find(params[:space])
+    @user = User.find_by_token(params[:user])
+    @space = Space.find_by_token(params[:space])
   end
 
   # GET /comments/1/edit

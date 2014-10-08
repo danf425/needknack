@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140903153245659) do
+ActiveRecord::Schema.define(:version => 20141004153245601) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",               :default => "",    :null => false
@@ -191,6 +191,7 @@ ActiveRecord::Schema.define(:version => 20140903153245659) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.integer  "token"
   end
 
   add_index "spaces", ["booking_rate_daily"], :name => "index_spaces_on_booking_rate_daily"
@@ -229,6 +230,9 @@ ActiveRecord::Schema.define(:version => 20140903153245659) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
     t.string   "session_token"
     t.string   "first_name",                             :null => false
     t.string   "last_name",                              :null => false
@@ -237,6 +241,7 @@ ActiveRecord::Schema.define(:version => 20140903153245659) do
     t.string   "description"
     t.string   "provider"
     t.string   "uid"
+    t.integer  "token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
