@@ -1,9 +1,5 @@
-<%# title "New Order" %>
- <!--  <form action="<%= book_booking_url(@current_booking.id) %>" method="POST">
-    <input type="hidden" name="_method" value="put">
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-  -->
 <%= form_for @order do |f| %>
+
   <%#= f.error_messages %>
   <% if @order.express_token.blank? %>
     <p>
@@ -31,14 +27,53 @@
       <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
     </p>
   <% else %>
-    <%= f.hidden_field :express_token %>
-    <p>Name: <%=h @order.first_name %> <%=h @order.last_name %></p>
-    <p>Booking: <%=h number_to_currency(@current_booking.total) %></p>
-    <p>Title: <%=h @space.title %></p>
-    <p>Description: <%=h @space.description %></p>
-    <p>Address: <%=h @space.address %></p>
-    <p>City: <%=h @space.city %></p>
-    <p>Country: <%=h @space.country %></p>
-  <% end %>
-  <p><%= f.submit "Complete Order" %></p>
-<% end %>
+
+      <!-- RIGHT CONTENT -->
+      <div class="col-md-4" >
+        
+        <div class="pagecontainer2 paymentbox grey">
+          <div class="padding20">
+            <span class="size24 dark bold caps">Details</span>
+          </div>
+          <div class="line3"></div>
+          
+          <div class="hpadding30 margtop30">
+          
+          
+          <span class="dark"> <h3 class="panel-title"><%=h @space.title %></h3></span>
+          <div class="fdash mt10"></div><br/>
+
+      <%= f.hidden_field :express_token %>
+   <span class="grey2">Name:</span> <%=h @order.first_name %> <%=h @order.last_name %><br/>
+   <span class="grey2">Address:</span> <%=h @space.address %><br/>
+   <span class="grey2">City:</span> <%=h @space.city %><br/>
+   <span class="grey2">Country:</span> <%=h @space.country %><br/>
+     <% end %>
+          
+          <br/>
+          <br/>
+
+          
+          
+          </div>  
+          <div class="line3"></div>
+          <div class="padding30">         
+            <span class="left size14 dark">Total:</span>
+            <span class="right lred2 bold size18">
+              <%=h number_to_currency(@current_booking.total) %><br/><br/>
+            </span>
+
+              <p><%= f.submit "Complete Order", :class => 'btn btn-lg btn-success btn-block' %></p>
+              <br>
+<%= link_to 'Back', orders_path %>
+            <div class="clearfix"></div>
+          </div>
+
+
+        </div><br/>
+        
+      
+      </div>
+
+      <% end %>
+      <!-- END OF RIGHT CONTENT -->

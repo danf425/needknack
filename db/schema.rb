@@ -229,6 +229,9 @@ ActiveRecord::Schema.define(:version => 20140903153245659) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
     t.string   "session_token"
     t.string   "first_name",                             :null => false
     t.string   "last_name",                              :null => false

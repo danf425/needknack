@@ -1,63 +1,85 @@
-<form class="group" action="<%= spaces_url %>" method="post">
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+<div class="container">
+    <div class="row vertical-offset-100">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default" style="width: 400px">
+          <div class="panel-heading">
+            <h3 class="panel-title">Create a knack</h3>
+        </div>
+          <div class="panel-body">
 
-  <label for="space-title">Knack</label>
+<form class="form-horizontal" action="<%= spaces_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+     <div class="form-group">
+     <label class="control-label pull-left" for="space-title">Knack</label>
      <%= tag "input", type: "text",
                placeholder: "What's your Knack?",
                       name: "space[title]",
-                     class: "input-long input-small",
+                     class: "form-control",
                         id: "space-title", 
-                     value: @space.title %><br>
-
-  <label for="space-street-address">Street Address</label>
+                     value: @space.title %>        
+                   </div>
+  <div class="form-group">
+<label class="control-label pull-left" for="space-street-address">Street Address</label>
     <%= tag "input", type: "text",
               placeholder: "1234 Streetplace Rd.",
                      name: "space[address]",
-                    class: "input-long input-small",
+                    class: "form-control",
                        id: "space-street-address", 
-                    value: @space.address %><br>
-                       
-  <label for="space-city">City</label>
+                    value: @space.address %>        
+                  </div>
+      <div class="form-group">       
+<label class="control-label pull-left" for="space-city">City</label>
     <%= tag "input", type: "text",
               placeholder: "New York City, NY",
                      name: "space[city]",
-                    class: "input-long input-small",
+                    class: "form-control",
                        id: "space-city", 
-                    value: @space.city %><br>
-
-  <label for="space-country">Country</label>
+                    value: @space.city %>      
+                  </div>
+                <div class="form-group">
+<label class="control-label pull-left" for="space-country">Country</label>
     <%= tag "input", type: "text",
               placeholder: "United States of America",
                      name: "space[country]",
-                    class: "input-long input-small",
+                    class: "form-control",
                        id: "space-country", 
-                    value: @space.country %><br>
-
-  <label for="space-description" class="top">Description</label>
+                    value: @space.country %>       
+                  </div>
+                <div class="form-group">
+<label class="control-label pull-left" for="space-description" class="top">Description</label>
     <%= tag "textarea", name: "space[description]",
                  placeholder: "Super awesome description.",
-                       class: "input-long input-small",
+                       class: "form-control form-control-inline",
+                        rows: "7",
                           id: "space-description", 
-                       value: @space.description %></textarea><br>
+                       value: @space.description %></textarea>     
+                     </div>
 
-
-  <label for="space-booking_rates">Hourly Rate</label>
+                <div class="form-group">
+<label class="control-label pull-left" for="space-booking_rates">Hourly Rate</label>
     <%= tag "input", type: "number",
                      name: "space[booking_rate_daily]",
               placeholder: "50",
-                    class: "number-input input-long input-small",  
-                    value: @space.booking_rate_daily %><br> 
-
-  <label for="space-languages" class="top">Languages</label>
+                    class: "form-control",  
+                    value: @space.booking_rate_daily %>        
+                  </div>
+      <div class="form-group">
+<label class="control-label pull-left" for="space-languages" class="top">Languages</label>
       <ul class="group" id="space-languages">
         <% Space.languages_list.each_with_index do |language, index| %>
           <li class="checkbox-li">
             <input type="checkbox" name="space_languages_indicies[]" value="<%= index %>">
-              <%= language %>
+             <font color="grey"> <%= language %></font>
             </input>
           </li>
         <% end %>
-      </ul><br>
+      </ul>        </div>
 <!-- TODO ADD CONFIRMATION PAGE OR PREVIEW PRIOR SUBMITTING KNACK -->
-  <input type="submit" class="button blue input-large label-offset-button" value="Submit Knack">
+  <input type="submit" class="btn btn-lg btn-success btn-block" value="Submit Knack">
 </form>
+
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

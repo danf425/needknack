@@ -37,15 +37,20 @@
                         <!-- Profile info -->
                         <div id="profile_info">
                             <h1 id="name" class="transition-02"><%= @user.full_name %></h1>
+                            <% if !@user.city.nil? && !@user.state.nil? %>
+                            <h6><i class="glyphicon glyphicon-map-marker"></i> <%= @user.city %>, <%= @user.state %></h6>
+                            <% end %>
+                            <% if current_user != @user %>
                             <h4 class="line"><%= button_to "Send a message", new_message_path(:user => @user), class: "btn btn-primary" %></h4>
-                            <h4 class="line">GRAPHIC &amp; WEB DESIGNER</h4>
-                            <h6><span class="fa fa-map-marker"></span> San Francisco , CA</h6>
+                            <% end %>
+                            <h4 class="line"></h4>
                         </div>
                         <!-- End Profile info -->  
 
 
                         <!-- Profile Description -->
                         <div id="profile_desc">
+                            <b> About Me: </b>
                             <p>
                                 <%= "#{@user.description}" %>
                             </p>
@@ -55,12 +60,7 @@
 
                         <!-- Name -->
                         <div id="profile_social">
-                            <h6>My Social Profiles</h6>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-linkedin"></i></a>
-                            <a href="#"><i class="fa fa fa-dribbble"></i></a>
-                            <a href="#"><i class="fa fa-foursquare"></i></a>
+                            <h6>Verified By:</h6>
                             <div class="clear"></div>
                         </div>
                         <!-- End Name -->  
@@ -89,9 +89,14 @@
                             <div class="text_content">Knacks</div>
                             <div class="clear"></div>
                         </div>
-
+                        <% if @spaces.empty? %>
+                        <br>
+                        No knacks availiable.
+                        <br><br>
+                        <% else %>
 
                         <%= render "spaces/index/space_list" %>
+                        <% end %>
                     </div> 
                 </div><!-- End Services -->
 
@@ -119,7 +124,6 @@
                             </div>
                             <!-- /.title_content -->
 
-
                             <ul>
                                 <% @comment.each do |comment| %>
 
@@ -128,38 +132,40 @@
 
 
                                 <li class="clearfix">
-                                    <img src="http://placehold.it/100x100" class="img_reference" width="100" height="100" alt="">
-                                    <p>“<%= comment.comment %>”</p>
-                                    <span><% @test = User.find_by_id(comment.sender_id) %> 
-                                       <%= @test.full_name %></span>
-                                   </li>
-                                   <% end %>
-                                   <% end %>
-                               </ul>
-                           </div>
-                       </div>
+                                    <% @user = User.find_by_id(comment.sender_id) %> 
+                                    <%= link_to image_tag(@user.avatar.url(:medium), class: "img_reference", :style => "width: 100px; height: 100px;"), @user, method: :get %>
+                                    <p>Posted: <%= (comment.created_at).strftime("%m/%d/%Y") %> </p>
+                                    <p><i>“<%= comment.comment %>”</i></p>
+                                    <span>
+                                     <%= @user.full_name %></span>
+                                 </li>
+                                 <% end %>
+                                 <% end %>
+                             </ul>
+                         </div>
+                     </div>
 
 
 
 
-                       <div style="clear: both"></div>   
-                   </div>
+                     <div style="clear: both"></div>   
+                 </div>
 
 
-                   
-                   <!-- End .resume -->
+                 
+                 <!-- End .resume -->
 
 
 
-                   
-               </div><!-- End flexy_content -->
+                 
+             </div><!-- End flexy_content -->
 
 
-           </div><!-- End row -->
+         </div><!-- End row -->
 
-       </div><!-- End col-md-12 -->
+     </div><!-- End col-md-12 -->
 
-   </div><!-- End row -->
+ </div><!-- End row -->
 
 
 

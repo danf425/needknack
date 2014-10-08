@@ -13,3 +13,12 @@
   font-size: 14px;
   font-weight: lighter;
 }
+
+.product{
+    background-color:#aaa;
+  margin-bottom:10px;
+  }
+  
+  #sidebar, #other{
+    background-color:pink;
+  }

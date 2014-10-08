@@ -1,453 +1,148 @@
- <body id="top" class="thebg" >
 
 
-  <!-- CONTENT -->
-  <div class="container">
-    <div class="container pagecontainer offset-0">  
+<body>
+  <!-- ******HEADER****** --> 
+  <header class="header">
+    <div class="container">                       
+      <% @user = User.find_by_id(@space.owner.id) %>
+      <div class="profile-image img-responsive pull-left"><%= link_to image_tag(@user.avatar.url(:medium), class: "img-circle", :size => "200x200"), @space.owner, method: :get %></div>
+      <div class="profile-content pull-left">
+        <h1 class="name"><%= best_in_place @space, :title %></h1>
+        <h2 class="desc"><%= @space.city %></h2> 
 
-      <!-- SLIDER -->
-      <div class="col-md-8 details-slider">
-
-        <div id="c-carousel">
-          <div id="wrapper">
-            <div id="inner">
-              <div id="caroufredsel_wrapper2">
-                <div id="carousel">
-                  <%= image_tag @space.avatar, class: "tab-content", id: "photo" %>       
-                </div>
-              </div>
-              <div id="pager-wrapper">
-                <div id="pager">
-                  <img src="/assets/updates/update1/img/details-slider/slide1.jpg" width="120" height="68" alt=""/>
-                  <img src="/assets/updates/update1/img/details-slider/slide2.jpg" width="120" height="68" alt=""/>
-                  <%= image_tag @space.avatar,
-                  class: "tab-content",
-                   id: "photo" %>
-                   <img src="/assets/updates/update1/img/details-slider/slide4.jpg" width="120" height="68" alt=""/>
-                   <img src="/assets/updates/update1/img/details-slider/slide5.jpg" width="120" height="68" alt=""/>
-                   <img src="/assets/updates/update1/img/details-slider/slide6.jpg" width="120" height="68" alt=""/>           
-                 </div>
-               </div>
-             </div>
-             <div class="clearfix"></div>
-             <button id="prev_btn2" class="prev2"><img src="/assets/spacer.png" alt=""/></button>
-             <button id="next_btn2" class="next2"><img src="/assets/spacer.png" alt=""/></button>   
-
-           </div>
-         </div> <!-- /c-carousel -->
-
-
-
-
-
-       </div>
-       <!-- END OF SLIDER -->      
-
-       <!-- RIGHT INFO -->
-       <div class="col-md-4 detailsright offset-0">
-        <div class="padding20">
-          <span class="size20 bold"><%= best_in_place @space, :title %></span><br/>
-          <span class="size20 bold"><%= @space.city %></span><br/>
-          Contact knacker<br/>
-          <div class="price-data dark-gray right">
-            $<%= @space.booking_rate_daily %>
-          </div>
+        <h3 class = "desc"> By: <%="#{@space.owner.first_name} "%><%="#{@space.owner.last_name}"%></h3>
+        <h5 class="title">
           Rating: 
           <% @rate = Rate.find_by_rateable_id(@space.id) %>
           <% if !@rate.nil? %>
           <%= @rate.stars %>/5.0<br>
           <% else %>
           No ratings yet <br>
-          <% end %>
-        </div>
-        
-        <div class="line3"></div>
-        
-        <div class="hpadding20">
-          <h2 class="opensans slim green2">      <% @user = User.find_by_id(@space.owner.id) %>
-            <div id="owner-img"><%= link_to image_tag(@user.avatar.url(:medium), class: "img-roundedcustom"), @space.owner, method: :get %></div>
+          <% end %> 
+        </h5>
+        <ul class="social list-inline">
+          <li><a href="#"><i class="fa fa-twitter"></i></a></li>                   
+          <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+          <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+          <li><a href="#"><i class="fa fa-github-alt"></i></a></li>                  
 
-            <h3 id="space-show-owner-name"><%="#{@space.owner.first_name} "%><%="#{@space.owner.last_name}"%></h3></h2>
-          </div>
+        </ul> 
+      </div><!--//profile-->
+      <div class="profile-content">
+        <div class="name" style="padding-left: 1100px; padding-right: 5px;">$<%= @space.booking_rate_daily %><h5 class="title"> per hour</h5></div></div><br><br>
 
-          <div class="line3 margtop20"></div>
-
-
-          <div id="hotel" class="tab-pane">
-            <form action="<%= bookings_url %>" method="post">
-              <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-
-              <div class="w50percent">
-                <div class="wh90percent textleft">
-                  <span class="opensans size13"><b>Begin Date</b></span>
-                  <input type="date" name="booking[start_date]" class="date-input" placeholder="mm/dd/yyyy"/>
-                </div>
-              </div>
-
-              <div class="clearfix"></div>
-
-              <div class="room1 margtop15">
-                <div class="w50percent">
-                  <div class="wh90percent textleft">
-                    <span class="opensans size13"><b>Start Time</b></span><br/>
-
-                    <select class="form-control" name="booking_filters[start_hour]" class="time-input">
-                      <% Booking.hour_intervals.each_with_index do |start_hour, index| %>
-                      <option value="<%= start_hour %>"><%= start_hour %></option>
-                      <% end %>
-                    </select>
-                    <select class="form-control" name="booking_filters[start_minute]" id="space-bedroom-count">
-                      <% Booking.minute_intervals.each_with_index do |start_minute, index| %>
-                      <option value="<%= start_minute %>"><%= start_minute %></option>
-                      <% end %>
-                    </select>
-                    <select class="form-control" name="booking_filters[start_ampm]" id="space-bedroom-count">
-                      <% Booking.ampm_intervals.each_with_index do |start_ampm, index| %>
-                      <option value="<%= start_ampm %>"><%= start_ampm %></option>
-                      <% end %>
-                    </select>
-                    <br>
-                  </div>
-                </div>
-
-                <div class="w50percentlast">  
-                  <div class="wh90percent textleft right">
-                    <div class="w50percent">
-                      <div class="wh90percent textleft left">
-                        <span class="opensans size13"><b>End Time</b></span><br/>
-
-                        <select class="form-control" name="booking_filters[end_hour]" class="time-input">
-                          <% Booking.hour_intervals.each_with_index do |end_hour, index| %>
-                          <option value="<%= end_hour %>"><%= end_hour %></option>
-                          <% end %>
-                        </select>
-                        <select class="form-control" name="booking_filters[end_minute]" id="space-bedroom-count">
-                          <% Booking.minute_intervals.each_with_index do |end_minute, index| %>
-                          <option value="<%= end_minute %>"><%= end_minute %></option>
-                          <% end %>
-                        </select>
-                        <select class="form-control" name="booking_filters[end_ampm]" id="space-bedroom-count">
-                          <% Booking.ampm_intervals.each_with_index do |end_ampm, index| %>
-                          <option value="<%= end_ampm %>"><%= end_ampm %></option>
-                          <% end %>
-                        </select>
-                        <br>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+        <% if current_user != @user %>
+        <i class="fa fa-paper-plane"></i><%= button_to "Send a message", new_message_path(:user => @user), class: "btn btn-primary pull-right" %></a>  
+        <% end %>
 
 
-              </div>
-
-              <input type="hidden" name="booking[space_id]" value="<%= @space.id %>">
-              <div class="hpadding20">
-                <button type="submit" class="booknow margtop20 btnmarg" id="space-show-sidebar-book-button">Reserve</button>
-              </div>
-            </form>
-            
-          </div>
-
-        </div>
-        <!-- END OF RIGHT INFO -->
-
-      </div>
-      <!-- END OF container-->
-
-      <div class="container mt25 offset-0">
-
-        <div class="col-md-8 pagecontainer2 offset-0">  
-          <div class="tab-content4" >
-            <!-- TAB 1 -->        
-            <div id="summary" class="tab-pane">
-              <p class="hpadding20">
-                <h3> Description: </h3>
-                <%= @space.description %>        
-              </p>
-              <div class="line4"></div>
-
-
-              <div class="line4"></div>           
-
-              <!-- End of collapse 4 -->    
-
-              <div class="line4"></div>               
-
-              <!-- Collapse 5 --> 
-              <button type="button" class="collapsebtn2 collapsed" data-toggle="collapse" data-target="#collapse5">
-                Redemption instructions <span class="collapsearrow"></span>
-              </button>
-
-              <div id="collapse5" class="collapse">
-                <div class="hpadding20">
-                  Text
-                </div>
-                <div class="clearfix"></div>
-              </div>
-              <!-- End of collapse 5 -->        
-
-              <div class="line4"></div>               
-
-              <!-- Collapse 6 --> 
-              <button type="button" class="collapsebtn2" data-toggle="collapse" data-target="#collapse6">
-                Terms and conditions <span class="collapsearrow"></span>
-              </button>
-
-              <div id="collapse6" class="collapse in">
-                <div class="hpadding20">
-                  Lorem ipsum dolr sit amet
-                </div>
-                <div class="clearfix"></div>
-              </div>
-              <!-- End of collapse 6 -->                
-
-            </div>
-            <!-- TAB 2 -->
-            <div id="roomrates" class="tab-pane">
-              <div class="hpadding20">
-                <%= image_tag "http://maps.google.com/maps/api/staticmap?size=640x260&sensor=false&zoom=16&markers=#{@space.latitude}%2C#{@space.longitude}",
-                class: "tab-content",
-                 id: "map" %><br/>
-               </div>
-
-                <div class="clearfix"></div>
-             </div>
-
-            <!-- TAB 5 -->          
-            <div id="reviews" class="tab-pane">
-              <div class="hpadding20">
-                <div class="col-md-4 offset-0">
-                  <span class="opensans dark size60 slim lh3 ">4.5/5</span><br/>
-                  <img src="images/user-rating-4.png" alt=""/>
-                </div>
-                <div class="col-md-8 offset-0">
-                  <div class="progress progress-striped">
-                    <div class="progress-bar progress-bar-success wh75percent" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                      <span class="sr-only">4.5 out of 5</span>
-                    </div>
-                  </div>    
-                  <div class="progress progress-striped">
-                    <div class="progress-bar progress-bar-success wh100percent" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                      <span class="sr-only">100% of guests recommend</span>
-                    </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  Ratings based on 5 Verified Reviews
-                </div>      
-                <div class="clearfix"></div>
-                <br/>
-                <span class="opensans dark size16 bold">Average ratings</span>
-              </div>
-
-
-
-
-              <div class="line2"></div>
-
-              <div class="hpadding20">              
-                <div class="col-md-4 offset-0 center">
-                  <div class="padding20">
-                    <div class="bordertype5">
-                      <div class="circlewrap">
-                        <img src="images/user-avatar.jpg" class="circleimg" alt=""/>
-                        <span>4.5</span>
-                      </div>
-                      <span class="dark">by Sena</span><br/>
-                      from London, UK<br/>
-                      <img src="images/check.png" alt=""/><br/>
-                      <span class="green">Recommended<br/>for Everyone</span>
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-md-8 offset-0">
-                  <div class="padding20">
-                    <span class="opensans size16 dark">Great experience</span><br/>
-                    <span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
-                    <p>Excellent hotel, friendly staff would def go there again</p> 
-                    <ul class="circle-list">
-                      <li>4.5</li>
-                      <li>3.8</li>
-                      <li>4.2</li>
-                      <li>5.0</li>
-                      <li>4.6</li>
-                      <li>4.8</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-              
-              <div class="line2"></div>
-
-              <div class="hpadding20">  
-                <div class="col-md-4 offset-0 center">
-                  <div class="padding20">
-                    <div class="bordertype5">
-                      <div class="circlewrap">
-                        <img src="images/user-avatar.jpg" class="circleimg" alt=""/>
-                        <span>4.5</span>
-                      </div>
-                      <span class="dark">by Sena</span><br/>
-                      from London, UK<br/>
-                      <img src="images/check.png" alt=""/><br/>
-                      <span class="green">Recommended<br/>for Everyone</span>
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-md-8 offset-0">
-                  <div class="padding20">
-                    <span class="opensans size16 dark">Great experience</span><br/>
-                    <span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
-                    <p>The view from our balcony in room # 409, was terrific. It was centrally located to everything on and around the port area. Wonderful service and everything was very clean. The breakfast was below average, although not bad. If back in Zante Town we would stay there again.</p>  
-                    <ul class="circle-list">
-                      <li>4.5</li>
-                      <li>3.8</li>
-                      <li>4.2</li>
-                      <li>5.0</li>
-                      <li>4.6</li>
-                      <li>4.8</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-              
-              <div class="line2"></div>
-              
-              <div class="hpadding20">  
-                <div class="col-md-4 offset-0 center">
-                  <div class="padding20">
-                    <div class="bordertype5">
-                      <div class="circlewrap">
-                        <img src="images/user-avatar.jpg" class="circleimg" alt=""/>
-                        <span>4.5</span>
-                      </div>
-                      <span class="dark">by Sena</span><br/>
-                      from London, UK<br/>
-                      <img src="images/check.png" alt=""/><br/>
-                      <span class="green">Recommended<br/>for Everyone</span>
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-md-8 offset-0">
-                  <div class="padding20">
-                    <span class="opensans size16 dark">Great experience</span><br/>
-                    <span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
-                    <p>It is close to everything but if you go in the lower season the pool won't be ready even though the temperature was quiet high already.</p>  
-                    <ul class="circle-list">
-                      <li>4.5</li>
-                      <li>3.8</li>
-                      <li>4.2</li>
-                      <li>5.0</li>
-                      <li>4.6</li>
-                      <li>4.8</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="clearfix"></div>              
-              </div>  
-
-              <div class="line2"></div>
-              <br/>
-              <br/>
-              <div class="hpadding20">
-                <span class="opensans dark size16 bold">Reviews</span>
-              </div>
-
-              <div class="line2"></div>
-
-              <div class="wh33percent left center">
-
-                <br/>
-                <ul class="jslidetext2">
-                  <li>Username</li>
-                  <li>Evaluation</li>
-                  <li>Title</li>
-                  <li>Comment</li>
-                </ul>
-              </div>
-              <div class="wh66percent right offset-0">
-                <div class="padding20 relative wh70percent">
-
-                  <input type="text" class="form-control margtop10" placeholder="">
-                  <select class="form-control mySelectBoxClass margtop10">
-                    <option selected>Wonderful!</option>
-                    <option>Nice</option>
-                    <option>Neutral</option>
-                    <option>Don't recommend</option>
-                  </select>
-                  <input type="text" class="form-control margtop10" placeholder="">
-
-                  <textarea class="form-control margtop10" rows="3"></textarea>
-
-                  <div class="clearfix"></div>
-                  <button type="submit" class="btn-search4 margtop20">Submit</button> 
-
-                  <br/>
-                  <br/>
-                  <br/>
-                  <br/>
-
-                </div>              
-              </div>
-              <div class="clearfix"></div>
-
-            </div>    
-
-          </div>
-        </div>
-
-        <div class="col-md-4" >
-
-
-
-        </div>
-      </div>
-
-
-
-    </div>
-    <!-- END OF CONTENT -->
-
-
+        <% if current_admin || signed_in? && current_user.id == @space.owner_id %>   
+        <%= link_to 'Edit Knack', edit_space_path(@space) %>
+        <% end %>            
+      </div><!--//container-->
+    </header><!--//header-->
     
+    <div class="container sections-wrapper">
+      <div class="row">
+        <div class="primary col-md-8 col-sm-12 col-xs-12">
+          <section class="about section">
+            <div class="section-inner">
+              <h2 class="heading">Description:</h2>
+              <div class="content">
+                <p><%= @space.description %>  </p>  
 
-  </div>  
-</div>
+                            <%= render "spaces/show/photos_map_calendar" %>
 
-</body>
-</html>
+              </div><!--//content-->
+            </div><!--//section-inner-->                 
+          </section><!--//section-->
+        </div><!--//primary-->
+        <div class="secondary col-md-4 col-sm-12 col-xs-12">
+
+
+          <aside class="education aside section">
+            <div class="section-inner">
+              <h2 class="heading">Booking Details</h2>
+              <div class="content">
+                <div class="item">                      
+
+
+                  <form action="<%= bookings_url %>" method="post" class="form-inline">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+                    <h3 class="title"><i class="fa fa-graduation-cap"><b>Begin Date</b></h3>
+                    <input type="date" name="booking[start_date]" class="form-control" placeholder="mm/dd/yyyy"/>
+
+
+                    <div class="form-group">
+                      <label class="col-md-4 control-label" for="selectbasic">Start Time</label>
+
+                        <select class="form-control" name="booking_filters[start_hour]" class="time-input">
+                          <% Booking.hour_intervals.each_with_index do |start_hour, index| %>
+                          <option value="<%= start_hour %>"><%= start_hour %></option>
+                          <% end %>
+                        </select>
+                        <select class="form-control" name="booking_filters[start_minute]" id="time-input">
+                          <% Booking.minute_intervals.each_with_index do |start_minute, index| %>
+                          <option value="<%= start_minute %>"><%= start_minute %></option>
+                          <% end %>
+                        </select>
+                        <select class="form-control" name="booking_filters[start_ampm]" id="time-input">
+                          <% Booking.ampm_intervals.each_with_index do |start_ampm, index| %>
+                          <option value="<%= start_ampm %>"><%= start_ampm %></option>
+                          <% end %>
+                        </select>
+
+                   </div><br> 
+                      <div class="form-group">
+                        <label class="col-md-4 control-label" for="selectbasic">End Time</label>
+     
+                          <select id="selectbasic" class="form-control " name="booking_filters[end_hour]">
+                            <% Booking.hour_intervals.each_with_index do |end_hour, index| %>
+                            <option value="<%= end_hour %>"><%= end_hour %></option>
+                            <% end %>
+                          </select>
+                          <select id="selectbasic" class="form-control" name="booking_filters[end_minute]" id="space-bedroom-count">
+                            <% Booking.minute_intervals.each_with_index do |end_minute, index| %>
+                            <option value="<%= end_minute %>"><%= end_minute %></option>
+                            <% end %>
+                          </select>
+                          <select class="form-control" name="booking_filters[end_ampm]" id="space-bedroom-count">
+                            <% Booking.ampm_intervals.each_with_index do |end_ampm, index| %>
+                            <option value="<%= end_ampm %>"><%= end_ampm %></option>
+                            <% end %>
+                          </select>
 
 
 
-<header id="space-show-header">
-  <h2 id="space-show-title"> <%= best_in_place @space, :title %></h2>
-  Rating:<br>
-  <% @rate = Rate.find_by_rateable_id(@space.id) %>
-  <% if !@rate.nil? %>
-  <%= @rate.stars %>/5.0<br>
-  <% else %>
-  No ratings yet <br>
-  <% end %>
-  <h3 id="space-show-info">
-    <% if current_admin || signed_in? && current_user.id == @space.owner_id %>   
-    <%= link_to 'Edit Knack', edit_space_path(@space) %>
-    <% end %>
-  </h3>
-</header>
+                     </div>
 
-<section class="group non-sidebar">
+                        <input type="hidden" name="booking[space_id]" value="<%= @space.id %>">
+                        <div class="hpadding20">
+                          <button type="submit" class="booknow margtop20 btnmarg" id="space-show-sidebar-book-button">Reserve</button>
+                        </div>
+                      </form>
 
-  <section class="tab-box-wrapper group">
-    <%= render "spaces/show/photos_map_calendar" %>
-  </section>
+                    </div><!--//item-->
+                    <div class="item">
+                      <h3 class="title"><i class="fa fa-graduation-cap"></i> BSc Computer Science</h3>
+                      <h4 class="university">University of Bristol <span class="year">(2008-2011)</span></h4>
+                    </div><!--//item-->
+                  </div><!--//content-->
+                </div><!--//section-inner-->
+              </aside><!--//section-->
 
-  <section class="tab-box-wrapper group">
-    <%= render "spaces/show/description_amenities_house_rules" %>
-  </section>
-</section>
+              
+            </div><!--//secondary-->    
+          </div><!--//row-->
+        </div><!--//masonry-->
 
-<%= render "spaces/show/booking_sidebar" %>
+        <!-- ******FOOTER****** --> 
+        <footer class="footer">
+          <div class="container text-center">
+            <small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com" target="_blank">3rd Wave Media</a> for developers</small>
+          </div><!--//container-->
+        </footer><!--//footer-->
+
+      </body> 
+

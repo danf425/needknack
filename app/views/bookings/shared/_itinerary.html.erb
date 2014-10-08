@@ -1,20 +1,24 @@
-<div class="group">
-  <header class="group" id="itinerary-header">
-    <!--%= link_to image_tag(@space.photo_medium, class: "image-medium"), @space, method: :get %-->
-  </header>
-
-  <section>
-    <table id="itinerary-table">
+<table id="rounded-corner" summary="2007 Major IT Companies' Profit">
+    <thead>
       <tr>
-        <td colspan="2"><%= @space.title %></td>
+          <th scope="col" class="rounded-company">Summary</th>
+            <th scope="col" class="rounded-q4"></th>
+        </tr>
+    </thead>
+        <tfoot>
+      <tr>
+          <td class="rounded-foot-left"></td>
+          <td class="rounded-foot-right"></td>
+        </tr>
+    </tfoot>
+    <tbody>
+      <tr>
+        <td>Knack</td>
+        <td><%= @space.title %></td>
       </tr>
       <tr>
-        <td>Check in</td>
+        <td>Date</td>
         <td><%= @booking.start_date %></td>
-      </tr>
-      <tr>
-        <td>Check out</td>
-        <td><%= @booking.end_date %></td>
       </tr>
       <tr>
       <tr>
@@ -46,6 +50,5 @@
         <td>Total</td>
         <td>$<%= monetize(@booking.total) %></td>
       </tr>
-    </table>
-  </section>
-</div>
+    </tbody>
+</table>
