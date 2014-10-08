@@ -26,6 +26,9 @@ def index
         break if @booking_flag == true
       end
 
+      @booking_flag = false if @booking_flag.nil?
+
+
       render "bookings/index/user"
     end
   end
